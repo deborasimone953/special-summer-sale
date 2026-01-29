@@ -161,7 +161,7 @@ header .overlay {
   <div class="swiper product-swiper">
     <div class="swiper-wrapper product-swiper-wrapper">
 
-      <div class="swiper-slide">
+      <div class="swiper-slide" id="produto-prod-2471">
         <div class="card h-100 text-center">
           <div class="swiper product-images">
             <div class="swiper-wrapper">
@@ -200,8 +200,10 @@ header .overlay {
           </div>
 
           <div class="card-footer bg-transparent border-0">
-            <a class="btn btn-dark"
+            <a class="btn btn-dark whatsapp-link"
                href="https://wa.me/5551999594767?text=Tenho%20interesse%20no%20Sofá%20Brisa%20(PROD-2471)"
+               data-product-name="Sofá Brisa"
+               data-product-code="PROD-2471"
                target="_blank">
               Fale conosco
             </a>
@@ -209,7 +211,7 @@ header .overlay {
         </div>
       </div>
 
-      <div class="swiper-slide">
+      <div class="swiper-slide" id="produto-prod-6305">
         <div class="card h-100 text-center">
           <div class="swiper product-images">
             <div class="swiper-wrapper">
@@ -242,8 +244,10 @@ header .overlay {
           </div>
 
           <div class="card-footer bg-transparent border-0">
-            <a class="btn btn-dark"
+            <a class="btn btn-dark whatsapp-link"
                href="https://wa.me/5551999594767?text=Tenho%20interesse%20na%20Poltrona%20Luar%20(PROD-6305)"
+               data-product-name="Poltrona Luar"
+               data-product-code="PROD-6305"
                target="_blank">
               Fale conosco
             </a>
@@ -251,7 +255,7 @@ header .overlay {
         </div>
       </div>
 
-      <div class="swiper-slide">
+      <div class="swiper-slide" id="produto-prod-6666">
         <div class="card h-100 text-center">
           <div class="swiper product-images">
             <div class="swiper-wrapper">
@@ -296,8 +300,10 @@ header .overlay {
           </div>
 
           <div class="card-footer bg-transparent border-0">
-            <a class="btn btn-dark"
+            <a class="btn btn-dark whatsapp-link"
                href="https://wa.me/5551999594767?text=Tenho%20interesse%20na%20Mesa%20Cristal%20(PROD-6666)"
+               data-product-name="Mesa Cristal"
+               data-product-code="PROD-6666"
                target="_blank">
               Fale conosco
             </a>
@@ -434,6 +440,17 @@ document.querySelectorAll('.product-images img').forEach((img) => {
   img.addEventListener('click', (event) => {
     const groupEl = event.currentTarget.closest('.product-images');
     openImage(event.currentTarget.src, groupEl);
+  });
+});
+
+document.querySelectorAll('.whatsapp-link').forEach((link) => {
+  link.addEventListener('click', () => {
+    const card = link.closest('.swiper-slide');
+    const productName = link.dataset.productName || 'Produto';
+    const productCode = link.dataset.productCode || '';
+    const pageUrl = `${window.location.origin}${window.location.pathname}#${card.id}`;
+    const message = `Tenho interesse no ${productName} (${productCode}). Link do produto: ${pageUrl}`;
+    link.href = `https://wa.me/5551999594767?text=${encodeURIComponent(message)}`;
   });
 });
 </script>
