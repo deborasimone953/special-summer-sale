@@ -59,12 +59,12 @@ header .overlay {
 .product-swiper.is-stacked {
   padding-bottom: 10px;
 }
-.product-swiper.is-stacked .swiper-wrapper {
+.product-swiper.is-stacked > .product-swiper-wrapper {
   flex-direction: column;
   transform: none !important;
   gap: 16px;
 }
-.product-swiper.is-stacked .swiper-slide {
+.product-swiper.is-stacked > .product-swiper-wrapper > .swiper-slide {
   width: 100% !important;
 }
 .product-swiper.is-stacked .swiper-pagination {
@@ -138,7 +138,7 @@ header .overlay {
 
 <div class="container pb-5">
   <div class="swiper product-swiper">
-    <div class="swiper-wrapper">
+    <div class="swiper-wrapper product-swiper-wrapper">
 
       <div class="swiper-slide">
         <div class="card h-100 text-center">
