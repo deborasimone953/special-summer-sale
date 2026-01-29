@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,25 +9,12 @@
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Swiper (carrossel) -->
+<!-- Swiper -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 
-<!-- Lightbox (zoom ao clicar) -->
+<!-- GLightbox -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
-/* FORÇA BOTÃO FECHAR DO ZOOM (X) */
-.glightbox-clean .gclose {
-  opacity: 1 !important;
-  color: #fff !important;
-  font-size: 32px;
-}
-
-.glightbox-container {
-  background: rgba(0,0,0,0.85) !important;
-}
-
-
-<style>
 <style>
 body { font-family: Arial, sans-serif; background:#fff; }
 
@@ -40,65 +28,29 @@ header .overlay {
 
 .navbar-brand { letter-spacing:1px; }
 
-.price-new {
-  font-size:22px;
-  font-weight:600;
-  margin-bottom:2px;
-}
-
-.price-old {
-  font-size:14px;
-  opacity:0.45;
-  text-decoration:line-through;
-}
-
-.discount {
-  font-size:13px;
-  color:#b89b5e;
-  letter-spacing:0.5px;
-  margin-top:2px;
-}
+.price-new { font-size:22px; font-weight:600; }
+.price-old { font-size:14px; opacity:.45; text-decoration:line-through; }
+.discount { font-size:13px; color:#b89b5e; }
 
 .swiper { width:100%; height:220px; }
 .swiper img { width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
 
 .search-box { max-width:420px; margin:30px auto; }
 
-/* ===== LIGHTBOX (ZOOM) ===== */
+/* LIGHTBOX */
 .glightbox-container {
   background: rgba(0,0,0,0.9) !important;
 }
-
 .glightbox-container .gclose {
-  display: block !important;
-  opacity: 1 !important;
-  color: #ffffff !important;
-  font-size: 34px !important;
-  top: 20px !important;
-  right: 20px !important;
+  display:block !important;
+  opacity:1 !important;
+  color:#fff !important;
+  font-size:34px !important;
+  top:20px !important;
+  right:20px !important;
 }
 </style>
-
-</style>
 </head>
-
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-
-<script>
-document.querySelectorAll('.swiper').forEach(el => {
-  new Swiper(el);
-});
-
-GLightbox({
-  touchNavigation: true,
-  closeButton: true,
-  closeOnOutsideClick: true
-});
-</script>
-
 
 <body>
 
@@ -119,42 +71,75 @@ GLightbox({
 
 <!-- BUSCA -->
 <div class="search-box">
-  <input type="text" id="search" class="form-control" placeholder="Buscar produto: ex. cadeiras">
+  <input type="text" class="form-control" placeholder="Buscar produto: ex. cadeiras">
 </div>
 
-<!-- PRODUTOS -->
+<!-- PRODUTO -->
 <div class="container pb-5">
   <div class="row g-4">
 
-<!-- PRODUTO -->
-<div class="col-md-4 product">
-  <div class="card h-100">
+    <div class="col-md-4">
+      <div class="card h-100">
 
-    <div class="swiper">
-      <div class="swiper-wrapper">
-
-        <div class="swiper-slide">
-          <a href="https://images.unsplash.com/photo-1586023492125-27b2c045efd7" class="glightbox">
-            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7">
-          </a>
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <a href="https://images.unsplash.com/photo-1586023492125-27b2c045efd7" class="glightbox">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7">
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="https://images.unsplash.com/photo-1567016432779-094069958ea5" class="glightbox">
+                <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5">
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="https://images.unsplash.com/photo-1582582494700-10d38a4f0d6b" class="glightbox">
+                <img src="https://images.unsplash.com/photo-1582582494700-10d38a4f0d6b">
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div class="swiper-slide">
-          <a href="https://images.unsplash.com/photo-1567016432779-094069958ea5" class="glightbox">
-            <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5">
-          </a>
+        <div class="card-body text-center">
+          <h6 class="fw-bold">Sofá Íris</h6>
+          <p class="text-muted small">Sofá de linhas orgânicas · 3 lugares</p>
+          <div class="price-new">R$ 19.950</div>
+          <div class="price-old">R$ 39.900</div>
+          <div class="discount">50% OFF</div>
         </div>
 
-        <div class="swiper-slide">
-          <a href="https://images.unsplash.com/photo-1582582494700-10d38a4f0d6b" class="glightbox">
-            <img src="https://images.unsplash.com/photo-1582582494700-10d38a4f0d6b">
+        <div class="card-footer text-center bg-transparent border-0">
+          <a class="btn btn-dark"
+             href="https://wa.me/5551999594767?text=Tenho%20interesse%20no%20Sofá%20Íris"
+             target="_blank">
+            Fale conosco
           </a>
         </div>
 
       </div>
     </div>
 
-    <div class="card-body text-center">
-      <h6 class="fw-bold">Sofá Íris</h6>
-      <p class="text-muted small">
-        Sofá de linhas orgânicas · 3 lugares · e
+  </div>
+</div>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<script>
+document.querySelectorAll('.swiper').forEach(el => {
+  new Swiper(el);
+});
+
+GLightbox({
+  selector: '.glightbox',
+  touchNavigation: true,
+  closeButton: true,
+  closeOnOutsideClick: true
+});
+</script>
+
+</body>
+</html>
