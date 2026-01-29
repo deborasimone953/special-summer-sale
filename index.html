@@ -33,6 +33,7 @@ header .overlay {
 }
 .hero-swiper .swiper-slide {
   height: 380px;
+  background-image: var(--bg-desktop);
   background-size: cover;
   background-position: center;
 }
@@ -149,6 +150,7 @@ header .overlay {
 @media (max-width: 575.98px) {
   .hero-swiper .swiper-slide {
     height: 260px;
+    background-image: var(--bg-mobile);
   }
   .product-swiper .swiper-button-prev,
   .product-swiper .swiper-button-next {
@@ -188,9 +190,15 @@ header .overlay {
 <header class="text-center">
   <div class="swiper hero-swiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1600&q=80');"></div>
-      <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1600&q=80');"></div>
-      <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80');"></div>
+      <div class="swiper-slide"
+           style="--bg-desktop: url('assets/Sala_de_jantar_moderna_e_elegante-e2714571-04c9-4fd4-a2f5-c3087c1c28ad.png');
+                  --bg-mobile: url('assets/Sala_de_jantar_contempor_nea_e_sofisticada-af42cbd4-215e-42ee-8f41-a93fe80b725c.png');"></div>
+      <div class="swiper-slide"
+           style="--bg-desktop: url('assets/Sala_de_estar_moderna_e_sofisticada-2cb1d340-9d70-44d6-a1e4-293985fc4b6a.png');
+                  --bg-mobile: url('assets/Sala_de_estar_moderna_e_elegante__1_-82640656-0988-4674-9f43-e98ba71d5325.png');"></div>
+      <div class="swiper-slide"
+           style="--bg-desktop: url('assets/Gemini_Generated_Image_3qkfs53qkfs53qkf-d7ea5176-dd09-4bb6-96a0-f1da05c30f56.png');
+                  --bg-mobile: url('assets/Gemini_Generated_Image_j4eyzij4eyzij4ey-439ac824-73f5-4464-9d71-3f9d6653bbda.png');"></div>
     </div>
   </div>
   <div class="overlay">
