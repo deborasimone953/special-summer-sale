@@ -170,21 +170,28 @@ GLightbox({
 });
 
 </script>
+
 <script>
 document.querySelectorAll('.swiper').forEach(el => {
   new Swiper(el);
 });
 
-GLightbox({
+const lightbox = GLightbox({
   selector: '.glightbox',
   touchNavigation: true,
   closeButton: true,
   closeOnOutsideClick: true,
+
+  /* 🔥 LIMITES REAIS (AQUI ESTÁ A SOLUÇÃO) */
+  width: '70vw',
+  height: '70vh',
+
   zoomable: false,
   draggable: false,
   slideEffect: 'none'
 });
 </script>
+
 
 </body>
 </html>
