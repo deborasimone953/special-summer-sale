@@ -72,6 +72,7 @@ header .overlay {
 }
 .product-images {
   width: 100%;
+  position: relative;
 }
 .product-images .swiper-slide img {
   width: 100%;
@@ -87,6 +88,23 @@ header .overlay {
 .product-images:hover .swiper-button-next {
   opacity: 1;
 }
+.product-images .swipe-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: 0.2px;
+  display: none;
+  z-index: 2;
+}
+.product-images.has-multiple .swipe-hint {
+  display: block;
+}
 .product-images:not(.has-multiple) .swiper-button-prev,
 .product-images:not(.has-multiple) .swiper-button-next,
 .product-images:not(.has-multiple) .swiper-pagination {
@@ -100,6 +118,9 @@ header .overlay {
   .product-images .swiper-button-prev,
   .product-images .swiper-button-next {
     opacity: 1;
+  }
+  .product-images .swiper-pagination {
+    display: block;
   }
 }
 
@@ -166,6 +187,7 @@ header .overlay {
             <div class="swiper-pagination"></div>
             <div class="swiper-button-prev" aria-label="Anterior"></div>
             <div class="swiper-button-next" aria-label="Próximo"></div>
+            <div class="swipe-hint">Arraste para o lado</div>
           </div>
 
           <div class="card-body">
@@ -207,6 +229,7 @@ header .overlay {
             <div class="swiper-pagination"></div>
             <div class="swiper-button-prev" aria-label="Anterior"></div>
             <div class="swiper-button-next" aria-label="Próximo"></div>
+            <div class="swipe-hint">Arraste para o lado</div>
           </div>
 
           <div class="card-body">
@@ -260,6 +283,7 @@ header .overlay {
             <div class="swiper-pagination"></div>
             <div class="swiper-button-prev" aria-label="Anterior"></div>
             <div class="swiper-button-next" aria-label="Próximo"></div>
+            <div class="swipe-hint">Arraste para o lado</div>
           </div>
 
           <div class="card-body">
