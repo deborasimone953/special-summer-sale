@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet">
 
 <style>
 body { font-family: Arial, sans-serif; background:#fff; }
@@ -28,6 +29,31 @@ header .overlay {
 
 .card img {
   cursor: zoom-in;
+}
+
+/* SWIPER */
+.product-swiper {
+  padding: 10px 10px 40px;
+}
+.product-swiper .swiper-slide {
+  height: auto;
+  display: flex;
+}
+.product-swiper .card {
+  width: 100%;
+}
+.product-swiper .swiper-button-prev,
+.product-swiper .swiper-button-next {
+  color: #111;
+}
+.product-swiper .swiper-pagination-bullet-active {
+  background: #111;
+}
+@media (max-width: 575.98px) {
+  .product-swiper .swiper-button-prev,
+  .product-swiper .swiper-button-next {
+    display: none;
+  }
 }
 
 /* MODAL IMAGEM */
@@ -59,34 +85,92 @@ header .overlay {
 </div>
 
 <div class="container pb-5">
-  <div class="row g-4">
+  <div class="swiper product-swiper">
+    <div class="swiper-wrapper">
 
-    <div class="col-md-4">
-      <div class="card h-100 text-center">
-        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7"
-             class="img-fluid"
-             data-bs-toggle="modal"
-             data-bs-target="#imgModal"
-             onclick="openImage(this.src)">
+      <div class="swiper-slide">
+        <div class="card h-100 text-center">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7"
+               class="img-fluid"
+               data-bs-toggle="modal"
+               data-bs-target="#imgModal"
+               onclick="openImage(this.src)">
 
-        <div class="card-body">
-          <h6 class="fw-bold">Sofá Íris</h6>
-          <p class="text-muted small">Sofá de linhas orgânicas · 3 lugares</p>
-          <div class="price-new">R$ 19.950</div>
-          <div class="price-old">R$ 39.900</div>
-          <div class="discount">50% OFF</div>
-        </div>
+          <div class="card-body">
+            <h6 class="fw-bold">Sofá Íris</h6>
+            <p class="text-muted small">Sofá de linhas orgânicas · 3 lugares</p>
+            <div class="price-new">R$ 19.950</div>
+            <div class="price-old">R$ 39.900</div>
+            <div class="discount">50% OFF</div>
+          </div>
 
-        <div class="card-footer bg-transparent border-0">
-          <a class="btn btn-dark"
-             href="https://wa.me/5551999594767?text=Tenho%20interesse%20no%20Sofá%20Íris"
-             target="_blank">
-            Fale conosco
-          </a>
+          <div class="card-footer bg-transparent border-0">
+            <a class="btn btn-dark"
+               href="https://wa.me/5551999594767?text=Tenho%20interesse%20no%20Sofá%20Íris"
+               target="_blank">
+              Fale conosco
+            </a>
+          </div>
         </div>
       </div>
+
+      <div class="swiper-slide">
+        <div class="card h-100 text-center">
+          <img src="https://images.unsplash.com/photo-1484101403633-562f891dc89a"
+               class="img-fluid"
+               data-bs-toggle="modal"
+               data-bs-target="#imgModal"
+               onclick="openImage(this.src)">
+
+          <div class="card-body">
+            <h6 class="fw-bold">Poltrona Lume</h6>
+            <p class="text-muted small">Poltrona elegante · base em madeira</p>
+            <div class="price-new">R$ 4.980</div>
+            <div class="price-old">R$ 9.960</div>
+            <div class="discount">50% OFF</div>
+          </div>
+
+          <div class="card-footer bg-transparent border-0">
+            <a class="btn btn-dark"
+               href="https://wa.me/5551999594767?text=Tenho%20interesse%20na%20Poltrona%20Lume"
+               target="_blank">
+              Fale conosco
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="card h-100 text-center">
+          <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"
+               class="img-fluid"
+               data-bs-toggle="modal"
+               data-bs-target="#imgModal"
+               onclick="openImage(this.src)">
+
+          <div class="card-body">
+            <h6 class="fw-bold">Mesa Ágata</h6>
+            <p class="text-muted small">Mesa de jantar · 6 lugares</p>
+            <div class="price-new">R$ 7.490</div>
+            <div class="price-old">R$ 14.980</div>
+            <div class="discount">50% OFF</div>
+          </div>
+
+          <div class="card-footer bg-transparent border-0">
+            <a class="btn btn-dark"
+               href="https://wa.me/5551999594767?text=Tenho%20interesse%20na%20Mesa%20Ágata"
+               target="_blank">
+              Fale conosco
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
 
+    <div class="swiper-button-prev" aria-label="Anterior"></div>
+    <div class="swiper-button-next" aria-label="Próximo"></div>
+    <div class="swiper-pagination"></div>
   </div>
 </div>
 
@@ -103,11 +187,37 @@ header .overlay {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
 function openImage(src) {
   document.getElementById('modalImage').src = src;
 }
+
+const swiper = new Swiper('.product-swiper', {
+  loop: true,
+  watchOverflow: false,
+  slidesPerView: 1,
+  spaceBetween: 16,
+  pagination: {
+    el: '.product-swiper .swiper-pagination',
+    clickable: true
+  },
+  navigation: {
+    nextEl: '.product-swiper .swiper-button-next',
+    prevEl: '.product-swiper .swiper-button-prev'
+  },
+  breakpoints: {
+    576: {
+      slidesPerView: 2,
+      spaceBetween: 20
+    },
+    992: {
+      slidesPerView: 3,
+      spaceBetween: 24
+    }
+  }
+});
 </script>
 
 </body>
