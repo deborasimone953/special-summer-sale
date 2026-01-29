@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -37,44 +36,33 @@ header .overlay {
 
 .search-box { max-width:420px; margin:30px auto; }
 
-/* LIGHTBOX */
-.glightbox-container {
-  background: rgba(0,0,0,0.9) !important;
-}
-.glightbox-container .gclose {
-  display:block !important;
-  opacity:1 !important;
-  color:#fff !important;
-  font-size:34px !important;
-  top:20px !important;
-  right:20px !important;
-}
-
-/* LIMITA TAMANHO DO ZOOM (ELEGANTE) */
-.glightbox-container .gslide-image img {
-  max-width: 90vw;
-  max-height: 85vh;
-  object-fit: contain;
-}
-/* ===== CORREÇÃO DEFINITIVA DO ZOOM ===== */
+/* ===== LIGHTBOX FINAL (SEM ZOOM GIGANTE) ===== */
 .glightbox-container {
   background: rgba(0,0,0,0.92) !important;
 }
 
 .glightbox-container .gslide-image {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
 }
 
 .glightbox-container .gslide-image img {
-  max-width: 75vw !important;
-  max-height: 75vh !important;
-  width: auto !important;
-  height: auto !important;
-  object-fit: contain !important;
+  max-width:70vw !important;
+  max-height:70vh !important;
+  width:auto !important;
+  height:auto !important;
+  object-fit:contain !important;
 }
 
+.glightbox-container .gclose {
+  display:block !important;
+  opacity:1 !important;
+  color:#fff !important;
+  font-size:32px !important;
+  top:20px !important;
+  right:20px !important;
+}
 </style>
 </head>
 
@@ -164,34 +152,11 @@ GLightbox({
   touchNavigation: true,
   closeButton: true,
   closeOnOutsideClick: true,
-  zoomable: false,      // evita “zoom agressivo”
-  draggable: false,    // evita esticar no mobile
-  autoplayVideos: false
-});
-
-</script>
-
-<script>
-document.querySelectorAll('.swiper').forEach(el => {
-  new Swiper(el);
-});
-
-const lightbox = GLightbox({
-  selector: '.glightbox',
-  touchNavigation: true,
-  closeButton: true,
-  closeOnOutsideClick: true,
-
-  /* 🔥 LIMITES REAIS (AQUI ESTÁ A SOLUÇÃO) */
-  width: '70vw',
-  height: '70vh',
-
   zoomable: false,
   draggable: false,
   slideEffect: 'none'
 });
 </script>
-
 
 </body>
 </html>
