@@ -49,6 +49,20 @@ header .overlay {
 .product-swiper .swiper-pagination-bullet-active {
   background: #111;
 }
+.product-swiper.is-stacked {
+  padding-bottom: 10px;
+}
+.product-swiper.is-stacked .swiper-wrapper {
+  flex-direction: column;
+  transform: none !important;
+  gap: 16px;
+}
+.product-swiper.is-stacked .swiper-slide {
+  width: 100% !important;
+}
+.product-swiper.is-stacked .swiper-pagination {
+  display: none;
+}
 .product-images {
   width: 100%;
 }
@@ -59,6 +73,12 @@ header .overlay {
 .product-images .swiper-button-prev,
 .product-images .swiper-button-next {
   color: #111;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.product-images:hover .swiper-button-prev,
+.product-images:hover .swiper-button-next {
+  opacity: 1;
 }
 .product-images:not(.has-multiple) .swiper-button-prev,
 .product-images:not(.has-multiple) .swiper-button-next,
@@ -70,6 +90,10 @@ header .overlay {
   .product-swiper .swiper-button-next {
     display: none;
   }
+  .product-images .swiper-button-prev,
+  .product-images .swiper-button-next {
+    opacity: 1;
+  }
 }
 
 /* MODAL IMAGEM */
@@ -77,6 +101,11 @@ header .overlay {
   max-width: 90%;
   max-height: 80vh;
   object-fit: contain;
+}
+.modal-swiper .swiper-button-prev,
+.modal-swiper .swiper-button-next {
+  color: #fff;
+  z-index: 5;
 }
 </style>
 </head>
@@ -112,22 +141,19 @@ header .overlay {
                 <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7"
                      class="img-fluid"
                      data-bs-toggle="modal"
-                     data-bs-target="#imgModal"
-                     onclick="openImage(this.src)">
+                     data-bs-target="#imgModal">
               </div>
               <div class="swiper-slide">
                 <img src="https://images.unsplash.com/photo-1615873968403-89e068629265"
                      class="img-fluid"
                      data-bs-toggle="modal"
-                     data-bs-target="#imgModal"
-                     onclick="openImage(this.src)">
+                     data-bs-target="#imgModal">
               </div>
               <div class="swiper-slide">
                 <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"
                      class="img-fluid"
                      data-bs-toggle="modal"
-                     data-bs-target="#imgModal"
-                     onclick="openImage(this.src)">
+                     data-bs-target="#imgModal">
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -161,15 +187,13 @@ header .overlay {
                 <img src="https://images.unsplash.com/photo-1484101403633-562f891dc89a"
                      class="img-fluid"
                      data-bs-toggle="modal"
-                     data-bs-target="#imgModal"
-                     onclick="openImage(this.src)">
+                     data-bs-target="#imgModal">
               </div>
               <div class="swiper-slide">
                 <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36"
                      class="img-fluid"
                      data-bs-toggle="modal"
-                     data-bs-target="#imgModal"
-                     onclick="openImage(this.src)">
+                     data-bs-target="#imgModal">
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -203,29 +227,25 @@ header .overlay {
                 <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"
                      class="img-fluid"
                      data-bs-toggle="modal"
-                     data-bs-target="#imgModal"
-                     onclick="openImage(this.src)">
+                     data-bs-target="#imgModal">
               </div>
               <div class="swiper-slide">
                 <img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103"
                      class="img-fluid"
                      data-bs-toggle="modal"
-                     data-bs-target="#imgModal"
-                     onclick="openImage(this.src)">
+                     data-bs-target="#imgModal">
               </div>
               <div class="swiper-slide">
                 <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511"
                      class="img-fluid"
                      data-bs-toggle="modal"
-                     data-bs-target="#imgModal"
-                     onclick="openImage(this.src)">
+                     data-bs-target="#imgModal">
               </div>
               <div class="swiper-slide">
                 <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353"
                      class="img-fluid"
                      data-bs-toggle="modal"
-                     data-bs-target="#imgModal"
-                     onclick="openImage(this.src)">
+                     data-bs-target="#imgModal">
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -253,8 +273,6 @@ header .overlay {
 
     </div>
 
-    <div class="swiper-button-prev" aria-label="Anterior"></div>
-    <div class="swiper-button-next" aria-label="Próximo"></div>
     <div class="swiper-pagination"></div>
   </div>
 </div>
@@ -265,7 +283,11 @@ header .overlay {
     <div class="modal-content bg-dark text-center">
       <button type="button" class="btn-close btn-close-white ms-auto m-2" data-bs-dismiss="modal"></button>
       <div class="modal-body">
-        <img id="modalImage" class="modal-img">
+        <div class="swiper modal-swiper">
+          <div class="swiper-wrapper" id="modalSwiperWrapper"></div>
+          <div class="swiper-button-prev" aria-label="Anterior"></div>
+          <div class="swiper-button-next" aria-label="Próximo"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -275,34 +297,79 @@ header .overlay {
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
-function openImage(src) {
-  document.getElementById('modalImage').src = src;
+let modalSwiperInstance = null;
+
+function openImage(src, groupEl) {
+  const wrapper = document.getElementById('modalSwiperWrapper');
+  wrapper.innerHTML = '';
+
+  const imgs = groupEl
+    ? Array.from(groupEl.querySelectorAll('img')).map((img) => img.src)
+    : [src];
+
+  imgs.forEach((imgSrc) => {
+    const slide = document.createElement('div');
+    slide.className = 'swiper-slide';
+    slide.innerHTML = `<img src="${imgSrc}" class="modal-img">`;
+    wrapper.appendChild(slide);
+  });
+
+  const initialIndex = Math.max(0, imgs.indexOf(src));
+
+  if (modalSwiperInstance) {
+    modalSwiperInstance.destroy(true, true);
+  }
+
+  modalSwiperInstance = new Swiper('.modal-swiper', {
+    slidesPerView: 1,
+    initialSlide: initialIndex,
+    navigation: {
+      nextEl: '.modal-swiper .swiper-button-next',
+      prevEl: '.modal-swiper .swiper-button-prev'
+    }
+  });
 }
 
-const swiper = new Swiper('.product-swiper', {
-  loop: true,
-  watchOverflow: false,
-  slidesPerView: 1,
-  spaceBetween: 16,
-  pagination: {
-    el: '.product-swiper .swiper-pagination',
-    clickable: true
-  },
-  navigation: {
-    nextEl: '.product-swiper .swiper-button-next',
-    prevEl: '.product-swiper .swiper-button-prev'
-  },
-  breakpoints: {
-    576: {
-      slidesPerView: 2,
-      spaceBetween: 20
-    },
-    992: {
-      slidesPerView: 3,
-      spaceBetween: 24
+let mainSwiper = null;
+
+function setupMainSwiper() {
+  const isMobile = window.matchMedia('(max-width: 575.98px)').matches;
+  const container = document.querySelector('.product-swiper');
+
+  if (isMobile) {
+    if (mainSwiper) {
+      mainSwiper.destroy(true, true);
+      mainSwiper = null;
     }
+    container.classList.add('is-stacked');
+    return;
   }
-});
+
+  container.classList.remove('is-stacked');
+
+  if (!mainSwiper) {
+    mainSwiper = new Swiper('.product-swiper', {
+      loop: true,
+      watchOverflow: false,
+      slidesPerView: 1,
+      spaceBetween: 16,
+      pagination: {
+        el: '.product-swiper .swiper-pagination',
+        clickable: true
+      },
+      breakpoints: {
+        576: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 24
+        }
+      }
+    });
+  }
+}
 
 document.querySelectorAll('.product-images').forEach((el) => {
   const slidesCount = el.querySelectorAll('.swiper-slide').length;
@@ -323,6 +390,16 @@ document.querySelectorAll('.product-images').forEach((el) => {
       nextEl: el.querySelector('.swiper-button-next'),
       prevEl: el.querySelector('.swiper-button-prev')
     }
+  });
+});
+
+setupMainSwiper();
+window.addEventListener('resize', setupMainSwiper);
+
+document.querySelectorAll('.product-images img').forEach((img) => {
+  img.addEventListener('click', (event) => {
+    const groupEl = event.currentTarget.closest('.product-images');
+    openImage(event.currentTarget.src, groupEl);
   });
 });
 </script>
