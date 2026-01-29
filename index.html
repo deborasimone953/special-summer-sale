@@ -152,6 +152,21 @@ GLightbox({
 });
 
 </script>
+<script>
+document.querySelectorAll('.swiper').forEach(el => {
+  new Swiper(el);
+});
+
+GLightbox({
+  selector: '.glightbox',
+  touchNavigation: true,
+  closeButton: true,
+  closeOnOutsideClick: true,
+  zoomable: false,
+  draggable: false,
+  slideEffect: 'none'
+});
+</script>
 
 </body>
 </html>
