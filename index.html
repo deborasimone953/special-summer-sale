@@ -11,12 +11,17 @@
 <style>
 body { font-family: Arial, sans-serif; background:#fff; }
 
-header {
-  background:url('https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a') center/cover;
-}
 header .overlay {
-  background:rgba(255,255,255,0.65);
+  background:rgba(255,255,255,0.5);
   padding:70px 20px;
+}
+.hero-swiper {
+  width: 100%;
+}
+.hero-swiper .swiper-slide {
+  height: 360px;
+  background-size: cover;
+  background-position: center;
 }
 
 .navbar-brand { letter-spacing:1px; }
@@ -147,6 +152,13 @@ header .overlay {
 </nav>
 
 <header class="text-center">
+  <div class="swiper hero-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1600&q=80');"></div>
+      <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80');"></div>
+      <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80');"></div>
+    </div>
+  </div>
   <div class="overlay">
     <h1 class="fw-bold">Special Summer Sale</h1>
     <p class="text-muted">Venda especial de acervo de nossa curadoria</p>
@@ -452,6 +464,17 @@ document.querySelectorAll('.whatsapp-link').forEach((link) => {
     const message = `Tenho interesse no ${productName} (${productCode}). Link do produto: ${pageUrl}`;
     link.href = `https://wa.me/5551999594767?text=${encodeURIComponent(message)}`;
   });
+});
+
+const heroSwiper = new Swiper('.hero-swiper', {
+  loop: true,
+  autoplay: {
+    delay: 4000,
+    disableOnInteraction: false
+  },
+  speed: 800,
+  effect: 'fade',
+  fadeEffect: { crossFade: true }
 });
 </script>
 
