@@ -49,6 +49,22 @@ header .overlay {
 .product-swiper .swiper-pagination-bullet-active {
   background: #111;
 }
+.product-images {
+  width: 100%;
+}
+.product-images .swiper-slide img {
+  width: 100%;
+  display: block;
+}
+.product-images .swiper-button-prev,
+.product-images .swiper-button-next {
+  color: #111;
+}
+.product-images:not(.has-multiple) .swiper-button-prev,
+.product-images:not(.has-multiple) .swiper-button-next,
+.product-images:not(.has-multiple) .swiper-pagination {
+  display: none;
+}
 @media (max-width: 575.98px) {
   .product-swiper .swiper-button-prev,
   .product-swiper .swiper-button-next {
@@ -90,11 +106,34 @@ header .overlay {
 
       <div class="swiper-slide">
         <div class="card h-100 text-center">
-          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7"
-               class="img-fluid"
-               data-bs-toggle="modal"
-               data-bs-target="#imgModal"
-               onclick="openImage(this.src)">
+          <div class="swiper product-images">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal"
+                     onclick="openImage(this.src)">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1615873968403-89e068629265"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal"
+                     onclick="openImage(this.src)">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal"
+                     onclick="openImage(this.src)">
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev" aria-label="Anterior"></div>
+            <div class="swiper-button-next" aria-label="Próximo"></div>
+          </div>
 
           <div class="card-body">
             <h6 class="fw-bold">Sofá Íris</h6>
@@ -116,11 +155,27 @@ header .overlay {
 
       <div class="swiper-slide">
         <div class="card h-100 text-center">
-          <img src="https://images.unsplash.com/photo-1484101403633-562f891dc89a"
-               class="img-fluid"
-               data-bs-toggle="modal"
-               data-bs-target="#imgModal"
-               onclick="openImage(this.src)">
+          <div class="swiper product-images">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1484101403633-562f891dc89a"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal"
+                     onclick="openImage(this.src)">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal"
+                     onclick="openImage(this.src)">
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev" aria-label="Anterior"></div>
+            <div class="swiper-button-next" aria-label="Próximo"></div>
+          </div>
 
           <div class="card-body">
             <h6 class="fw-bold">Poltrona Lume</h6>
@@ -142,11 +197,41 @@ header .overlay {
 
       <div class="swiper-slide">
         <div class="card h-100 text-center">
-          <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"
-               class="img-fluid"
-               data-bs-toggle="modal"
-               data-bs-target="#imgModal"
-               onclick="openImage(this.src)">
+          <div class="swiper product-images">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal"
+                     onclick="openImage(this.src)">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal"
+                     onclick="openImage(this.src)">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal"
+                     onclick="openImage(this.src)">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal"
+                     onclick="openImage(this.src)">
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev" aria-label="Anterior"></div>
+            <div class="swiper-button-next" aria-label="Próximo"></div>
+          </div>
 
           <div class="card-body">
             <h6 class="fw-bold">Mesa Ágata</h6>
@@ -217,6 +302,28 @@ const swiper = new Swiper('.product-swiper', {
       spaceBetween: 24
     }
   }
+});
+
+document.querySelectorAll('.product-images').forEach((el) => {
+  const slidesCount = el.querySelectorAll('.swiper-slide').length;
+  if (slidesCount > 1) {
+    el.classList.add('has-multiple');
+  }
+  new Swiper(el, {
+    slidesPerView: 1,
+    spaceBetween: 8,
+    loop: slidesCount > 1,
+    watchOverflow: false,
+    grabCursor: true,
+    pagination: {
+      el: el.querySelector('.swiper-pagination'),
+      clickable: true
+    },
+    navigation: {
+      nextEl: el.querySelector('.swiper-button-next'),
+      prevEl: el.querySelector('.swiper-button-prev')
+    }
+  });
 });
 </script>
 
