@@ -107,6 +107,26 @@ header .overlay {
 .product-swiper.is-stacked .swiper-pagination {
   display: none;
 }
+.product-swiper.product-grid {
+  padding-bottom: 10px;
+}
+.product-swiper.product-grid > .product-swiper-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  transform: none !important;
+}
+.product-swiper.product-grid > .product-swiper-wrapper > .swiper-slide {
+  width: 100% !important;
+}
+.product-swiper.product-grid .swiper-pagination {
+  display: none;
+}
+@media (max-width: 991.98px) {
+  .product-swiper.product-grid > .product-swiper-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 .product-images {
   width: 100%;
   position: relative;
@@ -412,39 +432,19 @@ function setupMainSwiper() {
   const isMobile = window.matchMedia('(max-width: 575.98px)').matches;
   const container = document.querySelector('.product-swiper');
 
+  if (mainSwiper) {
+    mainSwiper.destroy(true, true);
+    mainSwiper = null;
+  }
+
   if (isMobile) {
-    if (mainSwiper) {
-      mainSwiper.destroy(true, true);
-      mainSwiper = null;
-    }
     container.classList.add('is-stacked');
+    container.classList.remove('product-grid');
     return;
   }
 
   container.classList.remove('is-stacked');
-
-  if (!mainSwiper) {
-    mainSwiper = new Swiper('.product-swiper', {
-      loop: true,
-      watchOverflow: false,
-      slidesPerView: 1,
-      spaceBetween: 16,
-      pagination: {
-        el: '.product-swiper .swiper-pagination',
-        clickable: true
-      },
-      breakpoints: {
-        576: {
-          slidesPerView: 2,
-          spaceBetween: 20
-        },
-        992: {
-          slidesPerView: 3,
-          spaceBetween: 24
-        }
-      }
-    });
-  }
+  container.classList.add('product-grid');
 }
 
 const additionalProducts = [
