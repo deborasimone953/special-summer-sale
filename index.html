@@ -921,6 +921,18 @@ function formatBRL(value) {
   return `R$ ${intPart},${parts[1]}`;
 }
 
+function formatName(text) {
+  const cleaned = String(text || '').trim().toLowerCase();
+  return cleaned ? cleaned.charAt(0).toUpperCase() + cleaned.slice(1) : '';
+}
+
+function formatDesc(text) {
+  let cleaned = String(text || '').trim().toLowerCase();
+  if (!cleaned) return '';
+  cleaned = cleaned.replace(/\b([lpad])\b(?=\s*\d)/g, (match) => match.toUpperCase());
+  return cleaned;
+}
+
 function buildProductCard(product) {
   const unit = parseBRL(product.unitario);
   const discount = typeof product.discount === 'number'
@@ -948,9 +960,9 @@ function buildProductCard(product) {
           </div>
 
           <div class="card-body">
-            <h6 class="fw-bold">${product.name}</h6>
+            <h6 class="fw-bold">${formatName(product.name)}</h6>
             <div class="product-code">${product.code}</div>
-            <p class="text-muted small">${product.desc}</p>
+            <p class="text-muted small">${formatDesc(product.desc)}</p>
             <div class="price-old">${priceOld}</div>
             <div class="price-new">${priceNew}</div>
             <div class="discount">${discountLabel}</div>
@@ -991,6 +1003,17 @@ const orderedProducts = [...additionalProducts].sort((a, b) => {
 
 orderedProducts.forEach((product) => {
   productsWrapper.insertAdjacentHTML('beforeend', buildProductCard(product));
+});
+
+document.querySelectorAll('.product-swiper-wrapper .swiper-slide').forEach((slide) => {
+  const nameEl = slide.querySelector('.fw-bold');
+  const descEl = slide.querySelector('.text-muted.small');
+  if (nameEl) {
+    nameEl.textContent = formatName(nameEl.textContent);
+  }
+  if (descEl) {
+    descEl.textContent = formatDesc(descEl.textContent);
+  }
 });
 
 const searchInput = document.getElementById('searchInput');
