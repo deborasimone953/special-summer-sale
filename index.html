@@ -115,6 +115,12 @@ header .overlay {
   width: 100%;
   display: block;
 }
+.product-image-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #f4f4f4;
+  border: 1px solid #eee;
+}
 .product-images .swiper-button-prev,
 .product-images .swiper-button-next {
   color: #111;
@@ -241,22 +247,7 @@ header .overlay {
           <div class="swiper product-images">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://images.unsplash.com/photo-1615873968403-89e068629265"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
+                <div class="product-image-placeholder"></div>
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -291,16 +282,7 @@ header .overlay {
           <div class="swiper product-images">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <img src="https://images.unsplash.com/photo-1484101403633-562f891dc89a"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
+                <div class="product-image-placeholder"></div>
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -335,28 +317,7 @@ header .overlay {
           <div class="swiper product-images">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
+                <div class="product-image-placeholder"></div>
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -669,7 +630,6 @@ const additionalProducts = [
   }
 ];
 
-const placeholderImage = 'https://images.unsplash.com/photo-1505691938895-1758d7feb511';
 
 function parseBRL(value) {
   return Number(value.replace(/[R$\s.]/g, '').replace(',', '.'));
@@ -695,10 +655,7 @@ function buildProductCard(product) {
           <div class="swiper product-images">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <img src="${placeholderImage}"
-                     class="img-fluid"
-                     data-bs-toggle="modal"
-                     data-bs-target="#imgModal">
+                <div class="product-image-placeholder"></div>
               </div>
             </div>
             <div class="swiper-pagination"></div>
