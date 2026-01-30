@@ -971,7 +971,25 @@ function buildProductCard(product) {
 }
 
 const productsWrapper = document.querySelector('.product-swiper-wrapper');
-additionalProducts.forEach((product) => {
+const typeOrder = ['cadeira', 'mesa', 'poltrona', 'sofá', 'sofa'];
+
+function productTypeIndex(name) {
+  const lower = name.toLowerCase();
+  if (lower.includes('cadeira')) return 0;
+  if (lower.includes('mesa')) return 1;
+  if (lower.includes('poltrona')) return 2;
+  if (lower.includes('sofá') || lower.includes('sofa')) return 3;
+  return 99;
+}
+
+const orderedProducts = [...additionalProducts].sort((a, b) => {
+  const typeA = productTypeIndex(a.name);
+  const typeB = productTypeIndex(b.name);
+  if (typeA !== typeB) return typeA - typeB;
+  return a.name.localeCompare(b.name, 'pt-BR');
+});
+
+orderedProducts.forEach((product) => {
   productsWrapper.insertAdjacentHTML('beforeend', buildProductCard(product));
 });
 
