@@ -486,6 +486,255 @@ function setupMainSwiper() {
   }
 }
 
+const additionalProducts = [
+  {
+    code: 'PROD-3925',
+    name: 'Cadeira Melia',
+    desc: 'Estrutura madeira tonalidade mel, tecido linho cinza claro, L56XA84XP52, T2105 assento 47cm',
+    unitario: 'R$ 957,00'
+  },
+  {
+    code: 'PROD-3028',
+    name: 'Cadeira Neve',
+    desc: 'Estrutura madeira com detalhe em aço pintado branco, tecido claro TEC 155, medida 56x56,5x76,5',
+    unitario: 'R$ 2.107,00'
+  },
+  {
+    code: 'PROD-6411',
+    name: 'Cadeira Horizonte',
+    desc: 'Tecido linho claro 584, estrutura mel claro, medidas L49x P54x A82',
+    unitario: 'R$ 3.610,00'
+  },
+  {
+    code: 'PROD-2698',
+    name: 'Cadeira Siena',
+    desc: 'Estrutura pintura preta, couro natural camel, medida L55x P58x A77, designer Pedro Useche',
+    unitario: 'R$ 3.750,00'
+  },
+  {
+    code: 'PROD-5825',
+    name: 'Cadeira Âmbar',
+    desc: 'Estrutura ebanizada, assento couro caramelo, L42 x P57 x A79, designer Ronald Sasson',
+    unitario: 'R$ 2.575,00'
+  },
+  {
+    code: 'PROD-8087',
+    name: 'Cadeira Palha Dourada',
+    desc: 'Mista com braço 310, palha sextavada cru natural, medida 59Lx52Px82A, design Daniel Simonini',
+    unitario: 'R$ 4.860,00'
+  },
+  {
+    code: 'PROD-7091',
+    name: 'Cadeira Jangada',
+    desc: 'Assento fibra sintética, estrutura madeira jequitibá A.80, L57 P60, designer Daniela Ferro',
+    unitario: 'R$ 3.760,00'
+  },
+  {
+    code: 'PROD-5289',
+    name: 'Cadeira Orla',
+    desc: 'Estrutura madeira natural e palha sextavada natural, medida 53Lx43Px81A, designer Tiago Curioni',
+    unitario: 'R$ 2.670,00'
+  },
+  {
+    code: 'PROD-5921',
+    name: 'Cadeira Giro',
+    desc: 'Base giratória alum, braços laminados, Tec 0402, A82xL61xP57, designer Devid Almeida',
+    unitario: 'R$ 5.868,00'
+  },
+  {
+    code: 'PROD-3613',
+    name: 'Poltrona Carbono',
+    desc: 'Estofada tecido premium, pés e base em aço carbono laminado, tecido D7066, medida L87x P82x A80',
+    unitario: 'R$ 6.700,00'
+  },
+  {
+    code: 'PROD-4740',
+    name: 'Poltrona Tela',
+    desc: 'Medida L72x P62x A73 com tela sextavada mad. nat. tela cru',
+    unitario: 'R$ 5.852,00'
+  },
+  {
+    code: 'PROD-1931',
+    name: 'Poltrona Nuvem',
+    desc: 'Almofadas com pena de ganso, giratória, tecido linho cinza premium, medida L97 x P96',
+    unitario: 'R$ 8.935,00'
+  },
+  {
+    code: 'PROD-7420',
+    name: 'Poltrona Eclipse',
+    desc: 'Base giratória pintada de preto, tecido B2104, medidas L68 x P80 x A76',
+    unitario: 'R$ 4.980,00'
+  },
+  {
+    code: 'PROD-4263',
+    name: 'Poltrona Grafite',
+    desc: 'Estrutura ebanizada, tecido linho premium cinza, medida L74x P78,5x A72',
+    unitario: 'R$ 5.808,00'
+  },
+  {
+    code: 'PROD-8075',
+    name: 'Poltrona Mel',
+    desc: 'Medida L97x P83x A85, base de madeira cor mel, tecido premium claro',
+    unitario: 'R$ 9.670,00'
+  },
+  {
+    code: 'PROD-4091',
+    name: 'Poltrona Freijó',
+    desc: 'Estrutura em louro freijó com palha natural, assento em couro marrom caramelo, medidas 76Lx68Px73A',
+    unitario: 'R$ 6.806,00'
+  },
+  {
+    code: 'PROD-2665',
+    name: 'Poltrona Sola',
+    desc: 'Estrutura aço carbono preto, couro sola preto, detalhes em madeira, medida L088x P085x A085',
+    unitario: 'R$ 9.102,00'
+  },
+  {
+    code: 'PROD-2787',
+    name: 'Poltrona Puffe',
+    desc: 'Com puff, estofada e giratória, L100 x P92 x A70, tecido premium cinza claro',
+    unitario: 'R$ 8.039,00'
+  },
+  {
+    code: 'PROD-1225',
+    name: 'Poltrona Trama',
+    desc: 'Medida L82xP84xA80, tecido premium no assento, detalhes atrás couro bege',
+    unitario: 'R$ 7.150,00'
+  },
+  {
+    code: 'PROD-3893',
+    name: 'Poltrona Luzia',
+    desc: 'Medida L100xP92xA84, tecido premium claro',
+    unitario: 'R$ 4.442,00'
+  },
+  {
+    code: 'PROD-9459',
+    name: 'Poltrona Algodão',
+    desc: 'Medida L100xP100xA80, tecido premium linho cinza claro',
+    unitario: 'R$ 4.795,00'
+  },
+  {
+    code: 'PROD-8602',
+    name: 'Poltrona Atlântica',
+    desc: 'Estofada, base em madeira, medidas L85 x P80 x A82',
+    unitario: 'R$ 4.504,00'
+  },
+  {
+    code: 'PROD-9976',
+    name: 'Mesa Caramelo',
+    desc: '240x1200x75, lâmina freijó caramelo',
+    unitario: 'R$ 15.800,00'
+  },
+  {
+    code: 'PROD-6749',
+    name: 'Mesa Bruma',
+    desc: '1.10x1.10x0.42, estrutura aço carbono, designer Estudio Ambos',
+    unitario: 'R$ 10.392,00'
+  },
+  {
+    code: 'PROD-7289',
+    name: 'Mesa Dourado Velho',
+    desc: 'Madeira maciça natural, estrutura aço carbono ouro velho, medida 85x76',
+    unitario: 'R$ 4.258,00'
+  },
+  {
+    code: 'PROD-6900',
+    name: 'Mesa Duetto',
+    desc: 'Conjunto com 2 mesas, estrutura em nogueira, tampo tipo mármore cinza na maior e vidro na menor',
+    unitario: 'R$ 7.775,00'
+  },
+  {
+    code: 'PROD-8953',
+    name: 'Mesa Laca',
+    desc: 'Tampo laca 80 diâmetro x 34 altura, estrutura aço carbono bege',
+    unitario: 'R$ 4.632,00'
+  },
+  {
+    code: 'PROD-4523',
+    name: 'Mesa Bambu',
+    desc: 'Toda em bambu, diâmetro 100 x altura 30',
+    unitario: 'R$ 5.972,00'
+  },
+  {
+    code: 'PROD-2528',
+    name: 'Mesa Concreto',
+    desc: 'Base e tampo em concreto natural 40x33xA63',
+    unitario: 'R$ 5.232,00'
+  },
+  {
+    code: 'PROD-1433',
+    name: 'Mesa Cinza',
+    desc: 'Base em aço carbono, tampo concreto cinza claro',
+    unitario: 'R$ 3.880,00'
+  }
+];
+
+const placeholderImage = 'https://images.unsplash.com/photo-1505691938895-1758d7feb511';
+
+function parseBRL(value) {
+  return Number(value.replace(/[R$\s.]/g, '').replace(',', '.'));
+}
+
+function formatBRL(value) {
+  const fixed = value.toFixed(2);
+  const parts = fixed.split('.');
+  const intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return `R$ ${intPart},${parts[1]}`;
+}
+
+function buildProductCard(product) {
+  const unit = parseBRL(product.unitario);
+  const sale = unit / 2;
+  const priceOld = formatBRL(unit);
+  const priceNew = formatBRL(sale);
+  const id = `produto-${product.code.toLowerCase()}`;
+
+  return `
+      <div class="swiper-slide" id="${id}">
+        <div class="card h-100 text-center">
+          <div class="swiper product-images">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="${placeholderImage}"
+                     class="img-fluid"
+                     data-bs-toggle="modal"
+                     data-bs-target="#imgModal">
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev" aria-label="Anterior"></div>
+            <div class="swiper-button-next" aria-label="Próximo"></div>
+            <div class="swipe-hint">Arraste para o lado</div>
+          </div>
+
+          <div class="card-body">
+            <h6 class="fw-bold">${product.name}</h6>
+            <div class="product-code">${product.code}</div>
+            <p class="text-muted small">${product.desc}</p>
+            <div class="price-old">${priceOld}</div>
+            <div class="price-new">${priceNew}</div>
+            <div class="discount">50% OFF</div>
+          </div>
+
+          <div class="card-footer bg-transparent border-0">
+            <a class="btn btn-dark whatsapp-link"
+               href="https://wa.me/5551999594767?text=Tenho%20interesse%20no%20${encodeURIComponent(product.name)}%20(${product.code})"
+               data-product-name="${product.name}"
+               data-product-code="${product.code}"
+               target="_blank">
+              Fale conosco
+            </a>
+          </div>
+        </div>
+      </div>
+  `;
+}
+
+const productsWrapper = document.querySelector('.product-swiper-wrapper');
+additionalProducts.forEach((product) => {
+  productsWrapper.insertAdjacentHTML('beforeend', buildProductCard(product));
+});
+
 document.querySelectorAll('.product-images').forEach((el) => {
   const slidesCount = el.querySelectorAll('.swiper-slide').length;
   if (slidesCount > 1) {
