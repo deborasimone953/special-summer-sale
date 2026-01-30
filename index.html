@@ -280,9 +280,9 @@ header .overlay {
             <h6 class="fw-bold">Sofá Brisa</h6>
             <div class="product-code">PROD-2471</div>
             <p class="text-muted small">Sofá de linhas orgânicas · 3 lugares</p>
-            <div class="price-old">R$ 39.900</div>
-            <div class="price-new">R$ 19.950</div>
-            <div class="discount">50% OFF</div>
+            <div class="price-old">R$ 28.893,00</div>
+            <div class="price-new">R$ 11.557,20</div>
+            <div class="discount">60% OFF</div>
           </div>
 
           <div class="card-footer bg-transparent border-0">
@@ -315,9 +315,9 @@ header .overlay {
             <h6 class="fw-bold">Poltrona Luar</h6>
             <div class="product-code">PROD-6305</div>
             <p class="text-muted small">Poltrona elegante · base em madeira</p>
-            <div class="price-old">R$ 9.960</div>
-            <div class="price-new">R$ 4.980</div>
-            <div class="discount">50% OFF</div>
+            <div class="price-old">R$ 2.758,00</div>
+            <div class="price-new">R$ 1.103,20</div>
+            <div class="discount">60% OFF</div>
           </div>
 
           <div class="card-footer bg-transparent border-0">
@@ -350,9 +350,9 @@ header .overlay {
             <h6 class="fw-bold">Mesa Cristal</h6>
             <div class="product-code">PROD-6666</div>
             <p class="text-muted small">Mesa de jantar · 6 lugares</p>
-            <div class="price-old">R$ 14.980</div>
-            <div class="price-new">R$ 7.490</div>
-            <div class="discount">50% OFF</div>
+            <div class="price-old">R$ 13.936,00</div>
+            <div class="price-new">R$ 9.755,20</div>
+            <div class="discount">30% OFF</div>
           </div>
 
           <div class="card-footer bg-transparent border-0">
@@ -630,6 +630,28 @@ const additionalProducts = [
   }
 ];
 
+const discountByCode = {
+  'PROD-2471': 0.6,
+  'PROD-3925': 0.2,
+  'PROD-6411': 0.6,
+  'PROD-2698': 0.6,
+  'PROD-5825': 0.6,
+  'PROD-8087': 0.6,
+  'PROD-7091': 0.6,
+  'PROD-5921': 0.6,
+  'PROD-3613': 0.6,
+  'PROD-1931': 0.6,
+  'PROD-7420': 0.6,
+  'PROD-6749': 0.6,
+  'PROD-6900': 0.6,
+  'PROD-8953': 0.6,
+  'PROD-4523': 0.6,
+  'PROD-3893': 0.3,
+  'PROD-8602': 0.3,
+  'PROD-6666': 0.3,
+  'PROD-9976': 0.3
+};
+
 
 function parseBRL(value) {
   return Number(value.replace(/[R$\s.]/g, '').replace(',', '.'));
@@ -644,9 +666,13 @@ function formatBRL(value) {
 
 function buildProductCard(product) {
   const unit = parseBRL(product.unitario);
-  const sale = unit / 2;
+  const discount = typeof discountByCode[product.code] === 'number'
+    ? discountByCode[product.code]
+    : 0.5;
+  const sale = unit * (1 - discount);
   const priceOld = formatBRL(unit);
   const priceNew = formatBRL(sale);
+  const discountLabel = `${Math.round(discount * 100)}% OFF`;
   const id = `produto-${product.code.toLowerCase()}`;
 
   return `
@@ -670,7 +696,7 @@ function buildProductCard(product) {
             <p class="text-muted small">${product.desc}</p>
             <div class="price-old">${priceOld}</div>
             <div class="price-new">${priceNew}</div>
-            <div class="discount">50% OFF</div>
+            <div class="discount">${discountLabel}</div>
           </div>
 
           <div class="card-footer bg-transparent border-0">
