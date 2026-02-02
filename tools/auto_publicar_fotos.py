@@ -37,10 +37,10 @@ def _git_commit_and_push(message: str) -> None:
 
 
 def _extract_code(folder_name: str) -> str | None:
-    match = re.match(r"^\s*([A-Z0-9-]+)\s+-\s+", folder_name, flags=re.IGNORECASE)
-    if not match:
+    if " - " not in folder_name:
         return None
-    return match.group(1).upper()
+    code = folder_name.split(" - ", 1)[0].strip()
+    return code.upper() if code else None
 
 
 def _load_order(folder: Path) -> list[str]:
