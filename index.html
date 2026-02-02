@@ -2081,14 +2081,21 @@ const productImagesByCode = {
 };
 // AUTO-GENERATED PRODUCT IMAGES END
 
+function encodePath(path) {
+  return String(path || '')
+    .split('/')
+    .map((segment) => encodeURIComponent(segment))
+    .join('/');
+}
+
 function buildImageSlide(image) {
   const desktop = image.desktop || image.src || '';
   const mobile = image.mobile || '';
   const full = image.full || desktop;
   if (!desktop) return '';
-  const safeDesktop = encodeURI(desktop);
-  const safeMobile = mobile ? encodeURI(mobile) : '';
-  const safeFull = encodeURI(full);
+  const safeDesktop = encodePath(desktop);
+  const safeMobile = mobile ? encodePath(mobile) : '';
+  const safeFull = encodePath(full);
   if (!mobile) {
     return `
       <div class="swiper-slide">
