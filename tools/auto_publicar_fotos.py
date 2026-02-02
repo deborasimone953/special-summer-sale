@@ -132,7 +132,13 @@ def _update_index(mapping: dict) -> bool:
         return False
 
     mapping_json = json.dumps(mapping, ensure_ascii=False, indent=2)
-    new_block = f"{AUTO_SECTION_START}\nconst productImagesByCode = {mapping_json};\n{AUTO_SECTION_END}"
+    cache_buster = str(int(time.time()))
+    new_block = (
+        f"{AUTO_SECTION_START}\n"
+        f"const IMAGE_CACHE_BUSTER = \"{cache_buster}\";\n"
+        f"const productImagesByCode = {mapping_json};\n"
+        f"{AUTO_SECTION_END}"
+    )
 
     before = content[:start_idx]
     after = content[end_idx + len(AUTO_SECTION_END):]
