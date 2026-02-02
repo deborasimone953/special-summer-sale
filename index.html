@@ -1477,13 +1477,6 @@ const productImagesByCode = {
       "full": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Gemini_Generated_Image_ysf69zysf69zysf6.png"
     }
   ],
-  "EX 06": [
-    {
-      "desktop": "assets/fotos/Sem categoria/EX 06 - mesa de centro FIJI/mesa de centro FIJI-01-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX 06 - mesa de centro FIJI/mesa de centro FIJI-01-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX 06 - mesa de centro FIJI/mesa de centro FIJI-01.jpg"
-    }
-  ],
   "EX015": [
     {
       "desktop": "assets/fotos/Sem categoria/EX015 - CONJUNTO ITAPARICA/CONJUNTO ITAPARICA-01-desktop.webp",
@@ -1581,6 +1574,11 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/capa-desktop.webp"
+    }
+  ],
+  "ML-0001": [
+    {
+      "desktop": "assets/fotos/Sem categoria/ML-0001 - Mesa Lateral Aura/3946bd5c-6c15-4450-acad-949b9df52e41.jpg"
     }
   ],
   "ML-0002": [
@@ -2613,6 +2611,27 @@ const heroSwiper = new Swiper('.hero-swiper', {
   speed: 800,
   effect: 'fade',
   fadeEffect: { crossFade: true }
+});
+
+const copySwiper = new Swiper('.copy-swiper', {
+  loop: true,
+  autoplay: {
+    delay: 6500,
+    disableOnInteraction: false
+  },
+  speed: 600,
+  effect: 'fade',
+  fadeEffect: { crossFade: true },
+  pagination: {
+    el: '.copy-swiper .swiper-pagination',
+    clickable: true
+  }
+});
+</script>
+
+</body>
+</html>
+crossFade: true }
 });
 
 const copySwiper = new Swiper('.copy-swiper', {
