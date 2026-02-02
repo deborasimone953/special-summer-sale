@@ -263,7 +263,7 @@ header .overlay {
     <div class="swiper-wrapper product-swiper-wrapper">
 
       <div class="swiper-slide" id="produto-prod-2471">
-      <div class="card h-100 text-center">
+        <div class="card h-100 text-center">
           <div class="swiper product-images">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
@@ -276,10 +276,10 @@ header .overlay {
             <div class="swipe-hint">Arraste para o lado</div>
           </div>
 
-        <div class="card-body">
+          <div class="card-body">
             <h6 class="fw-bold">Sofá Brisa</h6>
             <div class="product-code">PROD-2471</div>
-          <p class="text-muted small">Sofá de linhas orgânicas · 3 lugares</p>
+            <p class="text-muted small">Sofá de linhas orgânicas · 3 lugares</p>
             <div class="price-old">R$ 28.893,00</div>
             <div class="price-new">R$ 11.557,20</div>
             <div class="discount">60% OFF</div>
@@ -353,20 +353,19 @@ header .overlay {
             <div class="price-old">R$ 13.936,00</div>
             <div class="price-new">R$ 9.755,20</div>
             <div class="discount">30% OFF</div>
-        </div>
+          </div>
 
-        <div class="card-footer bg-transparent border-0">
+          <div class="card-footer bg-transparent border-0">
             <a class="btn btn-dark whatsapp-link"
                href="https://wa.me/5551999594767?text=Tenho%20interesse%20na%20Mesa%20Cristal%20(PROD-6666)"
                data-product-name="Mesa Cristal"
                data-product-code="PROD-6666"
-             target="_blank">
-            Fale conosco
-          </a>
+               target="_blank">
+              Fale conosco
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-
     </div>
 
     <div class="swiper-pagination"></div>
@@ -400,7 +399,7 @@ function openImage(src, groupEl) {
   wrapper.innerHTML = '';
 
   const imgs = groupEl
-    ? Array.from(groupEl.querySelectorAll('img')).map((img) => img.src)
+    ? Array.from(groupEl.querySelectorAll('img')).map((img) => img.dataset.full || img.src)
     : [src];
 
   imgs.forEach((imgSrc) => {
@@ -1350,6 +1349,84 @@ const discountByCode = {
   'PROD-9976': 0.3
 };
 
+const productImagesByCode = {
+  'PROD-6749': [
+    {
+      desktop: 'assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/mesa-centro-bruma-01.png'
+    },
+    {
+      desktop: 'assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/mesa-centro-bruma-02.png'
+    },
+    {
+      desktop: 'assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/mesa-centro-bruma-03.png'
+    }
+  ],
+  'PROD-6900': [
+    {
+      desktop: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-05-desktop.webp',
+      mobile: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-05-mobile.webp',
+      full: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-05.png'
+    },
+    {
+      desktop: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-04-desktop.webp',
+      mobile: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-04-mobile.webp',
+      full: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-04.png'
+    },
+    {
+      desktop: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-01-desktop.webp',
+      mobile: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-01-mobile.webp',
+      full: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-01.png'
+    },
+    {
+      desktop: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-02-desktop.webp',
+      mobile: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-02-mobile.webp',
+      full: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-02.png'
+    },
+    {
+      desktop: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-03-desktop.webp',
+      mobile: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-03-mobile.webp',
+      full: 'assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-03.png'
+    }
+  ]
+};
+
+function buildImageSlide(image) {
+  const desktop = image.desktop || image.src || '';
+  const mobile = image.mobile || '';
+  const full = image.full || desktop;
+  if (!desktop) return '';
+  const safeDesktop = encodeURI(desktop);
+  const safeMobile = mobile ? encodeURI(mobile) : '';
+  const safeFull = encodeURI(full);
+  if (!mobile) {
+    return `
+      <div class="swiper-slide">
+        <img src="${safeDesktop}" data-full="${safeFull}" alt="">
+      </div>
+    `;
+  }
+  return `
+    <div class="swiper-slide">
+      <picture>
+        <source media="(max-width: 575.98px)" srcset="${safeMobile}">
+        <img src="${safeDesktop}" data-full="${safeFull}" alt="">
+      </picture>
+    </div>
+  `;
+}
+
+function applyProductImages() {
+  document.querySelectorAll('.product-swiper-wrapper .swiper-slide').forEach((slide) => {
+    const code = slide.querySelector('.product-code')?.textContent?.trim();
+    if (!code) return;
+    const images = productImagesByCode[code];
+    if (!images || !images.length) return;
+    const wrapper = slide.querySelector('.product-images .swiper-wrapper');
+    if (!wrapper) return;
+    wrapper.innerHTML = images.map(buildImageSlide).join('');
+  });
+}
+
 
 function parseBRL(value) {
   if (typeof value === 'number') {
@@ -1464,6 +1541,8 @@ document.querySelectorAll('.product-swiper-wrapper .swiper-slide').forEach((slid
   }
 });
 
+applyProductImages();
+
 const searchInput = document.getElementById('searchInput');
 if (searchInput) {
   const normalize = (text) =>
@@ -1528,7 +1607,8 @@ window.addEventListener('resize', setupMainSwiper);
 document.querySelectorAll('.product-images img').forEach((img) => {
   img.addEventListener('click', (event) => {
     const groupEl = event.currentTarget.closest('.product-images');
-    openImage(event.currentTarget.src, groupEl);
+    const fullSrc = event.currentTarget.dataset.full || event.currentTarget.src;
+    openImage(fullSrc, groupEl);
   });
 });
 
