@@ -16,6 +16,7 @@ AUTO_SECTION_END = "// AUTO-GENERATED PRODUCT IMAGES END"
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png"}
 WEBP_EXTS = {".webp"}
+ORDER_FILE_NAME = "ordem.txt"
 
 
 def _run(cmd: list[str]) -> subprocess.CompletedProcess:
@@ -42,6 +43,14 @@ def _extract_code(folder_name: str) -> str | None:
     return match.group(1).upper()
 
 
+def _load_order(folder: Path) -> list[str]:
+    order_file = folder / ORDER_FILE_NAME
+    if not order_file.exists():
+        return []
+    lines = order_file.read_text(encoding="utf-8").splitlines()
+    return [line.strip() for line in lines if line.strip()]
+
+
 def _sorted_images(folder: Path) -> list[Path]:
     images = []
     for item in folder.iterdir():
@@ -51,7 +60,25 @@ def _sorted_images(folder: Path) -> list[Path]:
             continue
         if item.suffix.lower() in IMAGE_EXTS or item.suffix.lower() in WEBP_EXTS:
             images.append(item)
-    return sorted(images, key=lambda p: p.name.lower())
+
+    if not images:
+        return []
+
+    order = _load_order(folder)
+    if not order:
+        return sorted(images, key=lambda p: p.name.lower())
+
+    by_name = {img.name: img for img in images}
+    ordered = []
+    used = set()
+    for name in order:
+        img = by_name.get(name)
+        if img:
+            ordered.append(img)
+            used.add(name)
+
+    remaining = [img for img in images if img.name not in used]
+    return ordered + sorted(remaining, key=lambda p: p.name.lower())
 
 
 def _build_mapping() -> dict:
@@ -123,6 +150,9 @@ def _snapshot_state() -> str:
     for folder in sorted(ASSETS_DIR.iterdir()):
         if not folder.is_dir():
             continue
+        order_file = folder / ORDER_FILE_NAME
+        if order_file.exists():
+            parts.append(f"{order_file.relative_to(BASE_DIR)}:{order_file.read_text(encoding='utf-8')}")
         for img in _sorted_images(folder):
             parts.append(str(img.relative_to(BASE_DIR)))
     return "|".join(parts)
