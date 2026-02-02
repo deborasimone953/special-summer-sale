@@ -1,0 +1,3 @@
+codigo=EX017
+titulo=MESA LATERAL MECA
+categoria=Sem categoria

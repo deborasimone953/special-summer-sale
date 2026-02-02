@@ -1,0 +1,3 @@
+codigo=ML-0006
+titulo=Mesa Lateral Brisa
+categoria=Sem categoria

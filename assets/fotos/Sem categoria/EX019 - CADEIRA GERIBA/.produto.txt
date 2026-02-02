@@ -1,0 +1,3 @@
+codigo=EX019
+titulo=CADEIRA GERIBA
+categoria=Sem categoria

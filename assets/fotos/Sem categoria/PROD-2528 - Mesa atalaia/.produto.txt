@@ -1,0 +1,3 @@
+codigo=PROD-2528
+titulo=Mesa atalaia
+categoria=Sem categoria

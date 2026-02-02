@@ -1,0 +1,3 @@
+codigo=EX013
+titulo=CONJUNTO TRANCOSO
+categoria=Sem categoria

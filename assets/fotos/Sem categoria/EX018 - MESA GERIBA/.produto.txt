@@ -1,0 +1,3 @@
+codigo=EX018
+titulo=MESA GERIBA
+categoria=Sem categoria

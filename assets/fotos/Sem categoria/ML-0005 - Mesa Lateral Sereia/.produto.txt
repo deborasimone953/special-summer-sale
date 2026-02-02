@@ -1,0 +1,3 @@
+codigo=ML-0005
+titulo=Mesa Lateral Sereia
+categoria=Sem categoria

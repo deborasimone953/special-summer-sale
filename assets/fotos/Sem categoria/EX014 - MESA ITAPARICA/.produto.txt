@@ -1,0 +1,3 @@
+codigo=EX014
+titulo=MESA ITAPARICA
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=EX02
+titulo=POLTRONA BONINA
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=PROD-6411
+titulo=Cadeira Horizonte
+categoria=Sem categoria

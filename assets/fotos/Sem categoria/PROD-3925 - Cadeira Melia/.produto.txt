@@ -1,0 +1,3 @@
+codigo=PROD-3925
+titulo=Cadeira Melia
+categoria=Sem categoria

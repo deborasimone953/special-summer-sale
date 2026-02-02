@@ -1,0 +1,3 @@
+codigo=PROD-5921
+titulo=Cadeira Giro
+categoria=Sem categoria

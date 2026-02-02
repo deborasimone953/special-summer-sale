@@ -1,0 +1,3 @@
+codigo=PROD-8075
+titulo=Poltrona malva
+categoria=Sem categoria

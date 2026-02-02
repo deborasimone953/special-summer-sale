@@ -1,0 +1,3 @@
+codigo=EX020
+titulo=CONJUNTO TAUÍPE
+categoria=Sem categoria

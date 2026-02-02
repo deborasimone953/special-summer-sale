@@ -1,0 +1,3 @@
+codigo=3X05
+titulo=MESA DE CENTRO SOHO
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=EX04
+titulo=TAPETE ARA
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=VMSF01
+titulo=SOFA ORGANICO NAPOLI
+categoria=Sem categoria

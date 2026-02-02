@@ -1,0 +1,3 @@
+codigo=DV-0042
+titulo=aparador Taupé
+categoria=Sem categoria

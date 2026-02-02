@@ -1,0 +1,3 @@
+codigo=PROD-6305
+titulo=Poltrona Luar
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=DV-0025
+titulo=colar decorativo Elos
+categoria=Sem categoria

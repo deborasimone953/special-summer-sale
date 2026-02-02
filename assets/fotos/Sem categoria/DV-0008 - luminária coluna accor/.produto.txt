@@ -1,0 +1,3 @@
+codigo=DV-0008
+titulo=luminária coluna accor
+categoria=Sem categoria

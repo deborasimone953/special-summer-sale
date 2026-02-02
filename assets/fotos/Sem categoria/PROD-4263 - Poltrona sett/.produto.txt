@@ -1,0 +1,3 @@
+codigo=PROD-4263
+titulo=Poltrona sett
+categoria=Sem categoria

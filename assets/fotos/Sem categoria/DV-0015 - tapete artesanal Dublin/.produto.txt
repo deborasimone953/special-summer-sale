@@ -1,0 +1,3 @@
+codigo=DV-0015
+titulo=tapete artesanal Dublin 
+categoria=Sem categoria

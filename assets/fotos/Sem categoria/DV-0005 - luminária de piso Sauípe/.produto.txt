@@ -1,0 +1,3 @@
+codigo=DV-0005
+titulo=luminária de piso Sauípe
+categoria=Sem categoria

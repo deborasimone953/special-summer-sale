@@ -1,0 +1,3 @@
+codigo=DV-0009
+titulo=abajur Lotus
+categoria=Sem categoria

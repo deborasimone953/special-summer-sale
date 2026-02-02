@@ -1,0 +1,3 @@
+codigo=PROD-8602
+titulo=Poltrona Atlântica
+categoria=Sem categoria

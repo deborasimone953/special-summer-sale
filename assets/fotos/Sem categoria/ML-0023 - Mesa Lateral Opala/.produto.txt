@@ -1,0 +1,3 @@
+codigo=ML-0023
+titulo=Mesa Lateral Opala
+categoria=Sem categoria

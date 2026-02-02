@@ -1,0 +1,3 @@
+codigo=DV-0006
+titulo=luminária de piso Izzo
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=DV-0026
+titulo=colar decorativo Batute
+categoria=Sem categoria

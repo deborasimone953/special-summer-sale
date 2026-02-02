@@ -1,0 +1,3 @@
+codigo=EX010
+titulo=SOFÁ MANHATAN
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=PROD-2787
+titulo=Poltrona hope
+categoria=Sem categoria

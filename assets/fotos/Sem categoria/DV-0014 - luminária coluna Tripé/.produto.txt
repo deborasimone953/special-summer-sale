@@ -1,0 +1,3 @@
+codigo=DV-0014
+titulo=luminária coluna  Tripé
+categoria=Sem categoria

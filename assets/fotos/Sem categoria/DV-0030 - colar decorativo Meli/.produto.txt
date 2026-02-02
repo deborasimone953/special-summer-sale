@@ -1,0 +1,3 @@
+codigo=DV-0030
+titulo=colar decorativo Meli
+categoria=Sem categoria

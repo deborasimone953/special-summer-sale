@@ -1,0 +1,3 @@
+codigo=EX03
+titulo=MESA LATERAL RUEDA
+categoria=Sem categoria

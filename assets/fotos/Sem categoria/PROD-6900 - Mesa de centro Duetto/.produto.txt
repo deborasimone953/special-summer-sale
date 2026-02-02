@@ -1,0 +1,3 @@
+codigo=PROD-6900
+titulo=Mesa de centro Duetto
+categoria=Sem categoria

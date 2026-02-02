@@ -1,0 +1,3 @@
+codigo=ML-0013
+titulo=Mesa Lateral Alba
+categoria=Sem categoria

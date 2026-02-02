@@ -1,0 +1,3 @@
+codigo=ML-0024
+titulo=Mesa Lateral Vértice
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=DV-0022
+titulo=colar decorativo pincel
+categoria=Sem categoria

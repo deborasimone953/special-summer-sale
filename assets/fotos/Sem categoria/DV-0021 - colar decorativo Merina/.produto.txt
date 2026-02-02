@@ -1,0 +1,3 @@
+codigo=DV-0021
+titulo=colar decorativo Merina
+categoria=Sem categoria

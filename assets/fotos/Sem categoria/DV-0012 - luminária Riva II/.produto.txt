@@ -1,0 +1,3 @@
+codigo=DV-0012
+titulo=luminária Riva II
+categoria=Sem categoria

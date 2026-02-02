@@ -1,0 +1,3 @@
+codigo=VMSF03
+titulo=SOFÁ OAK
+categoria=Sem categoria

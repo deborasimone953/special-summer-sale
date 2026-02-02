@@ -1,0 +1,3 @@
+codigo=ML-0012
+titulo=Mesa Lateral Prisma
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=PROD-6666
+titulo=Mesa Cristal
+categoria=Sem categoria

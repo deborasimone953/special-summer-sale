@@ -1,0 +1,3 @@
+codigo=ML-0008
+titulo=Mesa Lateral Âmbar
+categoria=Sem categoria

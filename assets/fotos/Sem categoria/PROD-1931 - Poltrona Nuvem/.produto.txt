@@ -1,0 +1,3 @@
+codigo=PROD-1931
+titulo=Poltrona Nuvem
+categoria=Sem categoria

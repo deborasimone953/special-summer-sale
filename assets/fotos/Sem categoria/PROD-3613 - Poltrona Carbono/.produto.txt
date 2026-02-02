@@ -1,0 +1,3 @@
+codigo=PROD-3613
+titulo=Poltrona Carbono
+categoria=Sem categoria

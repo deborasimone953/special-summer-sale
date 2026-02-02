@@ -1,0 +1,3 @@
+codigo=EX08
+titulo=BALANÇO LUAR COM SUPORTE DE CHÃO
+categoria=Sem categoria

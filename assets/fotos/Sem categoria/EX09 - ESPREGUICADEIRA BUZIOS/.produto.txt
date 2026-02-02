@@ -1,0 +1,3 @@
+codigo=EX09
+titulo=ESPREGUICADEIRA BUZIOS
+categoria=Sem categoria

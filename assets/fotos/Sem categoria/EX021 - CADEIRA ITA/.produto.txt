@@ -1,0 +1,3 @@
+codigo=EX021
+titulo=CADEIRA ITA
+categoria=Sem categoria

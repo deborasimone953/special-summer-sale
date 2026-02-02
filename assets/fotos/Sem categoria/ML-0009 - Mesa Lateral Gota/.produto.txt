@@ -1,0 +1,3 @@
+codigo=ML-0009
+titulo=Mesa Lateral Gota
+categoria=Sem categoria

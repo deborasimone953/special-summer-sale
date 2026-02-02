@@ -1,0 +1,3 @@
+codigo=PROD-8087
+titulo=cadeira aurora
+categoria=Sem categoria

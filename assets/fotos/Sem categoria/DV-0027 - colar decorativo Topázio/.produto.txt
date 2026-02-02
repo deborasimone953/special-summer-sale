@@ -1,0 +1,3 @@
+codigo=DV-0027
+titulo=colar decorativo Topázio
+categoria=Sem categoria

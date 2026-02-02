@@ -1,0 +1,3 @@
+codigo=VMSF04
+titulo=SOFÁ LATT
+categoria=Sem categoria

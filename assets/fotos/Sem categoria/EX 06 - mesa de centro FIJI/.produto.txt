@@ -1,0 +1,3 @@
+codigo=EX 06
+titulo=mesa de centro FIJI
+categoria=Sem categoria

@@ -1,0 +1,3 @@
+codigo=PROD-4091
+titulo=Poltrona pitia
+categoria=Sem categoria

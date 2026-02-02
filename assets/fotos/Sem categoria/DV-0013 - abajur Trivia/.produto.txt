@@ -1,0 +1,3 @@
+codigo=DV-0013
+titulo=abajur  Trivia
+categoria=Sem categoria

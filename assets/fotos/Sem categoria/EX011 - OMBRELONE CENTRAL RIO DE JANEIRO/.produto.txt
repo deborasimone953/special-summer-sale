@@ -1,0 +1,3 @@
+codigo=EX011
+titulo=OMBRELONE CENTRAL RIO DE JANEIRO
+categoria=Sem categoria

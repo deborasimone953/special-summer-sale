@@ -1,0 +1,3 @@
+codigo=DV-0047
+titulo=tapete  Oslo
+categoria=Sem categoria

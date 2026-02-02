@@ -1,0 +1,3 @@
+codigo=VMSF02
+titulo=SOFÁ MERIDIAN
+categoria=Sem categoria
