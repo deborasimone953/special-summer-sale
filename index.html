@@ -203,6 +203,7 @@ header .overlay {
 .modal-swiper .swiper-button-next {
   color: #fff;
   z-index: 5;
+  opacity: 1;
 }
 </style>
 </head>
@@ -395,6 +396,14 @@ header .overlay {
 
 <script>
 let modalSwiperInstance = null;
+const modalEl = document.getElementById('imgModal');
+const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+modalEl.addEventListener('shown.bs.modal', () => {
+  if (modalSwiperInstance) {
+    modalSwiperInstance.update();
+  }
+});
 
 function openImage(src, groupEl) {
   const wrapper = document.getElementById('modalSwiperWrapper');
@@ -425,6 +434,8 @@ function openImage(src, groupEl) {
       prevEl: '.modal-swiper .swiper-button-prev'
     }
   });
+
+  modalInstance.show();
 }
 
 let mainSwiper = null;
@@ -1442,13 +1453,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-02-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-02-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-02.jpg"
-    }
-  ],
-  "ML-0010": [
-    {
-      "desktop": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-01-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-01-mobile.webp",
-      "full": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-01.jpg"
     }
   ],
   "ML-0012": [
