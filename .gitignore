@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+assets/lote_fundo/
+
+tools/criar_atalho.ps1
