@@ -5,6 +5,11 @@ import subprocess
 import time
 from pathlib import Path
 
+try:
+    from PIL import Image
+except Exception:  # pragma: no cover
+    Image = None
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 FOTOS_DIR = BASE_DIR / "assets" / "fotos"
@@ -18,6 +23,10 @@ IMAGE_EXTS = {".jpg", ".jpeg", ".png"}
 WEBP_EXTS = {".webp"}
 ORDER_FILE_NAME = "ordem.txt"
 COVER_FILE_NAME = ".capa.txt"
+
+DERIVATIVE_FORMAT = "webp"
+DESKTOP_MAX_WIDTH = 1600
+MOBILE_MAX_WIDTH = 900
 
 
 def _run(cmd: list[str]) -> subprocess.CompletedProcess:
@@ -82,52 +91,134 @@ def _sorted_images(folder: Path) -> list[Path]:
     return ordered + sorted(remaining, key=lambda p: p.name.lower())
 
 
-def _build_mapping() -> dict:
-    mapping: dict[str, list[dict]] = {}
+def _resize_and_save(src_path: Path, dest_path: Path, max_width: int) -> None:
+    if Image is None:
+        raise RuntimeError(
+            "Pillow não está instalado. Instale com: pip install pillow"
+        )
+    with Image.open(src_path) as img:
+        img_format = img.format or DERIVATIVE_FORMAT
+        if str(img_format).upper() == "GIF":
+            return
+        if img.mode not in ["RGB", "RGBA"]:
+            img = img.convert("RGBA" if "A" in img.mode else "RGB")
+        width, height = img.size
+        if width > max_width:
+            new_height = int((max_width / width) * height)
+            img = img.resize((max_width, new_height), Image.LANCZOS)
+        img.save(
+            dest_path,
+            DERIVATIVE_FORMAT,
+            quality=82,
+            method=6,
+        )
+
+
+def _ensure_derivatives(src_path: Path) -> tuple[Path, Path]:
+    base = src_path.with_suffix("")
+    desktop_path = Path(f"{base}-desktop.{DERIVATIVE_FORMAT}")
+    mobile_path = Path(f"{base}-mobile.{DERIVATIVE_FORMAT}")
+
+    if not desktop_path.exists() or desktop_path.stat().st_size == 0:
+        _resize_and_save(src_path, desktop_path, DESKTOP_MAX_WIDTH)
+    if not mobile_path.exists() or mobile_path.stat().st_size == 0:
+        _resize_and_save(src_path, mobile_path, MOBILE_MAX_WIDTH)
+    return desktop_path, mobile_path
+
+
+def _is_derivative_path(path: Path) -> bool:
+    name = path.stem.lower()
+    return name.endswith("-desktop") or name.endswith("-mobile")
+
+
+def _iter_product_folders() -> list[Path]:
+    folders: list[Path] = []
     if not FOTOS_DIR.exists():
-        return mapping
+        return folders
     for category in sorted(FOTOS_DIR.iterdir()):
         if not category.is_dir():
             continue
         for folder in sorted(category.iterdir()):
-            if not folder.is_dir():
+            if folder.is_dir():
+                folders.append(folder)
+    return folders
+
+
+def _bootstrap_missing_derivatives() -> bool:
+    changed = False
+    for folder in _iter_product_folders():
+        for img in _sorted_images(folder):
+            if img.suffix.lower() not in IMAGE_EXTS:
                 continue
-            code = _extract_code(folder.name)
-            if not code:
+            if _is_derivative_path(img):
                 continue
-            items = []
-            cover_item = None
-            cover_file = folder / COVER_FILE_NAME
-            cover_base = None
-            if cover_file.exists():
-                cover_base = cover_file.read_text(encoding="utf-8").strip()
-            for img in _sorted_images(folder):
-                name = img.name
-                if name.endswith("-desktop.webp"):
-                    base = name.replace("-desktop.webp", "")
-                    mobile = folder / f"{base}-mobile.webp"
-                    full_png = folder / f"{base}.png"
-                    full_jpg = folder / f"{base}.jpg"
-                    full = full_png if full_png.exists() else full_jpg if full_jpg.exists() else img
-                    item = {
-                        "desktop": _to_rel(img),
-                        "mobile": _to_rel(mobile) if mobile.exists() else _to_rel(img),
-                        "full": _to_rel(full),
+            base = img.with_suffix("")
+            desktop_path = Path(f"{base}-desktop.{DERIVATIVE_FORMAT}")
+            mobile_path = Path(f"{base}-mobile.{DERIVATIVE_FORMAT}")
+
+            needs_desktop = (not desktop_path.exists()) or desktop_path.stat().st_size == 0
+            needs_mobile = (not mobile_path.exists()) or mobile_path.stat().st_size == 0
+            if not (needs_desktop or needs_mobile):
+                continue
+
+            desktop, mobile = _ensure_derivatives(img)
+            if desktop.exists() and desktop.stat().st_size > 0:
+                changed = True
+            if mobile.exists() and mobile.stat().st_size > 0:
+                changed = True
+    return changed
+
+
+def _build_mapping() -> dict:
+    mapping: dict[str, list[dict]] = {}
+    if not FOTOS_DIR.exists():
+        return mapping
+    for folder in _iter_product_folders():
+        code = _extract_code(folder.name)
+        if not code:
+            continue
+        items = []
+        cover_item = None
+        cover_file = folder / COVER_FILE_NAME
+        cover_base = None
+        if cover_file.exists():
+            cover_base = cover_file.read_text(encoding="utf-8").strip()
+        for img in _sorted_images(folder):
+            name = img.name
+            if name.endswith("-desktop.webp"):
+                if name.startswith("capa-"):
+                    continue
+                base = name.replace("-desktop.webp", "")
+                mobile = folder / f"{base}-mobile.webp"
+                full_png = folder / f"{base}.png"
+                full_jpg = folder / f"{base}.jpg"
+                full = full_png if full_png.exists() else full_jpg if full_jpg.exists() else img
+                item = {
+                    "desktop": _to_rel(img),
+                    "mobile": _to_rel(mobile) if mobile.exists() else _to_rel(img),
+                    "full": _to_rel(full),
+                }
+                if cover_base and base == cover_base:
+                    cover_item = item
+                else:
+                    items.append(item)
+        if cover_item:
+            items.insert(0, cover_item)
+        if items:
+            mapping[code] = items
+            continue
+        for img in _sorted_images(folder):
+            if img.suffix.lower() in IMAGE_EXTS:
+                desktop, mobile = _ensure_derivatives(img)
+                items.append(
+                    {
+                        "desktop": _to_rel(desktop if desktop.exists() else img),
+                        "mobile": _to_rel(mobile) if mobile.exists() else _to_rel(desktop if desktop.exists() else img),
+                        "full": _to_rel(img),
                     }
-                    if cover_base and base == cover_base:
-                        cover_item = item
-                    else:
-                        items.append(item)
-            if cover_item:
-                items.insert(0, cover_item)
-            if items:
-                mapping[code] = items
-                continue
-            for img in _sorted_images(folder):
-                if img.suffix.lower() in IMAGE_EXTS:
-                    items.append({"desktop": _to_rel(img)})
-            if items:
-                mapping[code] = items
+                )
+        if items:
+            mapping[code] = items
     return mapping
 
 
@@ -166,20 +257,15 @@ def _snapshot_state() -> str:
     if not FOTOS_DIR.exists():
         return ""
     parts = []
-    for category in sorted(FOTOS_DIR.iterdir()):
-        if not category.is_dir():
-            continue
-        for folder in sorted(category.iterdir()):
-            if not folder.is_dir():
-                continue
-            cover_file = folder / COVER_FILE_NAME
-            if cover_file.exists():
-                parts.append(f"{cover_file.relative_to(BASE_DIR)}:{cover_file.read_text(encoding='utf-8')}")
-            order_file = folder / ORDER_FILE_NAME
-            if order_file.exists():
-                parts.append(f"{order_file.relative_to(BASE_DIR)}:{order_file.read_text(encoding='utf-8')}")
-            for img in _sorted_images(folder):
-                parts.append(str(img.relative_to(BASE_DIR)))
+    for folder in _iter_product_folders():
+        cover_file = folder / COVER_FILE_NAME
+        if cover_file.exists():
+            parts.append(f"{cover_file.relative_to(BASE_DIR)}:{cover_file.read_text(encoding='utf-8')}")
+        order_file = folder / ORDER_FILE_NAME
+        if order_file.exists():
+            parts.append(f"{order_file.relative_to(BASE_DIR)}:{order_file.read_text(encoding='utf-8')}")
+        for img in _sorted_images(folder):
+            parts.append(str(img.relative_to(BASE_DIR)))
     return "|".join(parts)
 
 
@@ -188,6 +274,7 @@ def main() -> None:
     last_state = ""
     while True:
         try:
+            _bootstrap_missing_derivatives()
             current_state = _snapshot_state()
             if current_state != last_state:
                 mapping = _build_mapping()
