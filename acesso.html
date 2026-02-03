@@ -48,7 +48,7 @@
 
       <div class="mb-2">
         <label for="password" class="form-label">Digite a senha</label>
-        <input id="password" type="password" class="form-control form-control-lg" placeholder="Ex.: VIP-ACESS" autocomplete="one-time-code">
+        <input id="password" type="password" class="form-control form-control-lg" placeholder="" autocomplete="new-password" autocapitalize="none" autocorrect="off" spellcheck="false" readonly>
       </div>
 
       <div class="d-grid gap-2">
@@ -101,6 +101,12 @@
     const passwordInput = document.getElementById('password');
     const enterBtn = document.getElementById('enterBtn');
     const errorEl = document.getElementById('error');
+
+    passwordInput.value = '';
+    passwordInput.addEventListener('focus', () => {
+      passwordInput.removeAttribute('readonly');
+      passwordInput.value = '';
+    }, { once: true });
 
     function showError(text) {
       errorEl.textContent = text;
