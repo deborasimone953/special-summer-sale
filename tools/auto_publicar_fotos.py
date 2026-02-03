@@ -179,6 +179,7 @@ def _build_mapping() -> dict:
             continue
         items = []
         cover_item = None
+        existing_desktop_paths: set[str] = set()
         cover_file = folder / COVER_FILE_NAME
         cover_base = None
         if cover_file.exists():
@@ -202,21 +203,28 @@ def _build_mapping() -> dict:
                     cover_item = item
                 else:
                     items.append(item)
+                existing_desktop_paths.add(item["desktop"])
         if cover_item:
             items.insert(0, cover_item)
-        if items:
-            mapping[code] = items
-            continue
+
         for img in _sorted_images(folder):
-            if img.suffix.lower() in IMAGE_EXTS:
-                desktop, mobile = _ensure_derivatives(img)
-                items.append(
-                    {
-                        "desktop": _to_rel(desktop if desktop.exists() else img),
-                        "mobile": _to_rel(mobile) if mobile.exists() else _to_rel(desktop if desktop.exists() else img),
-                        "full": _to_rel(img),
-                    }
-                )
+            if img.suffix.lower() not in IMAGE_EXTS:
+                continue
+            if _is_derivative_path(img):
+                continue
+            base = img.with_suffix("")
+            expected_desktop = Path(f"{base}-desktop.{DERIVATIVE_FORMAT}")
+            if expected_desktop.exists() and expected_desktop.name != "capa-desktop.webp":
+                if _to_rel(expected_desktop) in existing_desktop_paths:
+                    continue
+            desktop, mobile = _ensure_derivatives(img)
+            items.append(
+                {
+                    "desktop": _to_rel(desktop if desktop.exists() else img),
+                    "mobile": _to_rel(mobile) if mobile.exists() else _to_rel(desktop if desktop.exists() else img),
+                    "full": _to_rel(img),
+                }
+            )
         if items:
             mapping[code] = items
     return mapping
