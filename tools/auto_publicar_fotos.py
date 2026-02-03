@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-ASSETS_DIR = BASE_DIR / "assets" / "fotos" / "Sem categoria"
+FOTOS_DIR = BASE_DIR / "assets" / "fotos"
 INDEX_PATH = BASE_DIR / "index.html"
 
 SLEEP_SECONDS = 5
@@ -30,7 +30,7 @@ def _git_has_changes() -> bool:
 
 
 def _git_commit_and_push(message: str) -> None:
-    _run(["git", "add", "index.html", str(ASSETS_DIR)])
+    _run(["git", "add", "index.html", str(FOTOS_DIR)])
     if not _git_has_changes():
         return
     _run(["git", "commit", "-m", message])
@@ -84,47 +84,50 @@ def _sorted_images(folder: Path) -> list[Path]:
 
 def _build_mapping() -> dict:
     mapping: dict[str, list[dict]] = {}
-    if not ASSETS_DIR.exists():
+    if not FOTOS_DIR.exists():
         return mapping
-    for folder in sorted(ASSETS_DIR.iterdir()):
-        if not folder.is_dir():
+    for category in sorted(FOTOS_DIR.iterdir()):
+        if not category.is_dir():
             continue
-        code = _extract_code(folder.name)
-        if not code:
-            continue
-        items = []
-        cover_item = None
-        cover_file = folder / COVER_FILE_NAME
-        cover_base = None
-        if cover_file.exists():
-            cover_base = cover_file.read_text(encoding="utf-8").strip()
-        for img in _sorted_images(folder):
-            name = img.name
-            if name.endswith("-desktop.webp"):
-                base = name.replace("-desktop.webp", "")
-                mobile = folder / f"{base}-mobile.webp"
-                full_png = folder / f"{base}.png"
-                full_jpg = folder / f"{base}.jpg"
-                full = full_png if full_png.exists() else full_jpg if full_jpg.exists() else img
-                item = {
-                    "desktop": _to_rel(img),
-                    "mobile": _to_rel(mobile) if mobile.exists() else _to_rel(img),
-                    "full": _to_rel(full),
-                }
-                if cover_base and base == cover_base:
-                    cover_item = item
-                else:
-                    items.append(item)
-        if cover_item:
-            items.insert(0, cover_item)
-        if items:
-            mapping[code] = items
-            continue
-        for img in _sorted_images(folder):
-            if img.suffix.lower() in IMAGE_EXTS:
-                items.append({"desktop": _to_rel(img)})
-        if items:
-            mapping[code] = items
+        for folder in sorted(category.iterdir()):
+            if not folder.is_dir():
+                continue
+            code = _extract_code(folder.name)
+            if not code:
+                continue
+            items = []
+            cover_item = None
+            cover_file = folder / COVER_FILE_NAME
+            cover_base = None
+            if cover_file.exists():
+                cover_base = cover_file.read_text(encoding="utf-8").strip()
+            for img in _sorted_images(folder):
+                name = img.name
+                if name.endswith("-desktop.webp"):
+                    base = name.replace("-desktop.webp", "")
+                    mobile = folder / f"{base}-mobile.webp"
+                    full_png = folder / f"{base}.png"
+                    full_jpg = folder / f"{base}.jpg"
+                    full = full_png if full_png.exists() else full_jpg if full_jpg.exists() else img
+                    item = {
+                        "desktop": _to_rel(img),
+                        "mobile": _to_rel(mobile) if mobile.exists() else _to_rel(img),
+                        "full": _to_rel(full),
+                    }
+                    if cover_base and base == cover_base:
+                        cover_item = item
+                    else:
+                        items.append(item)
+            if cover_item:
+                items.insert(0, cover_item)
+            if items:
+                mapping[code] = items
+                continue
+            for img in _sorted_images(folder):
+                if img.suffix.lower() in IMAGE_EXTS:
+                    items.append({"desktop": _to_rel(img)})
+            if items:
+                mapping[code] = items
     return mapping
 
 
@@ -160,25 +163,28 @@ def _update_index(mapping: dict) -> bool:
 
 
 def _snapshot_state() -> str:
-    if not ASSETS_DIR.exists():
+    if not FOTOS_DIR.exists():
         return ""
     parts = []
-    for folder in sorted(ASSETS_DIR.iterdir()):
-        if not folder.is_dir():
+    for category in sorted(FOTOS_DIR.iterdir()):
+        if not category.is_dir():
             continue
-        cover_file = folder / COVER_FILE_NAME
-        if cover_file.exists():
-            parts.append(f"{cover_file.relative_to(BASE_DIR)}:{cover_file.read_text(encoding='utf-8')}")
-        order_file = folder / ORDER_FILE_NAME
-        if order_file.exists():
-            parts.append(f"{order_file.relative_to(BASE_DIR)}:{order_file.read_text(encoding='utf-8')}")
-        for img in _sorted_images(folder):
-            parts.append(str(img.relative_to(BASE_DIR)))
+        for folder in sorted(category.iterdir()):
+            if not folder.is_dir():
+                continue
+            cover_file = folder / COVER_FILE_NAME
+            if cover_file.exists():
+                parts.append(f"{cover_file.relative_to(BASE_DIR)}:{cover_file.read_text(encoding='utf-8')}")
+            order_file = folder / ORDER_FILE_NAME
+            if order_file.exists():
+                parts.append(f"{order_file.relative_to(BASE_DIR)}:{order_file.read_text(encoding='utf-8')}")
+            for img in _sorted_images(folder):
+                parts.append(str(img.relative_to(BASE_DIR)))
     return "|".join(parts)
 
 
 def main() -> None:
-    print("Monitorando assets/fotos/Sem categoria... (Ctrl+C para sair)")
+    print("Monitorando assets/fotos... (Ctrl+C para sair)")
     last_state = ""
     while True:
         try:
