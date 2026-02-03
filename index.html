@@ -1505,13 +1505,6 @@ const productImagesByCode = {
       "full": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Gemini_Generated_Image_ysf69zysf69zysf6.png"
     }
   ],
-  "EX 06": [
-    {
-      "desktop": "assets/fotos/Sem categoria/EX 06 - mesa de centro FIJI/mesa de centro FIJI-01-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX 06 - mesa de centro FIJI/mesa de centro FIJI-01-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX 06 - mesa de centro FIJI/mesa de centro FIJI-01.jpg"
-    }
-  ],
   "EX01": [
     {
       "desktop": "assets/fotos/Sem categoria/EX01 - POLTRONA FLAM/Gemini_Generated_Image_rl1wzkrl1wzkrl1w.png"
@@ -2598,7 +2591,10 @@ function buildImageSlide(image) {
   const safeDesktop = encodePath(desktop);
   const safeMobile = mobile ? encodePath(mobile) : '';
   const safeFull = encodePath(full);
-  const cacheSuffix = IMAGE_CACHE_BUSTER ? `?v=${IMAGE_CACHE_BUSTER}` : '';
+  const cacheSuffix =
+    (typeof IMAGE_CACHE_BUSTER !== 'undefined' && IMAGE_CACHE_BUSTER)
+      ? `?v=${IMAGE_CACHE_BUSTER}`
+      : '';
   if (!mobile) {
     return `
       <div class="swiper-slide">
