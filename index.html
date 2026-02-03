@@ -258,7 +258,21 @@ header .overlay {
 </div>
 
 <div class="search-box">
-  <input id="searchInput" type="text" class="form-control" placeholder="Buscar produto: ex. cadeiras">
+  <div class="row g-2">
+    <div class="col-12 col-sm">
+      <input id="searchInput" type="text" class="form-control" placeholder="Buscar produto: ex. cadeiras">
+    </div>
+    <div class="col-12 col-sm-auto">
+      <select id="categoryFilter" class="form-select">
+        <option value="">Todas as categorias</option>
+        <option value="cadeira">Cadeiras</option>
+        <option value="mesa">Mesas</option>
+        <option value="poltrona">Poltronas</option>
+        <option value="sofa">Sofás</option>
+        <option value="outros">Outros</option>
+      </select>
+    </div>
+  </div>
 </div>
 
 <div class="container pb-5">
@@ -1056,13 +1070,6 @@ const diversosProducts = [
     discount: 0.5
   },
   {
-    code: 'DV-0003',
-    name: 'abajur Aramado',
-    desc: 'Abajur Preto Fosco A 65 x D 44 cm, lâmpada filamento',
-    unitario: 1550.0,
-    discount: 0.5
-  },
-  {
     code: 'DV-0004',
     name: 'luminária coluna de piso Lumino',
     desc: 'Coluna Preta Cúpula Creme A 180 x P 55cm Cúpula 31x31cm',
@@ -1356,6 +1363,7 @@ const discountByCode = {
 };
 
 // AUTO-GENERATED PRODUCT IMAGES START
+const IMAGE_CACHE_BUSTER = "1770143687";
 const productImagesByCode = {
   "3X05": [
     {
@@ -1367,6 +1375,30 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/DV-0001 - luminária Hanz/3f99d53e-2788-4070-8665-63e62f34a4b6-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0001 - luminária Hanz/3f99d53e-2788-4070-8665-63e62f34a4b6-mobile.webp",
       "full": "assets/fotos/Sem categoria/DV-0001 - luminária Hanz/3f99d53e-2788-4070-8665-63e62f34a4b6.jpg"
+    }
+  ],
+  "DV-0002": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0002 - luminária de piso Lux/b0b969db-4d95-416c-810b-b7deb945b121-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0002 - luminária de piso Lux/b0b969db-4d95-416c-810b-b7deb945b121-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0002 - luminária de piso Lux/b0b969db-4d95-416c-810b-b7deb945b121.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0002 - luminária de piso Lux/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0002 - luminária de piso Lux/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0002 - luminária de piso Lux/capa-desktop.webp"
+    }
+  ],
+  "DV-0004": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0004 - luminária coluna de piso Lumino/2a944463-9b2f-43f0-ae21-51d09c815ce2-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0004 - luminária coluna de piso Lumino/2a944463-9b2f-43f0-ae21-51d09c815ce2-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0004 - luminária coluna de piso Lumino/2a944463-9b2f-43f0-ae21-51d09c815ce2.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0004 - luminária coluna de piso Lumino/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0004 - luminária coluna de piso Lumino/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0004 - luminária coluna de piso Lumino/capa-desktop.webp"
     }
   ],
   "DV-0005": [
@@ -1398,6 +1430,11 @@ const productImagesByCode = {
   ],
   "DV-0010": [
     {
+      "desktop": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/Captura de tela 2026-02-02 180000-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/Captura de tela 2026-02-02 180000-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/Captura de tela 2026-02-02 180000.png"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/capa-desktop.webp"
@@ -1406,22 +1443,18 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/Captura de tela 2026-02-02 175938-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/Captura de tela 2026-02-02 175938-mobile.webp",
       "full": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/Captura de tela 2026-02-02 175938.png"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/Captura de tela 2026-02-02 180000-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/Captura de tela 2026-02-02 180000-mobile.webp",
-      "full": "assets/fotos/Sem categoria/DV-0010 - abajut Twist/Captura de tela 2026-02-02 180000.png"
     }
   ],
   "DV-0011": [
     {
-      "desktop": "assets/fotos/Sem categoria/DV-0011 - luminária Riva I/Foto 03-02-2026, 08 51 00 (2).jpg"
+      "desktop": "assets/fotos/Sem categoria/DV-0011 - luminária Riva I/Foto 03-02-2026, 08 51 00-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0011 - luminária Riva I/Foto 03-02-2026, 08 51 00-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0011 - luminária Riva I/Foto 03-02-2026, 08 51 00.jpg"
     },
     {
-      "desktop": "assets/fotos/Sem categoria/DV-0011 - luminária Riva I/Foto 03-02-2026, 08 51 00.jpg"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/DV-0011 - luminária Riva I/IMG_0773.jpg"
+      "desktop": "assets/fotos/Sem categoria/DV-0011 - luminária Riva I/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0011 - luminária Riva I/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0011 - luminária Riva I/capa-desktop.webp"
     }
   ],
   "DV-0012": [
@@ -1437,21 +1470,69 @@ const productImagesByCode = {
   ],
   "DV-0013": [
     {
-      "desktop": "assets/fotos/Sem categoria/DV-0013 - abajur Trivia/b32a10af-855e-44dc-a30c-1fa6201ddbfa.png"
+      "desktop": "assets/fotos/Sem categoria/DV-0013 - abajur Trivia/cf091ed1-1fcb-4020-a6e0-2db121e4f094-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0013 - abajur Trivia/cf091ed1-1fcb-4020-a6e0-2db121e4f094-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0013 - abajur Trivia/cf091ed1-1fcb-4020-a6e0-2db121e4f094.jpg"
     },
     {
-      "desktop": "assets/fotos/Sem categoria/DV-0013 - abajur Trivia/Captura de tela 2026-02-03 100402.png"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/DV-0013 - abajur Trivia/cf091ed1-1fcb-4020-a6e0-2db121e4f094.jpg"
+      "desktop": "assets/fotos/Sem categoria/DV-0013 - abajur Trivia/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0013 - abajur Trivia/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0013 - abajur Trivia/capa-desktop.webp"
     }
   ],
   "DV-0014": [
     {
-      "desktop": "assets/fotos/Sem categoria/DV-0014 - luminária coluna Tripé/ebcdee85-dcee-4b4b-9590-f8cd97637b1c.jpg"
+      "desktop": "assets/fotos/Sem categoria/DV-0014 - luminária coluna Tripé/ebcdee85-dcee-4b4b-9590-f8cd97637b1c-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0014 - luminária coluna Tripé/ebcdee85-dcee-4b4b-9590-f8cd97637b1c-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0014 - luminária coluna Tripé/ebcdee85-dcee-4b4b-9590-f8cd97637b1c.jpg"
     },
     {
-      "desktop": "assets/fotos/Sem categoria/DV-0014 - luminária coluna Tripé/Gemini_Generated_Image_83lcta83lcta83lc.png"
+      "desktop": "assets/fotos/Sem categoria/DV-0014 - luminária coluna Tripé/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0014 - luminária coluna Tripé/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0014 - luminária coluna Tripé/capa-desktop.webp"
+    }
+  ],
+  "DV-0015": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0015 - tapete artesanal Dublin/Captura de tela 2026-02-03 140510.png"
+    }
+  ],
+  "DV-0017": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0017 - Tapete Nature/Captura de tela 2026-02-03 140712.png"
+    }
+  ],
+  "DV-0018": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0018 - Tapete Bounty/Captura de tela 2026-02-03 140818.png"
+    }
+  ],
+  "DV-0019": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0019 - Tapete Florest/Captura de tela 2026-02-03 140947.png"
+    }
+  ],
+  "DV-0020": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0020 - tapete Madri/Captura de tela 2026-02-03 141055.png"
+    }
+  ],
+  "DV-0021": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0021 - colar decorativo Merina/Captura de tela 2026-02-03 140233.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0021 - colar decorativo Merina/Foto 03-02-2026, 13 52 21.jpg"
+    }
+  ],
+  "DV-0022": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0022 - colar decorativo pincel/Captura de tela 2026-02-03 140129.png"
+    }
+  ],
+  "DV-0023": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0023 - colar decorativo Round/Captura de tela 2026-02-03 135947.png"
     }
   ],
   "DV-0024": [
@@ -1459,6 +1540,79 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/DV-0024 - colar decorativo Maré/colar decorativo Maré-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0024 - colar decorativo Maré/colar decorativo Maré-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/DV-0024 - colar decorativo Maré/colar decorativo Maré-01.jpg"
+    }
+  ],
+  "DV-0025": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0025 - colar decorativo Elos/aaa.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0025 - colar decorativo Elos/Captura de tela 2026-02-03 135750.png"
+    }
+  ],
+  "DV-0026": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0026 - colar decorativo Batute/Foto 15-07-2024, 12 50 24.jpg"
+    }
+  ],
+  "DV-0027": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0027 - colar decorativo Topázio/Foto 04-06-2025, 13 11 04.jpg"
+    }
+  ],
+  "DV-0030": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0030 - colar decorativo Meli/Foto 03-04-2025, 12 36 36.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0030 - colar decorativo Meli/Foto 15-07-2024, 12 50 32.jpg"
+    }
+  ],
+  "DV-0031": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0031 - Manta Malta/Foto 03-02-2026, 11 15 25-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0031 - Manta Malta/Foto 03-02-2026, 11 15 25-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0031 - Manta Malta/Foto 03-02-2026, 11 15 25.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0031 - Manta Malta/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0031 - Manta Malta/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0031 - Manta Malta/capa-desktop.webp"
+    }
+  ],
+  "DV-0032": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0032 - Manta Creta/Foto 03-02-2026, 12 45 59.jpg"
+    }
+  ],
+  "DV-0033": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0033 - Manta Atenas/Foto 03-02-2026, 12 50 39.jpg"
+    }
+  ],
+  "DV-0034": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0034 - Almofadas Davos/Captura de tela 2026-02-03 131031.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0034 - Almofadas Davos/Foto 03-02-2026, 11 14 17.jpg"
+    }
+  ],
+  "DV-0035": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0035 - almofada Davos 2/Captura de tela 2026-02-03 130949.png"
+    }
+  ],
+  "DV-0036": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0036 - quadro decorativo/Foto 23-04-2024, 12 56 43-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0036 - quadro decorativo/Foto 23-04-2024, 12 56 43-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0036 - quadro decorativo/Foto 23-04-2024, 12 56 43.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0036 - quadro decorativo/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0036 - quadro decorativo/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0036 - quadro decorativo/capa-desktop.webp"
     }
   ],
   "DV-0038": [
@@ -1478,6 +1632,11 @@ const productImagesByCode = {
       "full": "assets/fotos/Sem categoria/DV-0038 - puff Tau/Foto 26-04-2024, 12 48 58.jpg"
     }
   ],
+  "DV-0039": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0039 - puff Mel/5937f1fd-05e0-43ca-b84b-da4c138d8a89.jpg"
+    }
+  ],
   "DV-0040": [
     {
       "desktop": "assets/fotos/Sem categoria/DV-0040 - puff Aurea Retangular/944fbcf1-8ec7-4f3e-8f35-549ef3370e63.jpg"
@@ -1492,6 +1651,11 @@ const productImagesByCode = {
   ],
   "DV-0042": [
     {
+      "desktop": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/dd8a6e30-24ff-4866-8105-98ed5c3c3cd9-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/dd8a6e30-24ff-4866-8105-98ed5c3c3cd9-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/dd8a6e30-24ff-4866-8105-98ed5c3c3cd9.jpg"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/capa-desktop.webp"
@@ -1500,14 +1664,14 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/cde31d6a-0f4e-49b1-84aa-8b721a85ea30-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/cde31d6a-0f4e-49b1-84aa-8b721a85ea30-mobile.webp",
       "full": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/cde31d6a-0f4e-49b1-84aa-8b721a85ea30.jpg"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/dd8a6e30-24ff-4866-8105-98ed5c3c3cd9-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/dd8a6e30-24ff-4866-8105-98ed5c3c3cd9-mobile.webp",
-      "full": "assets/fotos/Sem categoria/DV-0042 - aparador Taupé/dd8a6e30-24ff-4866-8105-98ed5c3c3cd9.jpg"
     }
   ],
   "DV-0043": [
+    {
+      "desktop": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/ebd29b23-b0b9-4f51-8ff0-82d931a457bb-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/ebd29b23-b0b9-4f51-8ff0-82d931a457bb-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/ebd29b23-b0b9-4f51-8ff0-82d931a457bb.jpg"
+    },
     {
       "desktop": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/a91ed32e-177c-4976-bdf4-08348aa83017-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/a91ed32e-177c-4976-bdf4-08348aa83017-mobile.webp",
@@ -1517,11 +1681,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/capa-desktop.webp"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/ebd29b23-b0b9-4f51-8ff0-82d931a457bb-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/ebd29b23-b0b9-4f51-8ff0-82d931a457bb-mobile.webp",
-      "full": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/ebd29b23-b0b9-4f51-8ff0-82d931a457bb.jpg"
     },
     {
       "desktop": "assets/fotos/Sem categoria/DV-0043 - aparador carrinho Tropicana/Foto 02-02-2026, 16 21 44-desktop.webp",
@@ -1538,6 +1697,11 @@ const productImagesByCode = {
   ],
   "DV-0045": [
     {
+      "desktop": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Gemini_Generated_Image_ysf69zysf69zysf6-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Gemini_Generated_Image_ysf69zysf69zysf6-mobile.webp",
+      "full": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Gemini_Generated_Image_ysf69zysf69zysf6.png"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/capa-desktop.webp"
@@ -1546,11 +1710,13 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Foto 02-02-2026, 16 22 32-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Foto 02-02-2026, 16 22 32-mobile.webp",
       "full": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Foto 02-02-2026, 16 22 32.jpg"
-    },
+    }
+  ],
+  "EX 06": [
     {
-      "desktop": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Gemini_Generated_Image_ysf69zysf69zysf6-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Gemini_Generated_Image_ysf69zysf69zysf6-mobile.webp",
-      "full": "assets/fotos/Sem categoria/DV-0045 - aparador Nature/Gemini_Generated_Image_ysf69zysf69zysf6.png"
+      "desktop": "assets/fotos/Sem categoria/EX 06 - mesa de centro FIJI/mesa de centro FIJI-01-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX 06 - mesa de centro FIJI/mesa de centro FIJI-01-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX 06 - mesa de centro FIJI/mesa de centro FIJI-01.jpg"
     }
   ],
   "EX01": [
@@ -1560,26 +1726,26 @@ const productImagesByCode = {
   ],
   "EX010": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX010 - SOFÁ MANHATAN/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX010 - SOFÁ MANHATAN/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX010 - SOFÁ MANHATAN/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/EX010 - SOFÁ MANHATAN/Gemini_Generated_Image_cdn439cdn439cdn4-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX010 - SOFÁ MANHATAN/Gemini_Generated_Image_cdn439cdn439cdn4-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX010 - SOFÁ MANHATAN/Gemini_Generated_Image_cdn439cdn439cdn4.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/EX010 - SOFÁ MANHATAN/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX010 - SOFÁ MANHATAN/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX010 - SOFÁ MANHATAN/capa-desktop.webp"
     }
   ],
   "EX011": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX011 - OMBRELONE CENTRAL RIO DE JANEIRO/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX011 - OMBRELONE CENTRAL RIO DE JANEIRO/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX011 - OMBRELONE CENTRAL RIO DE JANEIRO/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/EX011 - OMBRELONE CENTRAL RIO DE JANEIRO/Foto 02-02-2026, 11 07 06-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX011 - OMBRELONE CENTRAL RIO DE JANEIRO/Foto 02-02-2026, 11 07 06-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX011 - OMBRELONE CENTRAL RIO DE JANEIRO/Foto 02-02-2026, 11 07 06.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/EX011 - OMBRELONE CENTRAL RIO DE JANEIRO/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX011 - OMBRELONE CENTRAL RIO DE JANEIRO/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX011 - OMBRELONE CENTRAL RIO DE JANEIRO/capa-desktop.webp"
     }
   ],
   "EX011B": [
@@ -1596,22 +1762,26 @@ const productImagesByCode = {
   ],
   "EX013": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX013 - CONJUNTO TRANCOSO/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX013 - CONJUNTO TRANCOSO/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX013 - CONJUNTO TRANCOSO/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/EX013 - CONJUNTO TRANCOSO/Gemini_Generated_Image_q5t5gvq5t5gvq5t5-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX013 - CONJUNTO TRANCOSO/Gemini_Generated_Image_q5t5gvq5t5gvq5t5-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX013 - CONJUNTO TRANCOSO/Gemini_Generated_Image_q5t5gvq5t5gvq5t5.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/EX013 - CONJUNTO TRANCOSO/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX013 - CONJUNTO TRANCOSO/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX013 - CONJUNTO TRANCOSO/capa-desktop.webp"
     }
   ],
   "EX014": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX014 - MESA ITAPARICA/1943cd22-7694-4bc6-b255-7235e6f8672d.jpg"
+      "desktop": "assets/fotos/Sem categoria/EX014 - MESA ITAPARICA/Gemini_Generated_Image_vzx8j6vzx8j6vzx8-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX014 - MESA ITAPARICA/Gemini_Generated_Image_vzx8j6vzx8j6vzx8-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX014 - MESA ITAPARICA/Gemini_Generated_Image_vzx8j6vzx8j6vzx8.png"
     },
     {
-      "desktop": "assets/fotos/Sem categoria/EX014 - MESA ITAPARICA/Gemini_Generated_Image_vzx8j6vzx8j6vzx8.png"
+      "desktop": "assets/fotos/Sem categoria/EX014 - MESA ITAPARICA/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX014 - MESA ITAPARICA/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX014 - MESA ITAPARICA/capa-desktop.webp"
     }
   ],
   "EX015": [
@@ -1636,14 +1806,14 @@ const productImagesByCode = {
   ],
   "EX017": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/Foto 31-07-2025, 17 22 10-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/Foto 31-07-2025, 17 22 10-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/Foto 31-07-2025, 17 22 10.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/EX017 - MESA LATERAL MECA/MESA LATERAL MECA-01-desktop.webp",
@@ -1653,22 +1823,26 @@ const productImagesByCode = {
   ],
   "EX018": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX018 - MESA GERIBA/28a445a9-0b62-4254-95dd-dd4240943ba7.png"
+      "desktop": "assets/fotos/Sem categoria/EX018 - MESA GERIBA/c87e2532-7a5a-473d-ba33-312dc3ffaa2c-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX018 - MESA GERIBA/c87e2532-7a5a-473d-ba33-312dc3ffaa2c-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX018 - MESA GERIBA/c87e2532-7a5a-473d-ba33-312dc3ffaa2c.png"
     },
     {
-      "desktop": "assets/fotos/Sem categoria/EX018 - MESA GERIBA/c87e2532-7a5a-473d-ba33-312dc3ffaa2c.png"
+      "desktop": "assets/fotos/Sem categoria/EX018 - MESA GERIBA/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX018 - MESA GERIBA/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX018 - MESA GERIBA/capa-desktop.webp"
     }
   ],
   "EX019": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX019 - CADEIRA GERIBA/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX019 - CADEIRA GERIBA/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX019 - CADEIRA GERIBA/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/EX019 - CADEIRA GERIBA/Foto 02-02-2026, 11 07 06 (10)-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX019 - CADEIRA GERIBA/Foto 02-02-2026, 11 07 06 (10)-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX019 - CADEIRA GERIBA/Foto 02-02-2026, 11 07 06 (10).jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/EX019 - CADEIRA GERIBA/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX019 - CADEIRA GERIBA/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX019 - CADEIRA GERIBA/capa-desktop.webp"
     }
   ],
   "EX02": [
@@ -1685,14 +1859,14 @@ const productImagesByCode = {
   ],
   "EX020": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/CONJUNTO TAUÍPE-02-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/CONJUNTO TAUÍPE-02-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/CONJUNTO TAUÍPE-02.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/EX020 - CONJUNTO TAUÍPE/CONJUNTO TAUÍPE-03-desktop.webp",
@@ -1722,16 +1896,23 @@ const productImagesByCode = {
       "full": "assets/fotos/Sem categoria/EX03 - MESA LATERAL RUEDA/MESA LATERAL RUEDA-02.png"
     }
   ],
-  "EX07": [
+  "EX04": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/BALANÇO LUAR-01-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/BALANÇO LUAR-01-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/BALANÇO LUAR-01.jpg"
-    },
+      "desktop": "assets/fotos/Sem categoria/EX04 - TAPETE ARA/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX04 - TAPETE ARA/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX04 - TAPETE ARA/capa-desktop.webp"
+    }
+  ],
+  "EX07": [
     {
       "desktop": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/BALANÇO LUAR-02-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/BALANÇO LUAR-02-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/BALANÇO LUAR-02.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/BALANÇO LUAR-01-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/BALANÇO LUAR-01-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/BALANÇO LUAR-01.jpg"
     },
     {
       "desktop": "assets/fotos/Sem categoria/EX07 - BALANÇO LUAR/capa-desktop.webp",
@@ -1741,14 +1922,14 @@ const productImagesByCode = {
   ],
   "EX08": [
     {
-      "desktop": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-01-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-01-mobile.webp",
-      "full": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-01.jpg"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-02-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-02-mobile.webp",
       "full": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-02.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-01-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-01-mobile.webp",
+      "full": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/BALANÇO LUAR COM SUPORTE DE CHÃO-01.jpg"
     },
     {
       "desktop": "assets/fotos/Sem categoria/EX08 - BALANÇO LUAR COM SUPORTE DE CHÃO/capa-desktop.webp",
@@ -1775,14 +1956,14 @@ const productImagesByCode = {
   ],
   "ML-0002": [
     {
-      "desktop": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/Captura de tela 2025-11-26 133339-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/Captura de tela 2025-11-26 133339-mobile.webp",
       "full": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/Captura de tela 2025-11-26 133339.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/ML-0002 - Mesa Lateral Lumen/Mesa Lateral Lumen-01-desktop.webp",
@@ -1797,17 +1978,22 @@ const productImagesByCode = {
   ],
   "ML-0004": [
     {
-      "desktop": "assets/fotos/Sem categoria/ML-0004 - Mesa Lateral Íris/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/ML-0004 - Mesa Lateral Íris/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/ML-0004 - Mesa Lateral Íris/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/ML-0004 - Mesa Lateral Íris/Gemini_Generated_Image_lina7alina7alina-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0004 - Mesa Lateral Íris/Gemini_Generated_Image_lina7alina7alina-mobile.webp",
       "full": "assets/fotos/Sem categoria/ML-0004 - Mesa Lateral Íris/Gemini_Generated_Image_lina7alina7alina.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/ML-0004 - Mesa Lateral Íris/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/ML-0004 - Mesa Lateral Íris/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/ML-0004 - Mesa Lateral Íris/capa-desktop.webp"
     }
   ],
   "ML-0005": [
+    {
+      "desktop": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/Gemini_Generated_Image_h3zjo1h3zjo1h3zj-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/Gemini_Generated_Image_h3zjo1h3zjo1h3zj-mobile.webp",
+      "full": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/Gemini_Generated_Image_h3zjo1h3zjo1h3zj.png"
+    },
     {
       "desktop": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/977dc994-0db3-4496-81d5-a26784198fe4-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/977dc994-0db3-4496-81d5-a26784198fe4-mobile.webp",
@@ -1817,11 +2003,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/capa-desktop.webp"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/Gemini_Generated_Image_h3zjo1h3zjo1h3zj-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/Gemini_Generated_Image_h3zjo1h3zjo1h3zj-mobile.webp",
-      "full": "assets/fotos/Sem categoria/ML-0005 - Mesa Lateral Sereia/Gemini_Generated_Image_h3zjo1h3zjo1h3zj.png"
     }
   ],
   "ML-0006": [
@@ -1846,6 +2027,11 @@ const productImagesByCode = {
   ],
   "ML-0010": [
     {
+      "desktop": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-02-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-02-mobile.webp",
+      "full": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-02.jpg"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/capa-desktop.webp"
@@ -1854,11 +2040,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-01.jpg"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-02-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-02-mobile.webp",
-      "full": "assets/fotos/Sem categoria/ML-0010 - Mesa Lateral Horizonte/Mesa Lateral Horizonte-02.jpg"
     }
   ],
   "ML-0011": [
@@ -1976,14 +2157,14 @@ const productImagesByCode = {
   ],
   "ML-0025": [
     {
-      "desktop": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/Mesa Lateral Oliva-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/Mesa Lateral Oliva-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/Mesa Lateral Oliva-01.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/ML-0025 - Mesa Lateral Oliva/Mesa Lateral Oliva-02-desktop.webp",
@@ -2010,7 +2191,17 @@ const productImagesByCode = {
       "full": "assets/fotos/Sem categoria/ML-0027 - Mesa Lateral Aria/a0748463-6aa1-4d4f-a57a-d8cbac020e6a.jpg"
     }
   ],
+  "ML-0028": [
+    {
+      "desktop": "assets/fotos/Sem categoria/ML-0028 - Mesa Lateral Fenda/9f1b3865-05ea-48b9-b5b1-2bf07c68933d.jpg"
+    }
+  ],
   "ML-0029": [
+    {
+      "desktop": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/Mesa Lateral Pluma-01-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/Mesa Lateral Pluma-01-mobile.webp",
+      "full": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/Mesa Lateral Pluma-01.jpg"
+    },
     {
       "desktop": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/capa-mobile.webp",
@@ -2020,23 +2211,18 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/Foto 02-02-2026, 16 02 54-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/Foto 02-02-2026, 16 02 54-mobile.webp",
       "full": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/Foto 02-02-2026, 16 02 54.jpg"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/Mesa Lateral Pluma-01-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/Mesa Lateral Pluma-01-mobile.webp",
-      "full": "assets/fotos/Sem categoria/ML-0029 - Mesa Lateral Pluma/Mesa Lateral Pluma-01.jpg"
     }
   ],
   "ML-0030": [
     {
-      "desktop": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/1f0b2b73-4af3-41fb-b474-fbaaf3efbc18-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/1f0b2b73-4af3-41fb-b474-fbaaf3efbc18-mobile.webp",
-      "full": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/1f0b2b73-4af3-41fb-b474-fbaaf3efbc18.jpg"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/872b6062-97de-4e18-8c3a-1f9f948e3225-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/872b6062-97de-4e18-8c3a-1f9f948e3225-mobile.webp",
       "full": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/872b6062-97de-4e18-8c3a-1f9f948e3225.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/1f0b2b73-4af3-41fb-b474-fbaaf3efbc18-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/1f0b2b73-4af3-41fb-b474-fbaaf3efbc18-mobile.webp",
+      "full": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/1f0b2b73-4af3-41fb-b474-fbaaf3efbc18.jpg"
     },
     {
       "desktop": "assets/fotos/Sem categoria/ML-0030 - Mesa Lateral Eclipse/capa-desktop.webp",
@@ -2058,14 +2244,14 @@ const productImagesByCode = {
   ],
   "PROD-1225": [
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/Poltrona round-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/Poltrona round-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/Poltrona round-01.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-1225 - Poltrona round/Poltrona round-03-desktop.webp",
@@ -2080,14 +2266,14 @@ const productImagesByCode = {
   ],
   "PROD-1433": [
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/Foto 14-11-2025, 18 12 01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/Foto 14-11-2025, 18 12 01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/Foto 14-11-2025, 18 12 01.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-1433 - Mesa creta/Foto 25-10-2024, 15 59 22-desktop.webp",
@@ -2096,6 +2282,11 @@ const productImagesByCode = {
     }
   ],
   "PROD-1931": [
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/Poltrona Nuvem-03-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/Poltrona Nuvem-03-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/Poltrona Nuvem-03.png"
+    },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/capa-mobile.webp",
@@ -2110,14 +2301,14 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/Poltrona Nuvem-02-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/Poltrona Nuvem-02-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/Poltrona Nuvem-02.png"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/Poltrona Nuvem-03-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/Poltrona Nuvem-03-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-1931 - Poltrona Nuvem/Poltrona Nuvem-03.png"
     }
   ],
   "PROD-2471": [
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/Foto 27-03-2025, 12 11 16-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/Foto 27-03-2025, 12 11 16-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/Foto 27-03-2025, 12 11 16.jpg"
+    },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/capa-mobile.webp",
@@ -2127,11 +2318,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/Foto 19-10-2023, 08 42 27-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/Foto 19-10-2023, 08 42 27-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/Foto 19-10-2023, 08 42 27.jpg"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/Foto 27-03-2025, 12 11 16-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/Foto 27-03-2025, 12 11 16-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-2471 - Sofá Brisa/Foto 27-03-2025, 12 11 16.jpg"
     }
   ],
   "PROD-2528": [
@@ -2143,6 +2329,11 @@ const productImagesByCode = {
   ],
   "PROD-2665": [
     {
+      "desktop": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/Foto 07-02-2024, 14 32 38-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/Foto 07-02-2024, 14 32 38-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/Foto 07-02-2024, 14 32 38.jpg"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/12da4431-89cc-4af8-9869-fe4becd17995-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/12da4431-89cc-4af8-9869-fe4becd17995-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/12da4431-89cc-4af8-9869-fe4becd17995.jpg"
@@ -2151,14 +2342,22 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/capa-desktop.webp"
+    }
+  ],
+  "PROD-2698": [
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-2698 - Cadeira Siena/b9f6b64c-0776-4d10-903e-0658f303f6e8.jpg"
     },
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/Foto 07-02-2024, 14 32 38-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/Foto 07-02-2024, 14 32 38-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-2665 - Poltrona Sola/Foto 07-02-2024, 14 32 38.jpg"
+      "desktop": "assets/fotos/Sem categoria/PROD-2698 - Cadeira Siena/Gemini_Generated_Image_83lcta83lcta83lc.png"
     }
   ],
   "PROD-2787": [
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 18-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 18-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 18.jpg"
+    },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/capa-mobile.webp",
@@ -2168,11 +2367,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 01.jpg"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 18-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 18-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 18.jpg"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-2787 - Poltrona hope/Foto 07-10-2024, 09 46 31-desktop.webp",
@@ -2187,17 +2381,22 @@ const productImagesByCode = {
   ],
   "PROD-3028": [
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-3028 - Cadeira Neve/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-3028 - Cadeira Neve/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-3028 - Cadeira Neve/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-3028 - Cadeira Neve/Gemini_Generated_Image_ot2wi2ot2wi2ot2w-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-3028 - Cadeira Neve/Gemini_Generated_Image_ot2wi2ot2wi2ot2w-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-3028 - Cadeira Neve/Gemini_Generated_Image_ot2wi2ot2wi2ot2w.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-3028 - Cadeira Neve/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-3028 - Cadeira Neve/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-3028 - Cadeira Neve/capa-desktop.webp"
     }
   ],
   "PROD-3613": [
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/Gemini_Generated_Image_qypo1zqypo1zqypo-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/Gemini_Generated_Image_qypo1zqypo1zqypo-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/Gemini_Generated_Image_qypo1zqypo1zqypo.png"
+    },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/8ee3c0b0-47cc-4aa2-a209-8dfc373c2d14-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/8ee3c0b0-47cc-4aa2-a209-8dfc373c2d14-mobile.webp",
@@ -2214,11 +2413,6 @@ const productImagesByCode = {
       "full": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/capa-desktop.webp"
     },
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/Gemini_Generated_Image_qypo1zqypo1zqypo-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/Gemini_Generated_Image_qypo1zqypo1zqypo-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/Gemini_Generated_Image_qypo1zqypo1zqypo.png"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/Sala de estar moderna e elegante (2)-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/Sala de estar moderna e elegante (2)-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-3613 - Poltrona Carbono/Sala de estar moderna e elegante (2).png"
@@ -2231,6 +2425,11 @@ const productImagesByCode = {
   ],
   "PROD-3893": [
     {
+      "desktop": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-02-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-02-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-02.png"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/capa-desktop.webp"
@@ -2239,11 +2438,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-01.png"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-02-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-02-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-02.png"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-3893 - Poltrona nux/Poltrona nux-03-desktop.webp",
@@ -2258,14 +2452,14 @@ const productImagesByCode = {
   ],
   "PROD-3925": [
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/Cadeira Melia-01-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/Cadeira Melia-01-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/Cadeira Melia-01.jpg"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/Cadeira Melia-02-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/Cadeira Melia-02-desktop.webp",
       "full": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/Cadeira Melia-02.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/Cadeira Melia-01-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/Cadeira Melia-01-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/Cadeira Melia-01.jpg"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-3925 - Cadeira Melia/capa-desktop.webp",
@@ -2275,14 +2469,14 @@ const productImagesByCode = {
   ],
   "PROD-4091": [
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/Poltrona pitia-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/Poltrona pitia-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/Poltrona pitia-01.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-4091 - Poltrona pitia/Poltrona pitia-02-desktop.webp",
@@ -2291,6 +2485,11 @@ const productImagesByCode = {
     }
   ],
   "PROD-4263": [
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-04-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-04-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-04.png"
+    },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/capa-mobile.webp",
@@ -2302,11 +2501,6 @@ const productImagesByCode = {
       "full": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-03.png"
     },
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-04-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-04-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-04.png"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-05-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-05-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-4263 - Poltrona sett/Poltrona sett-05.png"
@@ -2314,14 +2508,14 @@ const productImagesByCode = {
   ],
   "PROD-4523": [
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/Mesa feixe-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/Mesa feixe-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/Mesa feixe-01.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-4523 - Mesa feixe/Mesa feixe-02-desktop.webp",
@@ -2336,6 +2530,11 @@ const productImagesByCode = {
   ],
   "PROD-4740": [
     {
+      "desktop": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/Poltrona Tela-02-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/Poltrona Tela-02-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/Poltrona Tela-02.jpg"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/capa-desktop.webp"
@@ -2344,11 +2543,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/Poltrona Tela-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/Poltrona Tela-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/Poltrona Tela-01.png"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/Poltrona Tela-02-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/Poltrona Tela-02-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-4740 - Poltrona Tela/Poltrona Tela-02.jpg"
     }
   ],
   "PROD-5289": [
@@ -2370,6 +2564,11 @@ const productImagesByCode = {
   ],
   "PROD-5921": [
     {
+      "desktop": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-04-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-04-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-04.jpg"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-01.jpg"
@@ -2383,11 +2582,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-03-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-03-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-03.jpg"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-04-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-04-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-04.jpg"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-5921 - Cadeira Giro/Cadeira Giro-05-desktop.webp",
@@ -2407,6 +2601,11 @@ const productImagesByCode = {
   ],
   "PROD-6305": [
     {
+      "desktop": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/Gemini_Generated_Image_jg08fojg08fojg08-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/Gemini_Generated_Image_jg08fojg08fojg08-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/Gemini_Generated_Image_jg08fojg08fojg08.png"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/capa-desktop.webp"
@@ -2415,11 +2614,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/Captura de tela 2026-02-02 180908-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/Captura de tela 2026-02-02 180908-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/Captura de tela 2026-02-02 180908.png"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/Gemini_Generated_Image_jg08fojg08fojg08-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/Gemini_Generated_Image_jg08fojg08fojg08-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-6305 - Poltrona Luar/Gemini_Generated_Image_jg08fojg08fojg08.png"
     }
   ],
   "PROD-6411": [
@@ -2430,7 +2624,24 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-6411 - Cadeira Horizonte/c5e2460f-371f-4e11-9297-156be7d0274a.jpg"
     }
   ],
+  "PROD-6666": [
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-6666 - Mesa Cristal/a718d011-81dd-4bb6-85da-730af489d2d3-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-6666 - Mesa Cristal/a718d011-81dd-4bb6-85da-730af489d2d3-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-6666 - Mesa Cristal/a718d011-81dd-4bb6-85da-730af489d2d3.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-6666 - Mesa Cristal/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-6666 - Mesa Cristal/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-6666 - Mesa Cristal/capa-desktop.webp"
+    }
+  ],
   "PROD-6749": [
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-02-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-02-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-02.png"
+    },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/capa-mobile.webp",
@@ -2440,11 +2651,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-01.png"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-02-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-02-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-02.png"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-6749 - Mesa de centro Bruma/Mesa de centro Bruma-03-desktop.webp",
@@ -2469,6 +2675,11 @@ const productImagesByCode = {
   ],
   "PROD-6900": [
     {
+      "desktop": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/Gemini_Generated_Image_tntqpztntqpztntqpppp-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/Gemini_Generated_Image_tntqpztntqpztntqpppp-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/Gemini_Generated_Image_tntqpztntqpztntqpppp.png"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/capa-desktop.webp"
@@ -2477,21 +2688,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/Mesa de centro Duetto-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/Mesa de centro Duetto-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/Mesa de centro Duetto-01.png"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/Mesa de centro Duetto-02-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/Mesa de centro Duetto-02-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/Mesa de centro Duetto-02.png"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-02-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-02-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-02-desktop.webp"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-03-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-03-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-6900 - Mesa de centro Duetto/mesa-centro-duetto-03-desktop.webp"
     }
   ],
   "PROD-7091": [
@@ -2508,14 +2704,14 @@ const productImagesByCode = {
   ],
   "PROD-7289": [
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/Mesa de centro orga-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/Mesa de centro orga-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/Mesa de centro orga-01.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-7289 - Mesa de centro orga/Mesa de centro orga-02-desktop.webp",
@@ -2537,6 +2733,11 @@ const productImagesByCode = {
   ],
   "PROD-8075": [
     {
+      "desktop": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-04-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-04-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-04.jpg"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/capa-desktop.webp"
@@ -2550,11 +2751,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-03-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-03-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-03.jpg"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-04-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-04-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-04.jpg"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-8075 - Poltrona malva/Poltrona malva-05-desktop.webp",
@@ -2574,6 +2770,11 @@ const productImagesByCode = {
   ],
   "PROD-8087": [
     {
+      "desktop": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/Foto 30-01-2026, 17 01 28 (3)-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/Foto 30-01-2026, 17 01 28 (3)-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/Foto 30-01-2026, 17 01 28 (3).jpg"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/3ffd712b-913c-4b6b-b446-e7babdbf7725-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/3ffd712b-913c-4b6b-b446-e7babdbf7725-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/3ffd712b-913c-4b6b-b446-e7babdbf7725.jpg"
@@ -2582,11 +2783,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/capa-desktop.webp"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/Foto 30-01-2026, 17 01 28 (3)-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/Foto 30-01-2026, 17 01 28 (3)-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-8087 - cadeira aurora/Foto 30-01-2026, 17 01 28 (3).jpg"
     }
   ],
   "PROD-8602": [
@@ -2606,6 +2802,11 @@ const productImagesByCode = {
   ],
   "PROD-9459": [
     {
+      "desktop": "assets/fotos/Sem categoria/PROD-9459 - Poltrona Algodão/be36b989-7e69-4bed-bf89-d293a99c0a7e-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-9459 - Poltrona Algodão/be36b989-7e69-4bed-bf89-d293a99c0a7e-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-9459 - Poltrona Algodão/be36b989-7e69-4bed-bf89-d293a99c0a7e.png"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/PROD-9459 - Poltrona Algodão/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-9459 - Poltrona Algodão/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-9459 - Poltrona Algodão/capa-desktop.webp"
@@ -2618,14 +2819,14 @@ const productImagesByCode = {
   ],
   "PROD-9976": [
     {
-      "desktop": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/Mesa hunt-03-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/Mesa hunt-03-mobile.webp",
       "full": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/Mesa hunt-03.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/PROD-9976 - Mesa hunt/Mesa hunt-04-desktop.webp",
@@ -2652,14 +2853,14 @@ const productImagesByCode = {
   ],
   "VMSF02": [
     {
-      "desktop": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/Foto 27-03-2025, 12 12 07-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/Foto 27-03-2025, 12 12 07-mobile.webp",
       "full": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/Foto 27-03-2025, 12 12 07.jpg"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/VMSF02 - SOFÁ MERIDIAN/SOFÁ MERIDIAN-01-desktop.webp",
@@ -2674,14 +2875,14 @@ const productImagesByCode = {
   ],
   "VMSF03": [
     {
-      "desktop": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/capa-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/capa-mobile.webp",
-      "full": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/capa-desktop.webp"
-    },
-    {
       "desktop": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/SOFÁ OAK-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/SOFÁ OAK-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/SOFÁ OAK-01.png"
+    },
+    {
+      "desktop": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/capa-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/capa-mobile.webp",
+      "full": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/capa-desktop.webp"
     },
     {
       "desktop": "assets/fotos/Sem categoria/VMSF03 - SOFÁ OAK/SOFÁ OAK-02-desktop.webp",
@@ -2706,6 +2907,11 @@ const productImagesByCode = {
   ],
   "VMSF04": [
     {
+      "desktop": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/SOFÁ LATT-02-desktop.webp",
+      "mobile": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/SOFÁ LATT-02-mobile.webp",
+      "full": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/SOFÁ LATT-02.jpg"
+    },
+    {
       "desktop": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/capa-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/capa-mobile.webp",
       "full": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/capa-desktop.webp"
@@ -2714,11 +2920,6 @@ const productImagesByCode = {
       "desktop": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/SOFÁ LATT-01-desktop.webp",
       "mobile": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/SOFÁ LATT-01-mobile.webp",
       "full": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/SOFÁ LATT-01.jpg"
-    },
-    {
-      "desktop": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/SOFÁ LATT-02-desktop.webp",
-      "mobile": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/SOFÁ LATT-02-mobile.webp",
-      "full": "assets/fotos/Sem categoria/VMSF04 - SOFÁ LATT/SOFÁ LATT-02.jpg"
     }
   ]
 };
@@ -2764,7 +2965,7 @@ function applyProductImages() {
   document.querySelectorAll('.product-swiper-wrapper .swiper-slide').forEach((slide) => {
     const code = slide.querySelector('.product-code')?.textContent?.trim();
     if (!code) return;
-    const images = productImagesByCode[code];
+    const images = productImagesByCode[code] || productImagesByCode[String(code).toUpperCase()];
     if (!images || !images.length) return;
     const wrapper = slide.querySelector('.product-images .swiper-wrapper');
     if (!wrapper) return;
@@ -2889,7 +3090,8 @@ document.querySelectorAll('.product-swiper-wrapper .swiper-slide').forEach((slid
 applyProductImages();
 
 const searchInput = document.getElementById('searchInput');
-if (searchInput) {
+const categoryFilter = document.getElementById('categoryFilter');
+if (searchInput || categoryFilter) {
   const normalize = (text) =>
     text
       .toLowerCase()
@@ -2903,25 +3105,47 @@ if (searchInput) {
     return text;
   };
 
-  searchInput.addEventListener('input', (event) => {
-    const raw = event.target.value.trim();
+  const getSlideCategory = (slide) => {
+    const name = normalize(slide.querySelector('.fw-bold')?.textContent || '');
+    if (name.includes('cadeira')) return 'cadeira';
+    if (name.includes('mesa')) return 'mesa';
+    if (name.includes('poltrona')) return 'poltrona';
+    if (name.includes('sofa')) return 'sofa';
+    return 'outros';
+  };
+
+  const applyFilters = () => {
+    const raw = (searchInput?.value || '').trim();
     const term = normalize(raw);
     const termSingular = singularize(term);
     const termPlural = term.endsWith('s') ? term : `${term}s`;
+    const selectedCategory = normalize(categoryFilter?.value || '');
 
     document.querySelectorAll('.product-swiper-wrapper .swiper-slide').forEach((slide) => {
       const name = normalize(slide.querySelector('.fw-bold')?.textContent || '');
       const code = normalize(slide.querySelector('.product-code')?.textContent || '');
       const desc = normalize(slide.querySelector('.text-muted')?.textContent || '');
       const haystack = `${name} ${code} ${desc}`;
-      const matches =
+
+      const matchesSearch =
         !term ||
         haystack.includes(term) ||
         haystack.includes(termSingular) ||
         haystack.includes(termPlural);
-      slide.style.display = matches ? '' : 'none';
+
+      const slideCategory = getSlideCategory(slide);
+      const matchesCategory = !selectedCategory || slideCategory === selectedCategory;
+
+      slide.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
     });
-  });
+  };
+
+  if (searchInput) {
+    searchInput.addEventListener('input', applyFilters);
+  }
+  if (categoryFilter) {
+    categoryFilter.addEventListener('change', applyFilters);
+  }
 }
 
 document.querySelectorAll('.product-images').forEach((el) => {
@@ -2977,27 +3201,6 @@ const heroSwiper = new Swiper('.hero-swiper', {
   speed: 800,
   effect: 'fade',
   fadeEffect: { crossFade: true }
-});
-
-const copySwiper = new Swiper('.copy-swiper', {
-  loop: true,
-  autoplay: {
-    delay: 6500,
-    disableOnInteraction: false
-  },
-  speed: 600,
-  effect: 'fade',
-  fadeEffect: { crossFade: true },
-  pagination: {
-    el: '.copy-swiper .swiper-pagination',
-    clickable: true
-  }
-});
-</script>
-
-</body>
-</html>
-crossFade: true }
 });
 
 const copySwiper = new Swiper('.copy-swiper', {
