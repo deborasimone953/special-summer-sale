@@ -216,6 +216,27 @@ header .overlay {
 
 <body>
 
+<script>
+  (function () {
+    try {
+      const AUTH_KEY = 'summerSaleAuth';
+      const AUTH_VALUE = '1';
+      const isAuthorized = localStorage.getItem(AUTH_KEY) === AUTH_VALUE;
+      const path = (window.location.pathname || '').toLowerCase();
+      const onAccessPage = path.endsWith('/acesso.html') || path.endsWith('acesso.html');
+      if (!isAuthorized && !onAccessPage) {
+        const base = window.location.href.split('#')[0].split('?')[0].replace(/index\.html$/i, '');
+        const target = base.endsWith('/') ? (base + 'acesso.html') : (base + '/acesso.html');
+        window.location.replace(target);
+      }
+    } catch (_e) {
+      const base = window.location.href.split('#')[0].split('?')[0].replace(/index\.html$/i, '');
+      const target = base.endsWith('/') ? (base + 'acesso.html') : (base + '/acesso.html');
+      window.location.replace(target);
+    }
+  })();
+</script>
+
 <nav class="navbar border-bottom">
   <div class="container">
     <span class="navbar-brand">Varandamix In Out</span>
