@@ -1363,7 +1363,7 @@ const discountByCode = {
 };
 
 // AUTO-GENERATED PRODUCT IMAGES START
-const IMAGE_CACHE_BUSTER = "1770143687";
+const IMAGE_CACHE_BUSTER = "1770145975";
 const productImagesByCode = {
   "3X05": [
     {
@@ -3138,6 +3138,14 @@ if (searchInput || categoryFilter) {
 
       slide.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
     });
+
+    document.querySelectorAll('.product-images').forEach((el) => {
+      if (!el.offsetParent) return;
+      const instance = el._swiperInstance || el.swiper;
+      if (instance) {
+        instance.update();
+      }
+    });
   };
 
   if (searchInput) {
@@ -3153,7 +3161,7 @@ document.querySelectorAll('.product-images').forEach((el) => {
   if (slidesCount > 1) {
     el.classList.add('has-multiple');
   }
-  new Swiper(el, {
+  const instance = new Swiper(el, {
     slidesPerView: 1,
     spaceBetween: 8,
     loop: slidesCount > 1,
@@ -3168,17 +3176,18 @@ document.querySelectorAll('.product-images').forEach((el) => {
       prevEl: el.querySelector('.swiper-button-prev')
     }
   });
+  el._swiperInstance = instance;
 });
 
 setupMainSwiper();
 window.addEventListener('resize', setupMainSwiper);
 
-document.querySelectorAll('.product-images img').forEach((img) => {
-  img.addEventListener('click', (event) => {
-    const groupEl = event.currentTarget.closest('.product-images');
-    const fullSrc = event.currentTarget.dataset.full || event.currentTarget.src;
-    openImage(fullSrc, groupEl);
-  });
+document.addEventListener('click', (event) => {
+  const img = event.target.closest('.product-images img');
+  if (!img) return;
+  const groupEl = img.closest('.product-images');
+  const fullSrc = img.dataset.full || img.src;
+  openImage(fullSrc, groupEl);
 });
 
 document.querySelectorAll('.whatsapp-link').forEach((link) => {
