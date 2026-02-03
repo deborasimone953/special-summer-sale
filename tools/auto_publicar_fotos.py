@@ -17,6 +17,7 @@ AUTO_SECTION_END = "// AUTO-GENERATED PRODUCT IMAGES END"
 IMAGE_EXTS = {".jpg", ".jpeg", ".png"}
 WEBP_EXTS = {".webp"}
 ORDER_FILE_NAME = "ordem.txt"
+COVER_FILE_NAME = ".capa.txt"
 
 
 def _run(cmd: list[str]) -> subprocess.CompletedProcess:
@@ -92,6 +93,11 @@ def _build_mapping() -> dict:
         if not code:
             continue
         items = []
+        cover_item = None
+        cover_file = folder / COVER_FILE_NAME
+        cover_base = None
+        if cover_file.exists():
+            cover_base = cover_file.read_text(encoding="utf-8").strip()
         for img in _sorted_images(folder):
             name = img.name
             if name.endswith("-desktop.webp"):
@@ -100,13 +106,17 @@ def _build_mapping() -> dict:
                 full_png = folder / f"{base}.png"
                 full_jpg = folder / f"{base}.jpg"
                 full = full_png if full_png.exists() else full_jpg if full_jpg.exists() else img
-                items.append(
-                    {
-                        "desktop": _to_rel(img),
-                        "mobile": _to_rel(mobile) if mobile.exists() else _to_rel(img),
-                        "full": _to_rel(full),
-                    }
-                )
+                item = {
+                    "desktop": _to_rel(img),
+                    "mobile": _to_rel(mobile) if mobile.exists() else _to_rel(img),
+                    "full": _to_rel(full),
+                }
+                if cover_base and base == cover_base:
+                    cover_item = item
+                else:
+                    items.append(item)
+        if cover_item:
+            items.insert(0, cover_item)
         if items:
             mapping[code] = items
             continue
@@ -156,6 +166,9 @@ def _snapshot_state() -> str:
     for folder in sorted(ASSETS_DIR.iterdir()):
         if not folder.is_dir():
             continue
+        cover_file = folder / COVER_FILE_NAME
+        if cover_file.exists():
+            parts.append(f"{cover_file.relative_to(BASE_DIR)}:{cover_file.read_text(encoding='utf-8')}")
         order_file = folder / ORDER_FILE_NAME
         if order_file.exists():
             parts.append(f"{order_file.relative_to(BASE_DIR)}:{order_file.read_text(encoding='utf-8')}")
