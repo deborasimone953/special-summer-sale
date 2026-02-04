@@ -13,6 +13,10 @@ IMAGE_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff"]
 
 def obter_codigo_produto(nome_pasta):
     """Extrai o código do produto do nome da pasta"""
+    if " - " in nome_pasta:
+        codigo = nome_pasta.split(" - ", 1)[0].strip()
+        if codigo:
+            return codigo
     # Caso especial para produtos com código PROD-XXXX
     if nome_pasta.startswith('PROD-'):
         match = re.search(r'(PROD-[0-9]+)\s*-', nome_pasta)
@@ -37,79 +41,69 @@ def ler_capa_produto(pasta_produto):
     
     return conteudo if conteudo else None
 
+def _build_image_entry(pasta_produto, base_name):
+    full_path = None
+    for ext in IMAGE_EXTS:
+        candidate = os.path.join(pasta_produto, f"{base_name}{ext}")
+        if os.path.exists(candidate):
+            full_path = candidate
+            break
+
+    desktop_path = os.path.join(pasta_produto, f"{base_name}-desktop.webp")
+    mobile_path = os.path.join(pasta_produto, f"{base_name}-mobile.webp")
+
+    desktop_exists = os.path.exists(desktop_path)
+    mobile_exists = os.path.exists(mobile_path)
+
+    if not full_path:
+        if desktop_exists:
+            full_path = desktop_path
+        elif mobile_exists:
+            full_path = mobile_path
+
+    if not full_path and not desktop_exists and not mobile_exists:
+        return None
+
+    rel_desktop = os.path.relpath(desktop_path if desktop_exists else full_path, FOTOS_DIR).replace("\\", "/")
+    rel_mobile = os.path.relpath(mobile_path if mobile_exists else full_path, FOTOS_DIR).replace("\\", "/")
+    rel_full = os.path.relpath(full_path, FOTOS_DIR).replace("\\", "/")
+
+    return {
+        "desktop": f"assets/fotos/{rel_desktop}",
+        "mobile": f"assets/fotos/{rel_mobile}",
+        "full": f"assets/fotos/{rel_full}",
+    }
+
 def encontrar_imagens_produto(pasta_produto, capa_base):
     """Encontra todas as imagens do produto, priorizando a capa definida"""
     imagens = []
-    encontrou_capa = False
-    
+
     # Se não há capa definida, retorna vazio para tratamento posterior
     if capa_base is None:
         return []
-    
-    # Procura a imagem de capa primeiro
+
+    for base_name in (capa_base, f"capa {capa_base}"):
+        entry = _build_image_entry(pasta_produto, base_name)
+        if entry:
+            imagens.append(entry)
+            return imagens
+
+    # Se não encontrou a capa, tenta usar qualquer imagem disponível
     for entry in os.scandir(pasta_produto):
         if not entry.is_file():
             continue
-        
+
         nome, ext = os.path.splitext(entry.name)
         if ext.lower() not in IMAGE_EXTS:
             continue
-            
-        if nome == capa_base:
-            encontrou_capa = True
-            
-            # Cria caminhos para imagens desktop e mobile
-            desktop_path = os.path.join(pasta_produto, f"{nome}-desktop.webp")
-            mobile_path = os.path.join(pasta_produto, f"{nome}-mobile.webp")
-            full_path = entry.path
-            
-            # Verifica se as versões redimensionadas existem
-            desktop_exists = os.path.exists(desktop_path)
-            mobile_exists = os.path.exists(mobile_path)
-            
-            # Usa os caminhos relativos para o objeto productImagesByCode
-            rel_desktop = os.path.relpath(desktop_path if desktop_exists else full_path, FOTOS_DIR).replace("\\", "/")
-            rel_mobile = os.path.relpath(mobile_path if mobile_exists else full_path, FOTOS_DIR).replace("\\", "/")
-            rel_full = os.path.relpath(full_path, FOTOS_DIR).replace("\\", "/")
-            
-            imagens.append({
-                "desktop": rel_desktop,
-                "mobile": rel_mobile,
-                "full": rel_full
-            })
-            break
-    
-    # Se não encontrou a capa, tenta usar qualquer imagem disponível
-    if not encontrou_capa:
-        for entry in os.scandir(pasta_produto):
-            if not entry.is_file():
-                continue
-            
-            nome, ext = os.path.splitext(entry.name)
-            if ext.lower() not in IMAGE_EXTS:
-                continue
-                
-            # Ignora derivados (desktop/mobile)
-            if nome.endswith("-desktop") or nome.endswith("-mobile"):
-                continue
-                
-            # Usa essa imagem como alternativa
-            desktop_path = os.path.join(pasta_produto, f"{nome}-desktop.webp")
-            mobile_path = os.path.join(pasta_produto, f"{nome}-mobile.webp")
-            full_path = entry.path
-            
-            desktop_exists = os.path.exists(desktop_path)
-            mobile_exists = os.path.exists(mobile_path)
-            
-            rel_desktop = os.path.relpath(desktop_path if desktop_exists else full_path, FOTOS_DIR).replace("\\", "/")
-            rel_mobile = os.path.relpath(mobile_path if mobile_exists else full_path, FOTOS_DIR).replace("\\", "/")
-            rel_full = os.path.relpath(full_path, FOTOS_DIR).replace("\\", "/")
-            
-            imagens.append({
-                "desktop": rel_desktop,
-                "mobile": rel_mobile,
-                "full": rel_full
-            })
+
+        # Ignora derivados (desktop/mobile)
+        if nome.endswith("-desktop") or nome.endswith("-mobile"):
+            continue
+
+        image_entry = _build_image_entry(pasta_produto, nome)
+        if image_entry:
+            imagens.append(image_entry)
             break
     
     return imagens
