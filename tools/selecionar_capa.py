@@ -5,7 +5,10 @@ import unicodedata
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import unquote
 
-from PIL import Image
+try:
+    from PIL import Image
+except Exception:  # pragma: no cover
+    Image = None
 
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -52,6 +55,8 @@ def _sanitize_title(text: str) -> str:
 
 
 def _resize_and_save(src_path: str, dest_path: str, max_width: int) -> None:
+    if Image is None:
+        raise RuntimeError("Pillow não está instalado. Instale com: pip install pillow")
     with Image.open(src_path) as img:
         img_format = img.format or DERIVATIVE_FORMAT
         if img_format.upper() == "GIF":
@@ -85,22 +90,11 @@ def _set_cover_image(image_path: str) -> str:
     folder = os.path.dirname(image_path)
     base, _ext = os.path.splitext(os.path.basename(image_path))
 
-    _ensure_derivatives(image_path)
+    if Image is not None:
+        _ensure_derivatives(image_path)
     cover_info_path = os.path.join(folder, COVER_FILE_NAME)
     with open(cover_info_path, "w", encoding="utf-8") as handle:
         handle.write(f"{base}\n")
-
-    desktop_src = os.path.join(folder, f"{base}-desktop.{DERIVATIVE_FORMAT}")
-    mobile_src = os.path.join(folder, f"{base}-mobile.{DERIVATIVE_FORMAT}")
-    desktop_cover = os.path.join(folder, f"capa-desktop.{DERIVATIVE_FORMAT}")
-    mobile_cover = os.path.join(folder, f"capa-mobile.{DERIVATIVE_FORMAT}")
-
-    if os.path.exists(desktop_src):
-        with open(desktop_src, "rb") as src, open(desktop_cover, "wb") as dst:
-            dst.write(src.read())
-    if os.path.exists(mobile_src):
-        with open(mobile_src, "rb") as src, open(mobile_cover, "wb") as dst:
-            dst.write(src.read())
     return base
 
 
