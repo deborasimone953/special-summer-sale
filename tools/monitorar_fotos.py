@@ -2,7 +2,6 @@ import os
 import re
 import time
 import unicodedata
-from shutil import copyfile
 
 from PIL import Image
 
@@ -117,16 +116,6 @@ def _set_cover_image(image_path: str) -> None:
     cover_info_path = os.path.join(folder, COVER_FILE_NAME)
     with open(cover_info_path, "w", encoding="utf-8") as handle:
         handle.write(f"{base}\n")
-
-    desktop_src = os.path.join(folder, f"{base}-desktop.{DERIVATIVE_FORMAT}")
-    mobile_src = os.path.join(folder, f"{base}-mobile.{DERIVATIVE_FORMAT}")
-    desktop_cover = os.path.join(folder, f"capa-desktop.{DERIVATIVE_FORMAT}")
-    mobile_cover = os.path.join(folder, f"capa-mobile.{DERIVATIVE_FORMAT}")
-
-    if os.path.exists(desktop_src):
-        copyfile(desktop_src, desktop_cover)
-    if os.path.exists(mobile_src):
-        copyfile(mobile_src, mobile_cover)
     print(f"Capa definida: {base}")
 
 
