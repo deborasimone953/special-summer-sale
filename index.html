@@ -141,7 +141,8 @@ header .overlay {
   width: 100%;
   display: block;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: #f9f9f9;
 }
 .product-image-placeholder {
   width: 100%;
@@ -555,6 +556,32 @@ header .overlay {
     </div>
   </div>
 </div>
+
+<style>
+  @media (max-width: 575.98px) {
+    .search-box .form-control,
+    .search-box .form-select {
+      margin-left: 15px;
+      margin-right: 15px;
+      width: calc(100% - 30px);
+    }
+  }
+  
+  .category-separator {
+    width: 100%;
+    padding: 15px 0 5px;
+    clear: both;
+  }
+  
+  .category-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+  }
+</style>
 
 <div class="container pb-5">
   <div class="swiper product-swiper">
@@ -3492,14 +3519,46 @@ if (searchInput || categoryFilter) {
     return 'outros';
   };
 
+  // Define category labels for display
+  const categoryLabels = {
+    'cadeira': 'Cadeiras',
+    'mesa': 'Mesas',
+    'poltrona': 'Poltronas',
+    'sofa': 'Sofás',
+    'outros': 'Outros'
+  };
+
+  // Remove existing category separators
+  const removeCategorySeparators = () => {
+    document.querySelectorAll('.category-separator').forEach(separator => separator.remove());
+  };
+
+  // Add category separator
+  const addCategorySeparator = (category, insertBeforeEl) => {
+    const label = categoryLabels[category] || 'Outros';
+    const separator = document.createElement('div');
+    separator.className = 'category-separator';
+    separator.innerHTML = `<h3 class="category-title">${label}</h3>`;
+    insertBeforeEl.parentNode.insertBefore(separator, insertBeforeEl);
+  };
+
   const applyFilters = () => {
     const raw = (searchInput?.value || '').trim();
     const term = normalize(raw);
     const termSingular = singularize(term);
     const termPlural = term.endsWith('s') ? term : `${term}s`;
     const selectedCategory = normalize(categoryFilter?.value || '');
+    
+    // Remove existing category separators first
+    removeCategorySeparators();
+    
+    // Get all slides
+    const slides = Array.from(document.querySelectorAll('.product-swiper-wrapper .swiper-slide'));
+    let lastCategory = null;
+    let firstVisibleInCategory = null;
 
-    document.querySelectorAll('.product-swiper-wrapper .swiper-slide').forEach((slide) => {
+    // First pass: determine visibility
+    slides.forEach((slide) => {
       const name = normalize(slide.querySelector('.fw-bold')?.textContent || '');
       const code = normalize(slide.querySelector('.product-code')?.textContent || '');
       const desc = normalize(slide.querySelector('.text-muted')?.textContent || '');
@@ -3514,8 +3573,26 @@ if (searchInput || categoryFilter) {
       const slideCategory = getSlideCategory(slide);
       const matchesCategory = !selectedCategory || slideCategory === selectedCategory;
 
+      // Set slide visibility
       slide.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
     });
+    
+    // Only add separators when no category is selected
+    if (!selectedCategory) {
+      // Second pass: add category separators
+      slides.forEach((slide) => {
+        // Skip hidden slides
+        if (slide.style.display === 'none') return;
+        
+        const slideCategory = getSlideCategory(slide);
+        
+        // If we've moved to a new category, add a separator
+        if (slideCategory !== lastCategory) {
+          addCategorySeparator(slideCategory, slide);
+          lastCategory = slideCategory;
+        }
+      });
+    }
 
     document.querySelectorAll('.product-images').forEach((el) => {
       if (!el.offsetParent) return;
