@@ -222,9 +222,66 @@ header .overlay {
     const AUTH_VALUE = '1';
     const PASSWORD = 'vip-acess';
     const WHATSAPP_NUMBER = '5551999594767';
+    const TRACKING_KEY = 'summerSaleTracking';
 
     function normalize(text) {
       return String(text || '').trim().toLowerCase();
+    }
+
+    function getTracking() {
+      const params = new URLSearchParams(window.location.search || '');
+      const get = (k) => {
+        const v = params.get(k);
+        return v ? String(v).trim() : '';
+      };
+      const tracking = {
+        utm_source: get('utm_source'),
+        utm_medium: get('utm_medium'),
+        utm_campaign: get('utm_campaign'),
+        utm_content: get('utm_content'),
+        utm_term: get('utm_term'),
+        ref: document.referrer ? String(document.referrer).slice(0, 240) : '',
+        path: window.location.pathname || '',
+      };
+
+      const hasAnyUtm = Object.keys(tracking).some((k) => k.startsWith('utm_') && tracking[k]);
+      if (!hasAnyUtm && !tracking.ref) {
+        return null;
+      }
+      return tracking;
+    }
+
+    function persistTracking(tracking) {
+      if (!tracking) return;
+      try {
+        sessionStorage.setItem(TRACKING_KEY, JSON.stringify(tracking));
+      } catch (_e) {}
+    }
+
+    function readPersistedTracking() {
+      try {
+        const raw = sessionStorage.getItem(TRACKING_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (_e) {
+        return null;
+      }
+    }
+
+    function trackingSummary(tracking) {
+      if (!tracking) return '';
+      const source = tracking.utm_source || (tracking.ref ? 'referral' : 'direto');
+      const campaign = tracking.utm_campaign || '';
+      const content = tracking.utm_content || '';
+      const medium = tracking.utm_medium || '';
+
+      const parts = [];
+      parts.push(`Origem: ${source}`);
+      if (medium) parts.push(`Mídia: ${medium}`);
+      if (campaign) parts.push(`Campanha: ${campaign}`);
+      if (content) parts.push(`Conteúdo: ${content}`);
+
+      return parts.join(' | ');
     }
 
     function isAuthorized() {
@@ -242,6 +299,11 @@ header .overlay {
     }
 
     function buildOverlay() {
+      const tracking = getTracking() || readPersistedTracking();
+      persistTracking(tracking);
+      const trackText = trackingSummary(tracking);
+      const msg = `Quero acessar a Special Summer Sale. Pode me enviar a senha VIP?${trackText ? `\n\n${trackText}` : ''}`;
+
       const overlay = document.createElement('div');
       overlay.id = 'saleAccessOverlay';
       overlay.innerHTML = `
@@ -255,7 +317,7 @@ header .overlay {
             <div class="sale-access-badge">Acesso VIP</div>
           </div>
           <div class="sale-access-text">Produtos selecionados com descontos especiais. Para acessar, peça a senha no WhatsApp.</div>
-          <a class="sale-access-whats" target="_blank" rel="noopener" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Quero acessar a Special Summer Sale. Pode me enviar a senha VIP?')}">Pedir senha no WhatsApp</a>
+          <a id="saleAccessWhats" class="sale-access-whats" target="_blank" rel="noopener" href="#">Pedir senha no WhatsApp</a>
           <label class="sale-access-label" for="saleAccessPassword">Digite a senha</label>
           <input id="saleAccessPassword" class="sale-access-input" type="password" autocomplete="new-password" autocapitalize="none" autocorrect="off" spellcheck="false" readonly>
           <button id="saleAccessEnter" class="sale-access-enter" type="button">Entrar</button>
@@ -265,6 +327,11 @@ header .overlay {
       document.body.appendChild(overlay);
       document.documentElement.classList.add('sale-locked');
       document.body.classList.add('sale-locked');
+
+      const whats = overlay.querySelector('#saleAccessWhats');
+      if (whats) {
+        whats.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+      }
 
       const input = overlay.querySelector('#saleAccessPassword');
       const btn = overlay.querySelector('#saleAccessEnter');
@@ -691,181 +758,181 @@ const additionalProducts = [
   {
     code: 'PROD-3925',
     name: 'Cadeira Melia',
-    desc: 'Estrutura madeira tonalidade mel, tecido linho cinza claro, L56XA84XP52, T2105 assento 47cm',
+    desc: 'Peça de designer com estrutura em madeira nobremente tonalizada em mel e estofamento premium em linho cinza claro. Proporções perfeitas (L56×A84×P52cm) com altura de assento ergonômica de 47cm que convida ao conforto duradouro.',
     unitario: 'R$ 957,00'
   },
   {
     code: 'PROD-3028',
     name: 'Cadeira Neve',
-    desc: 'Estrutura madeira com detalhe em aço pintado branco, tecido claro TEC 155, medida 56x56,5x76,5',
+    desc: 'Inspiração contemporânea em forma pura com estrutura em madeira nobre e detalhes minimalistas em aço pintado branco. Estofamento em tecido TEC 155 de toque aveludado que complementa suas linhas elegantes (56×56,5×76,5cm). Uma peça que transita perfeitamente entre espaços modernos e clássicos.',
     unitario: 'R$ 2.107,00'
   },
   {
     code: 'PROD-6411',
     name: 'Cadeira Horizonte',
-    desc: 'Tecido linho claro 584, estrutura mel claro, medidas L49x P54x A82',
+    desc: 'Refinamento em cada detalhe com estrutura em madeira mel claro que harmoniza perfeitamente com o estofamento em linho premium código 584. Proporções arquitetônicas (L49×P54×A82cm) que proporcionam conforto sem abrir mão da estética minimalista que transforma qualquer ambiente.',
     unitario: 'R$ 3.610,00'
   },
   {
     code: 'PROD-2698',
     name: 'Cadeira Siena',
-    desc: 'Estrutura pintura preta, couro natural camel, medida L55x P58x A77, designer Pedro Useche',
+    desc: 'Design assinado pelo renomado Pedro Useche que combina estrutura com acabamento em pintura preta e estofamento em couro natural camel de primeira qualidade. Suas dimensões precisamente calculadas (L55×P58×A77cm) refletem o equilíbrio perfeito entre ergonomia e estética contemporânea.',
     unitario: 'R$ 3.750,00'
   },
   {
     code: 'PROD-5825',
     name: 'Cadeira Âmbar',
-    desc: 'Estrutura ebanizada, assento couro caramelo, L42 x P57 x A79, designer Ronald Sasson',
+    desc: 'Peça exclusiva assinada pelo conceituado designer Ronald Sasson que une estrutura ebanizada com assento em couro caramelo de textura inigualável. Suas proporções precisas (L42×P57×A79cm) revelam o cuidado com o detalhe e a preocupação com o conforto que só o design de autor proporciona.',
     unitario: 'R$ 2.575,00'
   },
   {
     code: 'PROD-8087',
-    name: 'cadeira aurora',
-    desc: 'Mista com braço 310, palha sextavada cru natural, medida 59Lx52Px82A, design Daniel Simonini',
+    name: 'Cadeira Aurora',
+    desc: 'Criação exclusiva do designer Daniel Simonini que celebra o artesanato brasileiro com sua palha sextavada natural cuidadosamente trançada à mão. Estrutura mista com braço modelo 310 que confere personalidade única à peça. Dimensões (L59×P52×A82cm) que garantem conforto e presença marcante em qualquer ambiente.',
     unitario: 'R$ 4.860,00'
   },
   {
     code: 'PROD-7091',
     name: 'Cadeira Jangada',
-    desc: 'Assento fibra sintética, estrutura madeira jequitibá A.80, L57 P60, designer Daniela Ferro',
+    desc: 'Assinada pela premiada designer Daniela Ferro, esta peça une tradição e contemporaneidade com sua estrutura em madeira jequitibá de origem certificada e assento em fibra sintética de alta durabilidade. Suas dimensões generosas (L57×P60×A80cm) promovem uma experiência de conforto que convida à permanência.',
     unitario: 'R$ 3.760,00'
   },
   {
     code: 'PROD-5289',
-    name: 'Cadeira press',
-    desc: 'Estrutura madeira natural e palha sextavada natural, medida 53Lx43Px81A, designer Tiago Curioni',
+    name: 'Cadeira Press',
+    desc: 'Design autoral de Tiago Curioni que valoriza as texturas naturais brasileiras com estrutura em madeira natural e assento em palha sextavada meticulosamente trabalhada. Dimensões harmoniosas (L53×P43×A81cm) que combinam presença estética com ergonomia impecável, ideal para espaços que valorizam autenticidade.',
     unitario: 'R$ 2.670,00'
   },
   {
     code: 'PROD-5921',
     name: 'Cadeira Giro',
-    desc: 'Base giratória alum, braços laminados, Tec 0402, A82xL61xP57, designer Devid Almeida',
+    desc: 'Concepção inovadora do designer Devid Almeida que alia funcionalidade e estética com sua base giratória em alumínio e braços em laminado premium. Estofamento em tecido exclusivo código 0402 de toque macio e alta durabilidade. Dimensões (L61×P57×A82cm) que proporcionam conforto dinâmico para espaços contemporâneos.',
     unitario: 'R$ 5.868,00'
   },
   {
     code: 'PROD-3613',
     name: 'Poltrona Carbono',
-    desc: 'Estofada tecido premium, pés e base em aço carbono laminado, tecido D7066, medida L87x P82x A80',
+    desc: 'Uma obra-prima de design contemporâneo com estofamento em tecido premium código D7066 cuidadosamente selecionado. Base e pés em aço carbono laminado que conferem personalidade à peça. Dimensões generosas (L87×P82×A80cm) proporcionam uma experiência de conforto envolvente para momentos de puro deleite.',
     unitario: 'R$ 6.700,00'
   },
   {
     code: 'PROD-4740',
     name: 'Poltrona Tela',
-    desc: 'Medida L72x P62x A73 com tela sextavada mad. nat. tela cru',
+    desc: 'Design que celebra a tradição artesanal brasileira com sua tela sextavada metódicamente trançada em tons crus naturais. Estrutura em madeira maciça natural que revela a nobreza dos veios. Suas dimensões (L72×P62×A73cm) foram cuidadosamente calculadas para oferecer conforto e espaço ideal em ambientes contemporâneos.',
     unitario: 'R$ 5.852,00'
   },
   {
     code: 'PROD-1931',
     name: 'Poltrona Nuvem',
-    desc: 'Almofadas com pena de ganso, giratória, tecido linho cinza premium, medida L97 x P96',
+    desc: 'Conforto elevado à arte com suas almofadas preenchidas com autênticas penas de ganso que proporcionam maciez incomparável. Base giratória que facilita a movimentação e estofamento em linho cinza premium meticulosamente selecionado. Suas dimensões generosas (L97×P96cm) convidam ao relaxamento absoluto em um abraço envolvente.',
     unitario: 'R$ 8.935,00'
   },
   {
     code: 'PROD-7420',
     name: 'Poltrona Eclipse',
-    desc: 'Base giratória pintada de preto, tecido B2104, medidas L68 x P80 x A76',
+    desc: 'Elegância contemporânea com base giratória em acabamento preto sofisticado que contrasta com o estofamento em tecido exclusivo código B2104 de textura incomparável. Proporções perfeitamente balanceadas (L68×P80×A76cm) que combinam presença visual marcante e ergonomia impecável para momentos de conforto absoluto.',
     unitario: 'R$ 4.980,00'
   },
   {
     code: 'PROD-4263',
-    name: 'Poltrona sett',
-    desc: 'Estrutura ebanizada, tecido linho premium cinza, medida L74x P78,5x A72',
+    name: 'Poltrona Sett',
+    desc: 'Refinamento clássico com estrutura ebanizada em acabamento artesanal que celebra a nobreza da madeira escura. Estofamento em linho premium cinza cuidadosamente selecionado que complementa suas linhas arquitetônicas. Dimensões precisas (L74×P78,5×A72cm) que proporcionam uma experiência de conforto que transcende o tempo.',
     unitario: 'R$ 5.808,00'
   },
   {
     code: 'PROD-8075',
-    name: 'Poltrona malva',
-    desc: 'Medida L97x P83x A85, base de madeira cor mel, tecido premium claro',
+    name: 'Poltrona Malva',
+    desc: 'Silhueta envolvente com dimensões generosas (L97×P83×A85cm) que convida ao relaxamento absoluto. Base escultural em madeira tonalizada em mel que harmoniza perfeitamente com o estofamento em tecido premium claro cuidadosamente selecionado. Uma peça que equilibra proporções amplas com um desenho que evoca leveza e sofisticação.',
     unitario: 'R$ 9.670,00'
   },
   {
     code: 'PROD-4091',
-    name: 'Poltrona pitia',
-    desc: 'Estrutura em louro freijó com palha natural, assento em couro marrom caramelo, medidas 76Lx68Px73A',
+    name: 'Poltrona Pitia',
+    desc: 'Refináda combinação de materiais nobres com estrutura em louro freijó meticulosamente trabalhada e detalhes em palha natural trançada artesanalmente. O assento em couro marrom caramelo de primeira qualidade oferece maciez incomparável. Dimensões harmoniosas (L76×P68×A73cm) que refletem a preocupação com conforto e estética refinada.',
     unitario: 'R$ 6.806,00'
   },
   {
     code: 'PROD-2665',
     name: 'Poltrona Sola',
-    desc: 'Estrutura aço carbono preto, couro sola preto, detalhes em madeira, medida L088x P085x A085',
+    desc: 'Design contemporâneo de linhas puras que combina estrutura em aço carbono preto com estofamento em couro sola preto de alta qualidade. Detalhes em madeira nobre conferem calor e sofisticação. Proporções generosas (L88×P85×A85cm) cuidadosamente calculadas para proporcionar uma experiência de conforto inigualável em ambientes refinados.',
     unitario: 'R$ 9.102,00'
   },
   {
     code: 'PROD-2787',
-    name: 'Poltrona hope',
-    desc: 'Com puff, estofada e giratória, L100 x P92 x A70, tecido premium cinza claro',
+    name: 'Poltrona Hope',
+    desc: 'Experiência completa de conforto com conjunto que inclui poltrona giratória e puff coordenado. Estofamento em tecido premium cinza claro de toque macio e alta durabilidade. Dimensões amplas (L100×P92×A70cm) com assentos profundos que convidam ao relaxamento absoluto em qualquer momento do dia.',
     unitario: 'R$ 8.039,00'
   },
   {
     code: 'PROD-1225',
-    name: 'Poltrona round',
-    desc: 'Medida L82xP84xA80, tecido premium no assento, detalhes atrás couro bege',
+    name: 'Poltrona Round',
+    desc: 'Elegância e conforto em uma peça de design marcante com dimensões generosas (L82×P84×A80cm) que acolhem perfeitamente o corpo. Frente estofada em tecido premium cuidadosamente selecionado que contrasta de forma sofisticada com os detalhes em couro bege que revestem o encosto. Uma combinação de materiais nobres que cria uma experiência visual e sensorial única.',
     unitario: 'R$ 7.150,00'
   },
   {
     code: 'PROD-3893',
-    name: 'Poltrona nux',
-    desc: 'Medida L100xP92xA84, tecido premium claro',
+    name: 'Poltrona Nux',
+    desc: 'Design contemporâneo que une simplicidade e conforto em dimensões generosas (L100×P92×A84cm). Estofamento em tecido premium claro de toque acetinado que valoriza as linhas suaves e orgânicas desta peça. O equilíbrio perfeito entre forma e função para ambientes que prezam pela sofisticação discreta.',
     unitario: 'R$ 4.442,00'
   },
   {
     code: 'PROD-9459',
     name: 'Poltrona Algodão',
-    desc: 'Medida L100xP100xA80, tecido premium linho cinza claro',
+    desc: 'Conforto envolvente em proporções generosas (L100×P100×A80cm) que convidam ao relaxamento absoluto. Revestimento em tecido premium linho cinza claro de toque incomparável que complementa suas formas arredondadas. Uma celebração ao design orgânico que equilibra presena estética marcante e conforto sem concessões.',
     unitario: 'R$ 4.795,00'
   },
   {
     code: 'PROD-8602',
     name: 'Poltrona Atlântica',
-    desc: 'Estofada, base em madeira, medidas L85 x P80 x A82',
+    desc: 'Inspiração na costa brasileira traduzida em linhas fluidas e acolhedoras. Estofamento generoso sobre base escultural em madeira nobre que confere personalidade à peça. Dimensões amplas e convidativas (L85×P80×A82cm) que proporcionam uma experiência sensorial de conforto e sofisticação para espaços contemporâneos.',
     unitario: 'R$ 4.504,00'
   },
   {
     code: 'PROD-9976',
-    name: 'Mesa hunt',
-    desc: '240x1200x75, lâmina freijó caramelo',
+    name: 'Mesa Hunt',
+    desc: 'Peça magistral para ambientes sofisticados revestida em lâmina de freijó caramelo meticulosamente selecionada que revela a beleza singular dos veios naturais da madeira. Proporções imponentes (240×1200×75cm) que fazem desta mesa uma presença marcante, ideal para recepções e reuniões memoráveis.',
     unitario: 'R$ 15.800,00'
   },
   {
     code: 'PROD-6749',
     name: 'Mesa de centro Bruma',
-    desc: '1.10x1.10x0.42, estrutura aço carbono, designer Estudio Ambos',
+    desc: 'Criação exclusiva do renomado Estudio Ambos que alia design contemporâneo e materiais de alta qualidade. Estrutura em aço carbono meticulosamente trabalhada que sustenta um tampo de linhas puras. Dimensões perfeitamente equilibradas (110×110×42cm) que combinam função e estética para criar uma peça central marcante em qualquer ambiente.',
     unitario: 'R$ 10.392,00'
   },
   {
     code: 'PROD-7289',
-    name: 'Mesa de centro orga',
-    desc: 'Madeira maciça natural, estrutura aço carbono ouro velho, medida 85x76',
+    name: 'Mesa de Centro Orga',
+    desc: 'Combinação magistral de materiais nobres com tampo em madeira maciça natural que revela a autenticidade dos veios e estrutura em aço carbono com acabamento ouro velho que adiciona um toque de refináda sofisticação. Dimensões equilibradas (85×76cm) que criam um ponto focal elegante e funcional para sua sala de estar.',
     unitario: 'R$ 4.258,00'
   },
   {
     code: 'PROD-6900',
-    name: 'Mesa de centro Duetto',
-    desc: 'Conjunto com 2 mesas, estrutura em nogueira, tampo tipo mármore cinza na maior e vidro na menor',
+    name: 'Mesa de Centro Duetto',
+    desc: 'Elegante conjunto de duas mesas complementares que celebram a versatilidade e o design contemporâneo. Estrutura em nogueira nobre que sustenta com elegancia o tampo em mármore cinza na mesa maior e o tampo em vidro cristalino na menor. Uma composição dinâmica e funcional que agrega sofisticação a qualquer ambiente.',
     unitario: 'R$ 7.775,00'
   },
   {
     code: 'PROD-8953',
-    name: 'Mesa de centro eixo',
-    desc: 'Tampo laca 80 diâmetro x 34 altura, estrutura aço carbono bege',
+    name: 'Mesa de Centro Eixo',
+    desc: 'Simplicidade que revela sofisticação em seu desenho circular com tampo em laca de acabamento impecável de 80cm de diâmetro. Estrutura delicada em aço carbono com acabamento bege que cria um efeito visual de leveza. Altura de 34cm perfeitamente calculada para compor espaços de convivência com funcionalidade e elegância discreta.',
     unitario: 'R$ 4.632,00'
   },
   {
     code: 'PROD-4523',
-    name: 'Mesa feixe',
-    desc: 'Toda em bambu, diâmetro 100 x altura 30',
+    name: 'Mesa Feixe',
+    desc: 'Uma celebração da sustentabilidade com design circular totalmente confeccionado em bambu natural de cultivo responsável. Suas dimensões generosas (diâmetro 100cm x altura 30cm) combinam perfeitamente com seu desenho leve e orgânico. Peça marcante que traz textura e calor natural para ambientes contemporâneos com consciência ecológica.',
     unitario: 'R$ 5.972,00'
   },
   {
     code: 'PROD-2528',
-    name: 'Mesa atalaia',
-    desc: 'Base e tampo em concreto natural 40x33xA63',
+    name: 'Mesa Atalaia',
+    desc: 'Expressão pura do minimalismo industrial com sua estrutura monolítica em concreto natural meticulosamente trabalhado. A combinação de base e tampo em um só elemento cria uma escultura funcional de 40x33cm com altura de 63cm. Peça de caráter marcante que dialoga com a arquitetura contemporânea e adiciona uma presença de brutalismo elegante a qualquer ambiente.',
     unitario: 'R$ 5.232,00'
   },
   {
     code: 'PROD-1433',
-    name: 'Mesa creta',
-    desc: 'Base em aço carbono, tampo concreto cinza claro',
+    name: 'Mesa Creta',
+    desc: 'Encontro entre leveza e solidez com base estruturada em aço carbono de linhas precisas que sustenta um expressivo tampo em concreto cinza claro de textura sutil. O contraste entre materiais cria uma tensão visual elegante que valoriza tanto espaços clássicos quanto contemporâneos. Uma peça atemporal que celebra o equilíbrio entre forma e função.',
     unitario: 'R$ 3.880,00'
   }
 ];
@@ -874,210 +941,210 @@ const mesasLateraisProducts = [
   {
     code: 'ML-0001',
     name: 'Mesa Lateral Aura',
-    desc: 'FREIJÓ  / CAFÉ   ( 40X55)',
+    desc: 'Peça escultural em madeira freijó com acabamento café que revela a beleza natural dos veios. Dimensões perfeitamente proporcionadas (40×55cm) que complementam sofás e poltronas com elegância discreta. Seu design atemporal adiciona sofisticação orgânica a qualquer ambiente.',
     unitario: 1450,
     discount: 0.4
   },
   {
     code: 'ML-0002',
     name: 'Mesa Lateral Lumen',
-    desc: 'conjunto de duas mesas laterais, estrutura em cobre com tampo em nogueira. medida: D 55 x A 60',
+    desc: 'Elegante conjunto de duas mesas laterais que combina estrutura em cobre de brilho suave com tampos em nogueira de veios expressivos. Suas dimensões harmônicas (D55×A60cm) foram pensadas para criar uma composição dinâmica e funcional. A combinação dos materiais cria um contraste visual sofisticado que ilumina qualquer ambiente.',
     unitario: 3614,
     discount: 0.6
   },
   {
     code: 'ML-0003',
     name: 'Mesa Lateral Nébula',
-    desc: 'LACA PRETO BRILHO  D 60X A60',
+    desc: 'Design contemporâneo em laca preta de alto brilho que cria um efeito espelhado sutil e elegante. Seu formato perfeitamente circular (D60×A60cm) confere sofisticação cosmopolita a qualquer espaço. Uma peça de personalidade marcante que adiciona profundidade e glamour discreto aos ambientes mais refinados.',
     unitario: 6624,
     discount: 0.6
   },
   {
     code: 'ML-0004',
     name: 'Mesa Lateral Íris',
-    desc: 'CARVALHO CASTANHO DETALHE EM GOLD METALIZADO D 60 X A 65',
+    desc: 'Combinação magistral entre o carvalho castanho de textura expressiva e detalhes em acabamento gold metalizado que adicionam um toque de luxo discreto. Proporções perfeitas (D60×A65cm) que equilibram presença visual e funcionalidade. Uma peça que harmoniza tradição e contemporaneidade em uma expressão de refinado bom gosto.',
     unitario: 6350,
     discount: 0.6
   },
   {
     code: 'ML-0005',
     name: 'Mesa Lateral Sereia',
-    desc: 'LACA BRILHO PRETA DETALHE GOLD D 40X A60',
+    desc: 'Elegância noturna em laca preta de alto brilho enriquecida com detalhes em acabamento gold que criam um contraste luminoso e sofisticado. Silhueta esbelta (D40×A60cm) que adiciona verticalidade e drama contido a qualquer composição de living. Uma peça que captura a atenção com sua presença ao mesmo tempo discreta e marcante.',
     unitario: 3734,
     discount: 0.6
   },
   {
     code: 'ML-0006',
     name: 'Mesa Lateral Brisa',
-    desc: 'MADEIRA MEL/ METAL PRETO FOSCO',
+    desc: 'Harmonia perfeita entre madeira em tonalidade mel de textura acolhedora e estrutura em metal preto fosco que adiciona contorno contemporâneo. A combinação de materiais cria um equilíbrio visual que transita com naturalidade entre estilos. Uma peça versátil que adiciona calor e sofisticação a qualquer ambiente da casa.',
     unitario: 2890,
     discount: 0.6
   },
   {
     code: 'ML-0007',
     name: 'Mesa Lateral Atlântica',
-    desc: 'D 60X A 60 PRETO EBANIZADO',
+    desc: 'Sofisticação atemporal em acabamento preto ebanizado que revela a textura sutil da madeira sob um tratamento clássico. Proporções equilibradas em formato circular (D60×A60cm) que dialogam com diversos estilos decorativos. Uma peça que adiciona profundidade e caráter ao ambiente com sua elegancia discreta e refinada.',
     unitario: 3455,
     discount: 0.6
   },
   {
     code: 'ML-0008',
     name: 'Mesa Lateral Âmbar',
-    desc: 'ESTRUTURA AÇO CARBONO MARROM,  TAMPO MÁMORE IMPERADOR , MEDIDA 58,7X58,7X A 56,5',
+    desc: 'Expressão máxima de luxo contemporâneo que combina estrutura em aço carbono marrom com acabamento acetinado e majestoso tampo em mármore Imperador cuidadosamente selecionado com seus veios únicos e dramáticos. Dimensões precisas (58,7×58,7×A56,5cm) que equilibram presença visual e funcionalidade. Uma peça de caráter excepcional que eleva instantaneamente qualquer ambiente.',
     unitario: 8700,
     discount: 0.6
   },
   {
     code: 'ML-0009',
     name: 'Mesa Lateral Gota',
-    desc: 'MADEIRA NOGUEIRA, AÇO PRETO FOSCO MEDIDA: A 62 X P 53 X C 53',
+    desc: 'Design inspirado em formas orgânicas que combina a riqueza dos veios da nogueira com a estrutura em aço preto fosco de linhas minimalistas. Proporções cuidadosamente estudadas (A62×P53×C53cm) que equilibram robustez e elegância. Uma peça de caráter que adiciona sofisticação acolhedora ao living contemporâneo.',
     unitario: 4525,
     discount: 0.4
   },
   {
     code: 'ML-0010',
     name: 'Mesa Lateral Horizonte',
-    desc: 'MESA DE APOIO, PODE ENCAIXAR NO SOFÁ, BASE AÇO PRETO FOSCO, TAMPO CARVALHO MEL L 57 X P 30 X A 45',
+    desc: 'Funcionalidade e design em perfeito equilíbrio com formato versátil que permite encaixe próximo ao sofá. Base em aço preto fosco de linhas leves que sustenta tampo em carvalho mel de veios expressivos. Dimensões projetadas para praticidade (L57×P30×A45cm) enquanto adiciona um toque de elegância contemporânea a qualquer ambiente de convivência.',
     unitario: 2750,
     discount: 0.4
   },
   {
     code: 'ML-0011',
     name: 'Mesa Lateral Órbita',
-    desc: 'TAMPO EBANIZADO PRETO, BASE PRETO FOSCO D 50 X A 50',
+    desc: 'Minimalismo sofisticado em total harmonia monocromática que combina tampo ebanizado preto de acabamento artesanal com base em metal preto fosco. Suas proporções circulares equilibradas (D50×A50cm) conferem presença discreta e elegante. Peça versátil que adiciona profundidade e refináda simplicidade a qualquer ambiente contemporâneo.',
     unitario: 1300,
     discount: 0.3
   },
   {
     code: 'ML-0012',
     name: 'Mesa Lateral Prisma',
-    desc: 'MEDIDA: D 90X A 75,  ACABAMENTO NOGUEIRA',
+    desc: 'Imponência geométrica em dimensões marcantes (D90×A75cm) que transformam esta peça em um elemento central de decoração. Acabamento em nogueira de superior qualidade que revela a beleza natural dos veios em toda sua expressão. Design atemporal que harmoniza com ambientes clássicos e contemporâneos, adicionando caráter e sofisticação natural.',
     unitario: 5280,
     discount: 0.5
   },
   {
     code: 'ML-0014',
     name: 'Mesa Lateral Selene',
-    desc: 'MADEIRA CARVALHO CASTANHO ACB. ESPINHADO MEDIDA: D 60 X A 60',
+    desc: 'Tributo à marcenaria clássica com seu trabalho em madeira carvalho castanho em padrão espinhado meticulosamente elaborado que celebra a tradição artesanal. Proporções circulares equilibradas (D60×A60cm) que conferem elegância atemporal. Uma peça de distínção que valoriza ambientes requintados com seu caráter sofisticado.',
     unitario: 3360,
     discount: 0.3
   },
   {
     code: 'ML-0015',
     name: 'Mesa Lateral Vega',
-    desc: 'ACABAMENTO EBANIZADO /AÇO  D 50 X A 50',
+    desc: 'Elegante expressão do design contemporâneo que alia acabamento ebanizado de profundidade visual ímpar com estrutura em aço de linhas precisas. Formato circular perfeitamente proporcional (D50×A50cm) que adiciona equilíbrio e refinamento aos espaços. Peça que combina força visual com leveza estrutural em uma síntese de sofisticação urbana.',
     unitario: 2600,
     discount: 0.5
   },
   {
     code: 'ML-0016',
     name: 'Mesa Lateral Vega II',
-    desc: 'ACABAMENTO EBANIZADO /AÇO  D 60 X A 60',
+    desc: 'Evolução do design clássico Vega em proporções mais generosas (D60×A60cm) que amplificam sua presença arquitetônica. O acabamento ebanizado de profundidade visual marcante harmoniza perfeitamente com a estrutura em aço de linhas depuradas. Uma composição que adiciona drama contido e elegância contemporânea a qualquer espaço.',
     unitario: 2700,
     discount: 0.5
   },
   {
     code: 'ML-0017',
     name: 'Mesa Lateral Duna',
-    desc: 'TODA EM PRETO ACT. D 65 x A 45',
+    desc: 'Simplicidade monocromática que expressa sofisticação contemporânea em acabamento preto acetinado integral que cria uma presença visual marcante e coesa. Proporções generosas em diâmetro (D65cm) com altura discreta (45cm) que privilegiam a funcionalidade sem abrir mão da estética refinada. Uma peça que adiciona profundidade visual e caráter a qualquer ambiente.',
     unitario: 1752,
     discount: 0.6
   },
   {
     code: 'ML-0018',
     name: 'Mesa Lateral Duna II',
-    desc: 'TODA EM PRETO ACT D 60 x A 40',
+    desc: 'Complemento perfeito para a linha Duna, com proporções mais sutis (D60×A40cm) que privilegiam a funcionalidade sem perder sofisticação. Acabamento preto acetinado integral que cria uma presença visual marcante mesmo em sua simplicidade. Uma peça elegante que se adapta a diversos ambientes, funcionando tanto em pares quanto como peça única.',
     unitario: 1590,
     discount: 0.6
   },
   {
     code: 'ML-0019',
     name: 'Mesa Lateral Vento',
-    desc: 'TAMPO NOGUEIRA, BASE ACETINADO CINZA, MEDIDA: D 30 X A 55',
+    desc: 'Elegância vertical em uma silhueta esbelta que combina tampo em nogueira de veios expressivos e base em metal com acabamento acetinado cinza de toque contemporâneo. Dimensões precisas (D30×A55cm) que favorecem espaços compactos sem abrir mão de personalidade e estilo. Peça ideal para criar pontos de interesse em cantos e espaços de passagem.',
     unitario: 1590,
     discount: 0.4
   },
   {
     code: 'ML-0020',
     name: 'Mesa Lateral Aurora',
-    desc: 'TODA EM PRETO, MEDIDA D 45 X P 35 X A 55',
+    desc: 'Geometria sofisticada totalmente em preto que cria uma presença escultural em qualquer ambiente. A combinação de forma oval (D45×P35cm) e altura proporcional (55cm) torna esta peça um elemento de design que dialoga com a arquitetura contemporânea. Versatilidade elegante que adiciona profundidade visual e refinamento a qualquer espaço.',
     unitario: 1590,
     discount: 0.5
   },
   {
     code: 'ML-0021',
     name: 'Mesa Lateral Boreal',
-    desc: 'TAMPO CARVALHO, BASE PRETA FOSCA, MEDIDA: L 52 X P 34 X A 55',
+    desc: 'Design que celebra o contraste entre o tampo em carvalho natural de textura acolhedora e a base em metal preto fosco de linhas minimalistas. Proporções retangulares cuidadosamente balanceadas (L52×P34×A55cm) que combinam perfeitamente forma e função. Uma peça que adiciona sofisticação discreta e caráter a qualquer composição de living.',
     unitario: 1752,
     discount: 0.4
   },
   {
     code: 'ML-0022',
     name: 'Mesa Lateral Lótus',
-    desc: 'TAMPO VIDRO PRETO, BASE PRETA, MEDIDA 45 X 25 X A 60',
+    desc: 'Refináda composição que combina tampo em vidro preto de elegância atemporal com base estrutural em metal preto que complementa sua silhueta esbelta. Dimensões (45×25×A60cm) que favorecem a verticalidade e criam uma presença distinta mesmo em ambientes compactos. Uma peça que alia sofisticação contemporânea e leveza visual.',
     unitario: 1560,
     discount: 0.5
   },
   {
     code: 'ML-0023',
     name: 'Mesa Lateral Opala',
-    desc: 'TODA EM PRETO, MEDIDA: L 50 X P25 X A 55',
+    desc: 'Expressão de minimalismo sofisticado integralmente em preto que cria uma silhueta marcante com suas linhas retileas precisas. Proporções alongadas (L50×P25×A55cm) que adicionam elegância contemporânea e funcionalidade a espaços de convivência. Uma peça que valoriza ambientes com seu desenho refinado e presença discreta mas impactante.',
     unitario: 2980,
     discount: 0.6
   },
   {
     code: 'ML-0024',
     name: 'Mesa Lateral Vértice',
-    desc: 'MEDIDA: D 40 X A 65 TAUARI MEL, SUTIL TOQ SEDA',
+    desc: 'Celebração da madeira brasileira tauari em tonalidade mel que revela a beleza ímpar dos veios naturais com acabamento sedoso ao toque. Silhueta vertical (D40×A65cm) que adiciona dinamismo e elegância a qualquer ambiente. O trabalho artístico da marcenaria confere a esta peça um caráter de exclusividade que valoriza espaços com refináda personalidade.',
     unitario: 3745,
     discount: 0.5
   },
   {
     code: 'ML-0025',
     name: 'Mesa Lateral Oliva',
-    desc: 'TODA EM MADEIRA AMBAR, MEDIDA: D 60 X A 60',
+    desc: 'Peça monolítica totalmente confeccionada em madeira âmbar que celebra a nobreza da matéria-prima em seu estado mais autêntico. Proporções circulares harmônicas (D60×A60cm) que equilibram presença e funcionalidade. O acabamento cuidadoso ressalta a textura e tonalidade êmpar da madeira, criando uma peça de personalidade que adiciona calor e sofisticação orgânica aos ambientes.',
     unitario: 2980,
     discount: 0.5
   },
   {
     code: 'ML-0026',
     name: 'Mesa Lateral Safira',
-    desc: 'TAMPO MADEIRA MACIÇA, BASE METAL PRETO, MEDIDAS:  D 30 X A 50 OU D 40 X A 60',
+    desc: 'Versátil peça disponível em duas dimensões complementares (D30×A50cm ou D40×A60cm) que combinam tampo em madeira maciça de textura natural expressiva e base estrutural em metal preto de linhas minimalistas. Ideal para composições em conjunto, criando diferentes planos e níveis com elegância contemporânea. Uma peça acessível que não abre mão da qualidade e do estilo.',
     unitario: 980,
     discount: 0.4
   },
   {
     code: 'ML-0027',
     name: 'Mesa Lateral Aria',
-    desc: 'DIAMETRO 60 X  ALTURA 65, EM MADEIRA MACIÇA LOURO FREIJO',
+    desc: 'Expressão pura da marcenaria refinada integralmente confeccionada em madeira maciça louro freijó cuidadosamente selecionada para valorizar seus veios e tonalidades naturais. Proporções harmônicas (diâmetro 60cm x altura 65cm) que equilibram robustez e elegância. Uma peça de personalidade que adiciona calor e sofisticação atemporal a qualquer ambiente.',
     unitario: 3700,
     discount: 0.5
   },
   {
     code: 'ML-0028',
     name: 'Mesa Lateral Fenda',
-    desc: 'TAMPO MADEIRA, BASE METAL PRETO',
+    desc: 'Minimalismo acessível que combina tampo em madeira de linhas fluidas e base estrutural em metal preto que cria um contraste elegante e contemporâneo. Design inteligente que valoriza a funcionalidade sem sacrificar a estética. Peça versátil que se adapta a diversos ambientes, adicionando um toque de refináda simplicidade a qualquer espaço.',
     unitario: 670,
     discount: 0.3
   },
   {
     code: 'ML-0029',
     name: 'Mesa Lateral Pluma',
-    desc: 'TAMPO VIDRO GLASS, BASE CARVALHO, MEDIDA: A 60 DIAMETRO 35',
+    desc: 'Leveza visual e materiais nobres em perfeito equilíbrio, combinando tampo em vidro glass cristalino que reflete suavemente a luz com base estrutural em carvalho de acabamento natural impecável. Silhueta esbelta (diâmetro 35cm x altura 60cm) que valoriza espaços compactos sem abrir mão de personalidade. Uma peça que adiciona sofisticação aérea e luminosidade a qualquer ambiente.',
     unitario: 1803,
     discount: 0.3
   },
   {
     code: 'ML-0030',
     name: 'Mesa Lateral Eclipse',
-    desc: 'TAMPO ORGÂNICO EM MADEIRA MACIÇA, BASE METAL PRETO, MEDIDA: 45 X 50 X A 60',
+    desc: 'Design que celebra as formas orgânicas com tampo em madeira maciça meticulosamente trabalhado em curvas naturais sobre base em metal preto de linhas minimalistas. A combinação de dimensões (45×50×A60cm) cria uma peça de personalidade marcante que funciona como verdadeira escultura funcional. Perfeita para adicionar caráter contemporâneo e sofisticação descontraída a qualquer ambiente.',
     unitario: 1595,
     discount: 0.3
   },
   {
     code: 'ML-0031',
     name: 'Mesa Lateral Atria',
-    desc: 'TAMPO ORGÂNICO COM VIDRO CLEAR PRETO, BASE EM NOGUEIRA, MEDIDA: 70 X 65 X A 55',
+    desc: 'Sofisticação contemporânea que une o tampo orgânico em vidro clear preto, que cria um brilho sutil e profundo, com base estrutural em nogueira que adiciona calor e personalidade. Proporções generosas (70×65×A55cm) que transformam esta peça em um elemento central de decoração. Um item de design excepcional que eleva instantaneamente a elegância de qualquer ambiente.',
     unitario: 6070,
     discount: 0.6
   }
@@ -3549,6 +3616,58 @@ const copySwiper = new Swiper('.copy-swiper', {
   }
 });
 </script>
+
+<footer class="bg-dark text-white pt-5 pb-4 mt-5" id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <h5 class="fw-bold mb-3">Varanda Mix</h5>
+        <p class="text-light mb-2">Descubra o conforto e a sofisticação para sua casa.</p>
+        <p class="small">Rua Joaquim Pedro Soares, 861 <br>Centro, Novo Hamburgo - RS <br>93510-320</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <h6 class="fw-semibold mb-3">CONTATO</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="mailto:vendas2@varandamix.com" class="text-decoration-none text-light">vendas2@varandamix.com</a></li>
+          <li class="mb-2"><a href="tel:(51)32391374" class="text-decoration-none text-light">(51) 3239-1374</a></li>
+          <li class="mb-2"><a href="https://wa.me/5551999594767" target="_blank" class="text-decoration-none text-light">(51) 99959-4767 (WhatsApp)</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2 mb-4">
+        <h6 class="fw-semibold mb-3">INFO</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="https://varandamix.com/sobre-nos/" target="_blank" class="text-decoration-none text-light">Sobre Nós</a></li>
+          <li class="mb-2"><a href="https://varandamix.com/contato/" target="_blank" class="text-decoration-none text-light">Contato</a></li>
+          <li class="mb-2"><a href="https://varandamix.com/reembolso_devolucoes/" target="_blank" class="text-decoration-none text-light">Política</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6 class="fw-semibold mb-3">REDE SOCIAL</h6>
+        <div class="d-flex gap-3 mb-3">
+          <a href="https://www.facebook.com/varandamix/" target="_blank" class="text-light fs-5"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/varandamix/" target="_blank" class="text-light fs-5"><i class="bi bi-instagram"></i></a>
+        </div>
+        <div class="mt-3">
+          <h6 class="fw-semibold mb-3">CATEGORIAS</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="https://varandamix.com/categorias/interno/" target="_blank" class="badge bg-secondary text-decoration-none">Interno</a>
+            <a href="https://varandamix.com/categorias/luminarias/" target="_blank" class="badge bg-secondary text-decoration-none">Luminárias</a>
+            <a href="https://varandamix.com/categorias/decoracao/" target="_blank" class="badge bg-secondary text-decoration-none">Decoração</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="mt-4">
+    <div class="row">
+      <div class="col-12 text-center">
+        <p class="small text-light">© 2026 Varandamix In Out - Todos os direitos reservados</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 </body>
 </html>

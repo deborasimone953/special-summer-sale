@@ -83,9 +83,66 @@
     const AUTH_VALUE = '1';
     const PASSWORD = 'vip-acess';
     const WHATSAPP_NUMBER = '5551999594767';
+    const TRACKING_KEY = 'summerSaleTracking';
 
     function normalize(text) {
       return String(text || '').trim().toLowerCase();
+    }
+
+    function getTracking() {
+      const params = new URLSearchParams(window.location.search || '');
+      const get = (k) => {
+        const v = params.get(k);
+        return v ? String(v).trim() : '';
+      };
+      const tracking = {
+        utm_source: get('utm_source'),
+        utm_medium: get('utm_medium'),
+        utm_campaign: get('utm_campaign'),
+        utm_content: get('utm_content'),
+        utm_term: get('utm_term'),
+        ref: document.referrer ? String(document.referrer).slice(0, 240) : '',
+        path: window.location.pathname || '',
+      };
+
+      const hasAnyUtm = Object.keys(tracking).some((k) => k.startsWith('utm_') && tracking[k]);
+      if (!hasAnyUtm && !tracking.ref) {
+        return null;
+      }
+      return tracking;
+    }
+
+    function persistTracking(tracking) {
+      if (!tracking) return;
+      try {
+        sessionStorage.setItem(TRACKING_KEY, JSON.stringify(tracking));
+      } catch (_e) {}
+    }
+
+    function readPersistedTracking() {
+      try {
+        const raw = sessionStorage.getItem(TRACKING_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (_e) {
+        return null;
+      }
+    }
+
+    function trackingSummary(tracking) {
+      if (!tracking) return '';
+      const source = tracking.utm_source || (tracking.ref ? 'referral' : 'direto');
+      const campaign = tracking.utm_campaign || '';
+      const content = tracking.utm_content || '';
+      const medium = tracking.utm_medium || '';
+
+      const parts = [];
+      parts.push(`Origem: ${source}`);
+      if (medium) parts.push(`Mídia: ${medium}`);
+      if (campaign) parts.push(`Campanha: ${campaign}`);
+      if (content) parts.push(`Conteúdo: ${content}`);
+
+      return parts.join(' | ');
     }
 
     function baseUrl() {
@@ -114,7 +171,10 @@
     }
 
     const whatsLink = document.getElementById('whatsLink');
-    const msg = 'Quero acessar a Special Summer Sale. Pode me enviar a senha VIP?';
+    const tracking = getTracking() || readPersistedTracking();
+    persistTracking(tracking);
+    const trackText = trackingSummary(tracking);
+    const msg = `Quero acessar a Special Summer Sale. Pode me enviar a senha VIP?${trackText ? `\n\n${trackText}` : ''}`;
     whatsLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 
     const passwordInput = document.getElementById('password');
