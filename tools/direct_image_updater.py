@@ -99,9 +99,19 @@ def gerar_js_atualizado():
                     caminho_desktop = os.path.join(produto_path, f"{nome_base}-desktop.webp")
                     caminho_mobile = os.path.join(produto_path, f"{nome_base}-mobile.webp")
                     
-                    rel_desktop = os.path.relpath(caminho_desktop if desktop_exists else caminho_completo, FOTOS_DIR).replace("\\", "/")
-                    rel_mobile = os.path.relpath(caminho_mobile if mobile_exists else caminho_completo, FOTOS_DIR).replace("\\", "/")
+                    rel_desktop = os.path.relpath(
+                        caminho_desktop if desktop_exists else caminho_completo,
+                        FOTOS_DIR,
+                    ).replace("\\", "/")
+                    rel_mobile = os.path.relpath(
+                        caminho_mobile if mobile_exists else caminho_completo,
+                        FOTOS_DIR,
+                    ).replace("\\", "/")
                     rel_full = os.path.relpath(caminho_completo, FOTOS_DIR).replace("\\", "/")
+
+                    rel_desktop = f"assets/fotos/{rel_desktop}"
+                    rel_mobile = f"assets/fotos/{rel_mobile}"
+                    rel_full = f"assets/fotos/{rel_full}"
                     
                     mapeamento[codigo] = [
                         {
