@@ -3675,6 +3675,8 @@ const productImagesByCode = {
 };
 // AUTO-GENERATED PRODUCT IMAGES END
 
+window.productImagesByCode = window.productImagesByCode || productImagesByCode;
+
 function encodePath(path) {
   return String(path || '')
     .split('/')
@@ -3715,7 +3717,9 @@ function applyProductImages() {
   document.querySelectorAll('.product-swiper-wrapper .swiper-slide').forEach((slide) => {
     const code = slide.querySelector('.product-code')?.textContent?.trim();
     if (!code) return;
-    const images = productImagesByCode[code] || productImagesByCode[String(code).toUpperCase()];
+    const imageMap = window.productImagesByCode || productImagesByCode;
+    if (!imageMap) return;
+    const images = imageMap[code] || imageMap[String(code).toUpperCase()];
     if (!images || !images.length) return;
     const wrapper = slide.querySelector('.product-images .swiper-wrapper');
     if (!wrapper) return;
