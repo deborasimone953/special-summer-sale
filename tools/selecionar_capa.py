@@ -98,6 +98,18 @@ def _set_cover_image(image_path: str) -> str:
     return base
 
 
+def _read_cover_base(folder: str) -> str | None:
+    cover_path = os.path.join(folder, COVER_FILE_NAME)
+    if not os.path.exists(cover_path):
+        return None
+    value = (
+        open(cover_path, "r", encoding="utf-8").read().strip()
+        if os.path.getsize(cover_path) > 0
+        else ""
+    )
+    return value or None
+
+
 def _list_products() -> list[dict]:
     products = []
     for category in sorted(os.listdir(FOTOS_DIR)):
@@ -109,6 +121,7 @@ def _list_products() -> list[dict]:
             if not os.path.isdir(product_path):
                 continue
             title = _sanitize_title(_read_title(product_path))
+            cover_base = _read_cover_base(product_path)
             images = []
             for entry in os.scandir(product_path):
                 if not entry.is_file():
@@ -130,6 +143,7 @@ def _list_products() -> list[dict]:
                         "titulo": title or product,
                         "pasta": os.path.relpath(product_path, FOTOS_DIR).replace("\\", "/"),
                         "imagens": images,
+                        "capa": cover_base,
                     }
                 )
     return products
@@ -146,48 +160,120 @@ INDEX_HTML = """<!doctype html>
       header { padding: 12px 16px; background: #222; color: #fff; }
       main { display: grid; grid-template-columns: 320px 1fr; gap: 16px; padding: 16px; }
       .list { background: #fff; border-radius: 8px; padding: 8px; max-height: calc(100vh - 120px); overflow: auto; }
+      .toolbar { display: grid; gap: 8px; padding: 8px 8px 12px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 2; }
+      .toolbar input { padding: 10px 10px; border: 1px solid #ddd; border-radius: 8px; }
+      .nav { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .nav button { padding: 10px 10px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; cursor: pointer; }
+      .nav button:disabled { opacity: .5; cursor: not-allowed; }
       .item { padding: 8px 10px; border-bottom: 1px solid #eee; cursor: pointer; }
       .item.active { background: #e9f4ff; }
+      .item small { color: #666; display: block; margin-top: 3px; }
       .gallery { background: #fff; border-radius: 8px; padding: 12px; min-height: 300px; }
       .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
       .card { border: 2px solid transparent; border-radius: 6px; overflow: hidden; background: #fafafa; }
       .card.active { border-color: #1a73e8; }
+      .badge { position: absolute; margin: 10px; background: #1a73e8; color: #fff; padding: 4px 8px; border-radius: 999px; font-size: 12px; }
       .card img { width: 100%; height: 160px; object-fit: cover; display: block; }
       .card button { width: 100%; border: none; padding: 8px; cursor: pointer; background: #1a73e8; color: white; }
       .empty { color: #666; padding: 16px; }
+      .toast { position: fixed; right: 16px; bottom: 16px; background: rgba(20,20,20,.92); color: #fff; padding: 10px 12px; border-radius: 10px; opacity: 0; transform: translateY(8px); transition: .2s ease; }
+      .toast.show { opacity: 1; transform: translateY(0); }
     </style>
   </head>
   <body>
     <header>Selecionar foto de capa</header>
     <main>
-      <section class="list" id="productList"></section>
+      <section class="list" id="productList">
+        <div class="toolbar">
+          <input id="search" placeholder="Buscar por código/título..." />
+          <div class="nav">
+            <button id="prevBtn">Anterior</button>
+            <button id="nextBtn">Próximo</button>
+          </div>
+        </div>
+        <div id="productItems"></div>
+      </section>
       <section class="gallery">
         <h3 id="productTitle">Selecione um produto</h3>
         <div id="imageGrid" class="grid"></div>
         <div id="emptyState" class="empty" style="display:none;">Nenhuma imagem encontrada</div>
       </section>
     </main>
+    <div id="toast" class="toast"></div>
     <script>
-      const listEl = document.getElementById("productList");
+      const listEl = document.getElementById("productItems");
+      const searchEl = document.getElementById("search");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const toastEl = document.getElementById("toast");
       const gridEl = document.getElementById("imageGrid");
       const titleEl = document.getElementById("productTitle");
       const emptyEl = document.getElementById("emptyState");
       let products = [];
+      let filtered = [];
       let current = null;
+
+      function showToast(text) {
+        toastEl.textContent = text;
+        toastEl.classList.add("show");
+        setTimeout(() => toastEl.classList.remove("show"), 1200);
+      }
+
+      function normalize(v) {
+        return String(v || "").toLowerCase();
+      }
+
+      function applyFilter() {
+        const q = normalize(searchEl.value).trim();
+        if (!q) {
+          filtered = products.map((p, idx) => ({ idx, p }));
+        } else {
+          filtered = products
+            .map((p, idx) => ({ idx, p }))
+            .filter(({ p }) => {
+              const hay = normalize(`${p.produto} ${p.titulo} ${p.categoria}`);
+              return hay.includes(q);
+            });
+        }
+        if (filtered.length) {
+          if (current === null || !filtered.some((x) => x.idx === current)) {
+            current = filtered[0].idx;
+          }
+        } else {
+          current = null;
+        }
+      }
+
+      function getCurrentFilteredPos() {
+        return filtered.findIndex((x) => x.idx === current);
+      }
+
+      function updateNavButtons() {
+        const pos = getCurrentFilteredPos();
+        prevBtn.disabled = pos <= 0;
+        nextBtn.disabled = pos === -1 || pos >= filtered.length - 1;
+      }
 
       function renderList() {
         listEl.innerHTML = "";
-        products.forEach((p, idx) => {
+        filtered.forEach(({ p, idx }) => {
           const div = document.createElement("div");
           div.className = "item" + (current === idx ? " active" : "");
-          div.textContent = `${p.titulo} (${p.categoria})`;
+          const top = document.createElement("div");
+          top.textContent = `${p.titulo}`;
+          const meta = document.createElement("small");
+          meta.textContent = `${p.produto} • ${p.categoria}`;
+          div.appendChild(top);
+          div.appendChild(meta);
           div.onclick = () => selectProduct(idx);
           listEl.appendChild(div);
         });
+        updateNavButtons();
       }
 
       function selectProduct(idx) {
         current = idx;
+        updateNavButtons();
         renderList();
         const p = products[idx];
         titleEl.textContent = p.titulo;
@@ -197,21 +283,38 @@ INDEX_HTML = """<!doctype html>
           return;
         }
         emptyEl.style.display = "none";
+        const coverBase = p.capa;
         p.imagens.forEach((img) => {
           const card = document.createElement("div");
           card.className = "card";
+          const base = img.split("/").pop().replace(/\\.[^.]+$/, "");
+          if (coverBase && base === coverBase) {
+            card.classList.add("active");
+            const badge = document.createElement("div");
+            badge.className = "badge";
+            badge.textContent = "CAPA";
+            card.style.position = "relative";
+            card.appendChild(badge);
+          }
           const image = document.createElement("img");
           image.src = `/fotos/${img}`;
           image.loading = "lazy";
           const btn = document.createElement("button");
           btn.textContent = "Definir como capa";
           btn.onclick = async () => {
-            await fetch("/api/cover", {
+            const res = await fetch("/api/cover", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ pasta: p.pasta, imagem: img }),
             });
-            alert("Capa definida!");
+            if (!res.ok) {
+              showToast("Erro ao definir capa");
+              return;
+            }
+            const data = await res.json();
+            products[idx].capa = data.capa;
+            selectProduct(idx);
+            showToast("Capa definida");
           };
           card.appendChild(image);
           card.appendChild(btn);
@@ -222,9 +325,30 @@ INDEX_HTML = """<!doctype html>
       async function loadProducts() {
         const res = await fetch("/api/products");
         products = await res.json();
+        applyFilter();
         renderList();
-        if (products.length) selectProduct(0);
+        if (current !== null) selectProduct(current);
       }
+
+      searchEl.addEventListener("input", () => {
+        applyFilter();
+        renderList();
+        if (current !== null) selectProduct(current);
+        else {
+          titleEl.textContent = "Selecione um produto";
+          gridEl.innerHTML = "";
+          emptyEl.style.display = "none";
+        }
+      });
+
+      prevBtn.addEventListener("click", () => {
+        const pos = getCurrentFilteredPos();
+        if (pos > 0) selectProduct(filtered[pos - 1].idx);
+      });
+      nextBtn.addEventListener("click", () => {
+        const pos = getCurrentFilteredPos();
+        if (pos !== -1 && pos < filtered.length - 1) selectProduct(filtered[pos + 1].idx);
+      });
 
       loadProducts();
     </script>
