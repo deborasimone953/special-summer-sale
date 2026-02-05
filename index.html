@@ -806,7 +806,7 @@ function openImage(src, groupEl) {
   imgs.forEach((imgSrc) => {
     const slide = document.createElement('div');
     slide.className = 'swiper-slide';
-    slide.innerHTML = `<img src="${imgSrc}" class="modal-img">`;
+    slide.innerHTML = `<div class="swiper-zoom-container"><img src="${imgSrc}" class="modal-img"></div>`;
     wrapper.appendChild(slide);
   });
 
@@ -830,6 +830,10 @@ function openImage(src, groupEl) {
     watchOverflow: false,
     keyboard: {
       enabled: true
+    },
+    zoom: {
+      maxRatio: 3,
+      minRatio: 1
     },
     navigation: {
       nextEl: '.modal-swiper .swiper-button-next',
