@@ -840,16 +840,29 @@ function openImage(src, groupEl) {
     initialSlide: initialIndex,
     loop: imgs.length > 1,
     watchOverflow: false,
+    passiveListeners: false,
+    touchStartPreventDefault: false,
     keyboard: {
       enabled: true
     },
     zoom: {
-      maxRatio: 3,
-      minRatio: 1
+      maxRatio: 4,
+      minRatio: 1,
+      toggle: true
     },
     navigation: {
       nextEl: '.modal-swiper .swiper-button-next',
       prevEl: '.modal-swiper .swiper-button-prev'
+    },
+    on: {
+      doubleTap: function(swiper) {
+        const zoom = swiper.zoom;
+        if (zoom.scale > 1) {
+          zoom.out();
+        } else {
+          zoom.in();
+        }
+      }
     }
   });
 
