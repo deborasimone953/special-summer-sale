@@ -215,6 +215,7 @@ header .overlay {
   color: #fff;
   z-index: 5;
   opacity: 1;
+  display: flex;
 }
 </style>
 </head>
@@ -742,9 +743,46 @@ function openImage(src, groupEl) {
   const wrapper = document.getElementById('modalSwiperWrapper');
   wrapper.innerHTML = '';
 
-  const imgs = groupEl
-    ? Array.from(groupEl.querySelectorAll('img')).map((img) => img.dataset.full || img.src)
-    : [src];
+  const buildImagesFromMap = () => {
+    if (!groupEl) return null;
+    const slideEl = groupEl.closest('.swiper-slide');
+    const code = slideEl?.querySelector('.product-code')?.textContent?.trim();
+    if (!code) return null;
+    const imageMap = window.productImagesByCode || productImagesByCode;
+    const images = imageMap?.[code] || imageMap?.[String(code).toUpperCase()];
+    if (!images || !images.length) return null;
+    const cacheSuffix =
+      (typeof IMAGE_CACHE_BUSTER !== 'undefined' && IMAGE_CACHE_BUSTER)
+        ? `?v=${IMAGE_CACHE_BUSTER}`
+        : '';
+    return images
+      .map((image) => {
+        const full = image.full || image.desktop || image.src || '';
+        return full ? `${encodePath(full)}${cacheSuffix}` : '';
+      })
+      .filter(Boolean);
+  };
+
+  const buildImagesFromDom = () => {
+    if (!groupEl) return [];
+    return Array.from(groupEl.querySelectorAll('img'))
+      .map((img) => img.dataset.full || img.src)
+      .filter(Boolean);
+  };
+
+  let imgs = buildImagesFromMap() || buildImagesFromDom();
+
+  if (!imgs.length && src) {
+    imgs = [src];
+  }
+
+  const seen = new Set();
+  imgs = imgs.filter((img) => {
+    const key = String(img);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 
   imgs.forEach((imgSrc) => {
     const slide = document.createElement('div');
@@ -753,7 +791,14 @@ function openImage(src, groupEl) {
     wrapper.appendChild(slide);
   });
 
-  const initialIndex = Math.max(0, imgs.indexOf(src));
+  const normalizedSrc = src ? String(src) : '';
+  const initialIndex = Math.max(
+    0,
+    imgs.findIndex((img) => {
+      if (!normalizedSrc) return false;
+      return img === normalizedSrc || normalizedSrc.endsWith(img) || img.endsWith(normalizedSrc);
+    })
+  );
 
   if (modalSwiperInstance) {
     modalSwiperInstance.destroy(true, true);
@@ -762,6 +807,11 @@ function openImage(src, groupEl) {
   modalSwiperInstance = new Swiper('.modal-swiper', {
     slidesPerView: 1,
     initialSlide: initialIndex,
+    loop: imgs.length > 1,
+    watchOverflow: false,
+    keyboard: {
+      enabled: true
+    },
     navigation: {
       nextEl: '.modal-swiper .swiper-button-next',
       prevEl: '.modal-swiper .swiper-button-prev'
