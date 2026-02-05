@@ -753,27 +753,32 @@ function openImage(src, groupEl) {
       (typeof IMAGE_CACHE_BUSTER !== 'undefined' && IMAGE_CACHE_BUSTER)
         ? `?v=${IMAGE_CACHE_BUSTER}`
         : '';
-    const maps = [];
-    if (typeof productImagesByCode !== 'undefined') {
-      maps.push(productImagesByCode);
-    }
-    if (window.productImagesByCode && window.productImagesByCode !== productImagesByCode) {
-      maps.push(window.productImagesByCode);
-    }
-    const urls = [];
-    maps.forEach((imageMap) => {
-      const images =
-        imageMap?.[code] ||
+    // Prioritize the original full map from index.html (has all images)
+    // over window.productImagesByCode (may be overwritten with covers only)
+    const getImages = (imageMap) => {
+      return imageMap?.[code] ||
         imageMap?.[String(code).toUpperCase()] ||
         imageMap?.[normalizedCode] ||
         imageMap?.[String(normalizedCode).toUpperCase()];
-      if (!images || !images.length) return;
-      images.forEach((image) => {
-        const full = image.full || image.desktop || image.src || '';
-        if (!full) return;
-        urls.push(`${encodePath(full)}${cacheSuffix}`);
-      });
-    });
+    };
+
+    let images = null;
+    // First try the original constant (has full gallery)
+    if (typeof productImagesByCode !== 'undefined') {
+      images = getImages(productImagesByCode);
+    }
+    // Fallback to window version if original doesn't have this product
+    if ((!images || !images.length) && window.productImagesByCode) {
+      images = getImages(window.productImagesByCode);
+    }
+
+    if (!images || !images.length) return null;
+
+    const urls = images.map((image) => {
+      const full = image.full || image.desktop || image.src || '';
+      return full ? `${encodePath(full)}${cacheSuffix}` : '';
+    }).filter(Boolean);
+
     return urls.length ? urls : null;
   };
 
