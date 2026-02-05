@@ -136,9 +136,13 @@ header .overlay {
 }
 .product-images .swiper-slide {
   height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .product-images .swiper-slide img {
   width: 100%;
+  height: 100%;
   display: block;
   aspect-ratio: 4 / 3;
   object-fit: contain;
@@ -680,7 +684,7 @@ header .overlay {
           <div class="card-body">
             <h6 class="fw-bold">Mesa Cristal</h6>
             <div class="product-code">PROD-6666</div>
-            <p class="text-muted small">Mesa de jantar · 6 lugares</p>
+            <p class="text-muted small">sofisticada mesa de jantar para 8 a 10 lugares, design moderno que combina com qualquer cadeira. acabamento em laca fosca e vidro off-white. medidas: 240 x 120</p>
             <div class="price-old">R$ 13.936,00</div>
             <div class="price-new">R$ 9.755,20</div>
             <div class="discount">30% OFF</div>
@@ -798,61 +802,61 @@ const additionalProducts = [
   {
     code: 'PROD-3028',
     name: 'Cadeira Neve',
-    desc: 'Inspiração contemporânea em forma pura com estrutura em madeira nobre e detalhes minimalistas em aço pintado branco. Estofamento em tecido TEC 155 de toque aveludado que complementa suas linhas elegantes (56×56,5×76,5cm). Uma peça que transita perfeitamente entre espaços modernos e clássicos.',
+    desc: 'Inspiração contemporânea em forma pura com estrutura em madeira nobre e detalhes minimalistas em aço pintado branco. Estofamento em tecido TEC 155 de toque aveludado que complementa suas linhas elegantes (56×56,5×76,5cm). Uma peça que transita perfeitamente entre espaços modernos e clássicos. design de Ibanez Razzera.',
     unitario: 'R$ 2.107,00'
   },
   {
     code: 'PROD-6411',
     name: 'Cadeira Horizonte',
-    desc: 'Refinamento em cada detalhe com estrutura em madeira mel claro que harmoniza perfeitamente com o estofamento em linho premium código 584. Proporções arquitetônicas (Largura 49×Profundidade 54×Altura 82cm) que proporcionam conforto sem abrir mão da estética minimalista que transforma qualquer ambiente.',
+    desc: 'Refinamento em cada detalhe com estrutura em madeira mel claro que harmoniza perfeitamente com o estofamento em linho premium código 584. Proporções arquitetônicas (Largura 49×Profundidade 54×Altura 82cm) que proporcionam conforto sem abrir mão da estética minimalista que transforma qualquer ambiente. design de Daniela Ferro.',
     unitario: 'R$ 3.610,00'
   },
   {
     code: 'PROD-2698',
     name: 'Cadeira Siena',
-    desc: 'Design assinado pelo renomado designer Pedro Useche que combina estrutura com acabamento em pintura preta e estofamento em couro natural camel de primeira qualidade. Suas dimensões precisamente calculadas (Largura 55×Profundidade 58×Altura 77cm) refletem o equilíbrio perfeito entre ergonomia e estética contemporânea.',
+    desc: 'Design assinado pelo renomado designer Pedro Useche que combina estrutura com acabamento em pintura preta e estofamento em couro natural camel de primeira qualidade. Suas dimensões precisamente calculadas (Largura 55×Profundidade 58×Altura 77cm) refletem o equilíbrio perfeito entre ergonomia e estética contemporânea. design de Pedro Useche.',
     unitario: 'R$ 3.750,00'
   },
   {
     code: 'PROD-5825',
     name: 'Cadeira Âmbar',
-    desc: 'Peça exclusiva assinada pelo conceituado designer Ronald Sasson que une estrutura ebanizada com assento em couro caramelo de textura inigualável. Suas proporções precisas (Largura 42×Profundidade 57×Altura 79cm) revelam o cuidado com o detalhe e a preocupação com o conforto que só o design de autor proporciona.',
+    desc: 'Peça exclusiva assinada pelo conceituado designer Ronald Sasson que une estrutura ebanizada com assento em couro caramelo de textura inigualável. Suas proporções precisas (Largura 42×Profundidade 57×Altura 79cm) revelam o cuidado com o detalhe e a preocupação com o conforto que só o design de autor proporciona. design de Ronald Sasson.',
     unitario: 'R$ 2.575,00'
   },
   {
     code: 'PROD-8087',
     name: 'Cadeira Aurora',
-    desc: 'Criação exclusiva do designer Daniel Simonini que celebra o artesanato brasileiro com sua palha sextavada natural cuidadosamente trançada à mão. Estrutura mista com braço modelo 310 que confere personalidade única à peça. Dimensões (Largura 59×Profundidade 52×Altura 82cm) que garantem conforto e presença marcante em qualquer ambiente.',
+    desc: 'Criação exclusiva do designer Daniel Simonini que celebra o artesanato brasileiro com sua palha sextavada natural cuidadosamente trançada à mão. Estrutura mista com braço modelo 310 que confere personalidade única à peça. Dimensões (Largura 59×Profundidade 52×Altura 82cm) que garantem conforto e presença marcante em qualquer ambiente. design de Daniel Simonini.',
     unitario: 'R$ 4.860,00'
   },
   {
     code: 'PROD-7091',
     name: 'Cadeira Jangada',
-    desc: 'Assinada pela premiada designer Daniela Ferro, esta peça une tradição e contemporaneidade com sua estrutura em madeira jequitibá de origem certificada e assento em fibra sintética de alta durabilidade. Suas dimensões generosas (Largura 57×Profundidade 60×Altura 80cm) promovem uma experiência de conforto que convida à permanência.',
+    desc: 'Assinada pela premiada designer Daniela Ferro, esta peça une tradição e contemporaneidade com sua estrutura em madeira jequitibá de origem certificada e assento em fibra sintética de alta durabilidade. Suas dimensões generosas (Largura 57×Profundidade 60×Altura 80cm) promovem uma experiência de conforto que convida à permanência. design de Daniela Ferro.',
     unitario: 'R$ 3.760,00'
   },
   {
     code: 'PROD-5289',
     name: 'Cadeira Press',
-    desc: 'Design autoral do designer Tiago Curioni que valoriza as texturas naturais brasileiras com estrutura em madeira natural e assento em palha sextavada meticulosamente trabalhada. Dimensões harmoniosas (Largura 53×Profundidade 43×Altura 81cm) que combinam presença estética com ergonomia impecável, ideal para espaços que valorizam autenticidade.',
+    desc: 'Design autoral do designer Tiago Curioni que valoriza as texturas naturais brasileiras com estrutura em madeira natural e assento em palha sextavada meticulosamente trabalhada. Dimensões harmoniosas (Largura 53×Profundidade 43×Altura 81cm) que combinam presença estética com ergonomia impecável, ideal para espaços que valorizam autenticidade. design de Tiago Curioni.',
     unitario: 'R$ 2.670,00'
   },
   {
     code: 'PROD-5921',
     name: 'Cadeira Giro',
-    desc: 'Concepção inovadora do designer Devid Almeida que alia funcionalidade e estética com sua base giratória em alumínio e braços em laminado premium. Estofamento em tecido exclusivo código 0402 de toque macio e alta durabilidade. Dimensões (Largura 61×Profundidade 57×Altura 82cm) que proporcionam conforto dinâmico para espaços contemporâneos.',
+    desc: 'Concepção inovadora do designer Devid Almeida que alia funcionalidade e estética com sua base giratória em alumínio e braços em laminado premium. Estofamento em tecido exclusivo código 0402 de toque macio e alta durabilidade. Dimensões (Largura 61×Profundidade 57×Altura 82cm) que proporcionam conforto dinâmico para espaços contemporâneos. design de Deivid Almeida.',
     unitario: 'R$ 5.868,00'
   },
   {
     code: 'PROD-3613',
     name: 'Poltrona Carbono',
-    desc: 'Uma obra-prima de design contemporâneo com estofamento em tecido premium código D7066 cuidadosamente selecionado. Base e pés em aço carbono laminado que conferem personalidade à peça. Dimensões generosas (Largura 87×Profundidade 82×Altura 80cm) proporcionam uma experiência de conforto envolvente para momentos de puro deleite.',
+    desc: 'Uma obra-prima de design contemporâneo com estofamento em tecido premium código D7066 cuidadosamente selecionado. Base e pés em aço carbono laminado que conferem personalidade à peça. Dimensões generosas (Largura 87×Profundidade 82×Altura 80cm) proporcionam uma experiência de conforto envolvente para momentos de puro deleite. design de Ronald Sasson.',
     unitario: 'R$ 6.700,00'
   },
   {
     code: 'PROD-4740',
     name: 'Poltrona Tela',
-    desc: 'Design que celebra a tradição artesanal brasileira com sua tela sextavada metódicamente trançada em tons crus naturais. Estrutura em madeira maciça natural que revela a nobreza dos veios. Suas dimensões (Largura 72×Profundidade 62×Altura 73cm) foram cuidadosamente calculadas para oferecer conforto e espaço ideal em ambientes contemporâneos.',
+    desc: 'Design que celebra a tradição artesanal brasileira com sua tela sextavada metódicamente trançada em tons crus naturais. Estrutura em madeira maciça natural que revela a nobreza dos veios. Suas dimensões (Largura 72×Profundidade 62×Altura 73cm) foram cuidadosamente calculadas para oferecer conforto e espaço ideal em ambientes contemporâneos. design de Ibanez Razzera.',
     unitario: 'R$ 5.852,00'
   },
   {
@@ -870,43 +874,43 @@ const additionalProducts = [
   {
     code: 'PROD-4263',
     name: 'Poltrona Sett',
-    desc: 'Refinamento clássico com estrutura ebanizada em acabamento artesanal que celebra a nobreza da madeira escura. Estofamento em linho premium cinza cuidadosamente selecionado que complementa suas linhas arquitetônicas. Dimensões precisas (Largura 74×Profundidade 78,5×Altura 72cm) que proporcionam uma experiência de conforto que transcende o tempo.',
+    desc: 'Refinamento clássico com estrutura ebanizada em acabamento artesanal que celebra a nobreza da madeira escura. Estofamento em linho premium cinza cuidadosamente selecionado que complementa suas linhas arquitetônicas. Dimensões precisas (Largura 74×Profundidade 78,5×Altura 72cm) que proporcionam uma experiência de conforto que transcende o tempo. design de Ronald Sasson.',
     unitario: 'R$ 5.808,00'
   },
   {
     code: 'PROD-8075',
     name: 'Poltrona Malva',
-    desc: 'Silhueta envolvente com dimensões generosas (Largura 97×Profundidade 83×Altura 85cm) que convida ao relaxamento absoluto. Base escultural em madeira tonalizada em mel que harmoniza perfeitamente com o estofamento em tecido premium claro cuidadosamente selecionado. Uma peça que equilibra proporções amplas com um desenho que evoca leveza e sofisticação.',
+    desc: 'Silhueta envolvente com dimensões generosas (Largura 97×Profundidade 83×Altura 85cm) que convida ao relaxamento absoluto. Base escultural em madeira tonalizada em mel que harmoniza perfeitamente com o estofamento em tecido premium claro cuidadosamente selecionado. Uma peça que equilibra proporções amplas com um desenho que evoca leveza e sofisticação. design de Maurício Coelho.',
     unitario: 'R$ 9.670,00'
   },
   {
     code: 'PROD-4091',
     name: 'Poltrona Pitia',
-    desc: 'Refináda combinação de materiais nobres com estrutura em louro freijó meticulosamente trabalhada e detalhes em palha natural trançada artesanalmente. O assento em couro marrom caramelo de primeira qualidade oferece maciez incomparável. Dimensões harmoniosas (Largura 76×Profundidade 68×Altura 73cm) que refletem a preocupação com conforto e estética refinada.',
+    desc: 'Refináda combinação de materiais nobres com estrutura em louro freijó meticulosamente trabalhada e detalhes em palha natural trançada artesanalmente. O assento em couro marrom caramelo de primeira qualidade oferece maciez incomparável. Dimensões harmoniosas (Largura 76×Profundidade 68×Altura 73cm) que refletem a preocupação com conforto e estética refinada. design de Ibanez Razzera.',
     unitario: 'R$ 6.806,00'
   },
   {
     code: 'PROD-2665',
     name: 'Poltrona Sola',
-    desc: 'Design contemporâneo de linhas puras que combina estrutura em aço carbono preto com estofamento em couro sola preto de alta qualidade. Detalhes em madeira nobre conferem calor e sofisticação. Proporções generosas (Largura 88×Profundidade 85×Altura 85cm) cuidadosamente calculadas para proporcionar uma experiência de conforto inigualável em ambientes refinados.',
+    desc: 'Design contemporâneo de linhas puras que combina estrutura em aço carbono preto com estofamento em couro sola preto de alta qualidade. Detalhes em madeira nobre conferem calor e sofisticação. Proporções generosas (Largura 88×Profundidade 85×Altura 85cm) cuidadosamente calculadas para proporcionar uma experiência de conforto inigualável em ambientes refinados. design de Larissa Diegoli.',
     unitario: 'R$ 9.102,00'
   },
   {
     code: 'PROD-2787',
     name: 'Poltrona Hope',
-    desc: 'Experiência completa de conforto com conjunto que inclui poltrona giratória e puff coordenado. Estofamento em tecido premium cinza claro de toque macio e alta durabilidade. Dimensões amplas (Largura 100×Profundidade 92×Altura 70cm) com assentos profundos que convidam ao relaxamento absoluto em qualquer momento do dia.',
+    desc: 'Experiência completa de conforto com conjunto que inclui poltrona giratória e puff coordenado. Estofamento em tecido premium cinza claro de toque macio e alta durabilidade. Dimensões amplas (Largura 100×Profundidade 92×Altura 70cm) com assentos profundos que convidam ao relaxamento absoluto em qualquer momento do dia. design de Leva Design.',
     unitario: 'R$ 8.039,00'
   },
   {
     code: 'PROD-1225',
     name: 'Poltrona Round',
-    desc: 'Elegância e conforto em uma peça de design marcante com dimensões generosas (Largura 82×Profundidade 84×Altura 80cm) que acolhem perfeitamente o corpo. Frente estofada em tecido premium cuidadosamente selecionado que contrasta de forma sofisticada com os detalhes em couro bege que revestem o encosto. Uma combinação de materiais nobres que cria uma experiência visual e sensorial única.',
+    desc: 'Elegância e conforto em uma peça de design marcante com dimensões generosas (Largura 82×Profundidade 84×Altura 80cm) que acolhem perfeitamente o corpo. Frente estofada em tecido premium cuidadosamente selecionado que contrasta de forma sofisticada com os detalhes em couro bege que revestem o encosto. Uma combinação de materiais nobres que cria uma experiência visual e sensorial única. design de Alexander Di Mari.',
     unitario: 'R$ 7.150,00'
   },
   {
     code: 'PROD-3893',
     name: 'Poltrona Nux',
-    desc: 'Design contemporâneo que une simplicidade e conforto em dimensões generosas (Largura 100×Profundidade 92×Altura 84cm). Estofamento em tecido premium claro de toque acetinado que valoriza as linhas suaves e orgânicas desta peça. O equilíbrio perfeito entre forma e função para ambientes que prezam pela sofisticação discreta.',
+    desc: 'Design contemporâneo que une simplicidade e conforto em dimensões generosas (Largura 100×Profundidade 92×Altura 84cm). Estofamento em tecido premium claro de toque acetinado que valoriza as linhas suaves e orgânicas desta peça. O equilíbrio perfeito entre forma e função para ambientes que prezam pela sofisticação discreta. design de João Demele.',
     unitario: 'R$ 4.442,00'
   },
   {
@@ -918,7 +922,7 @@ const additionalProducts = [
   {
     code: 'PROD-8602',
     name: 'Poltrona Atlântica',
-    desc: 'Inspiração na costa brasileira traduzida em linhas fluidas e acolhedoras. Estofamento generoso sobre base escultural em madeira nobre que confere personalidade à peça. Dimensões amplas e convidativas (Largura 85×Profundidade 80×Altura 82cm) que proporcionam uma experiência sensorial de conforto e sofisticação para espaços contemporâneos.',
+    desc: 'Inspiração na costa brasileira traduzida em linhas fluidas e acolhedoras. Estofamento generoso sobre base escultural em madeira nobre que confere personalidade à peça. Dimensões amplas e convidativas (Largura 85×Profundidade 80×Altura 82cm) que proporcionam uma experiência sensorial de conforto e sofisticação para espaços contemporâneos. design de Rodrigo Delazzeri.',
     unitario: 'R$ 4.504,00'
   },
   {
@@ -930,7 +934,7 @@ const additionalProducts = [
   {
     code: 'PROD-6749',
     name: 'Mesa de centro Bruma',
-    desc: 'Criação exclusiva do renomado Estudio Ambos que alia design contemporâneo e materiais de alta qualidade. Estrutura em aço carbono meticulosamente trabalhada que sustenta um tampo de linhas puras. Dimensões perfeitamente equilibradas (110×110×42cm) que combinam função e estética para criar uma peça central marcante em qualquer ambiente.',
+    desc: 'Criação exclusiva do renomado Estudio Ambos que alia design contemporâneo e materiais de alta qualidade. Estrutura em aço carbono meticulosamente trabalhada que sustenta um tampo de linhas puras. Dimensões perfeitamente equilibradas (110×110×42cm) que combinam função e estética para criar uma peça central marcante em qualquer ambiente. design de Ambos Estúdio.',
     unitario: 'R$ 10.392,00'
   },
   {
@@ -942,7 +946,7 @@ const additionalProducts = [
   {
     code: 'PROD-6900',
     name: 'Mesa de Centro Duetto',
-    desc: 'Elegante conjunto de duas mesas complementares que celebram a versatilidade e o design contemporâneo. Estrutura em nogueira nobre que sustenta com elegancia o tampo em mármore cinza na mesa maior e o tampo em vidro cristalino na menor. Uma composição dinâmica e funcional que agrega sofisticação a qualquer ambiente.',
+    desc: 'Elegante conjunto de duas mesas complementares que celebram a versatilidade e o design contemporâneo. Estrutura em nogueira nobre que sustenta com elegancia o tampo em mármore cinza na mesa maior e o tampo em vidro cristalino na menor. Uma composição dinâmica e funcional que agrega sofisticação a qualquer ambiente. design de Ampezzam Maciel Arquitetos.',
     unitario: 'R$ 7.775,00'
   },
   {
@@ -989,42 +993,42 @@ const mesasLateraisProducts = [
   {
     code: 'ML-0003',
     name: 'Mesa Lateral Nébula',
-    desc: 'Design contemporâneo em laca preta de alto brilho que cria um efeito espelhado sutil e elegante. Seu formato perfeitamente circular (Diâmetro 60×Altura 60cm) confere sofisticação cosmopolita a qualquer espaço. Uma peça de personalidade marcante que adiciona profundidade e glamour discreto aos ambientes mais refinados.',
+    desc: 'Design contemporâneo em laca preta de alto brilho que cria um efeito espelhado sutil e elegante. Seu formato perfeitamente circular (Diâmetro 60×Altura 60cm) confere sofisticação cosmopolita a qualquer espaço. Uma peça de personalidade marcante que adiciona profundidade e glamour discreto aos ambientes mais refinados. design de Sergio Bolis.',
     unitario: 6624,
     discount: 0.6
   },
   {
     code: 'ML-0004',
     name: 'Mesa Lateral Íris',
-    desc: 'Combinação magistral entre o carvalho castanho de textura expressiva e detalhes em acabamento gold metalizado que adicionam um toque de luxo discreto. Proporções perfeitas (D60×A65cm) que equilibram presença visual e funcionalidade. Uma peça que harmoniza tradição e contemporaneidade em uma expressão de refinado bom gosto.',
+    desc: 'Combinação magistral entre o carvalho castanho de textura expressiva e detalhes em acabamento gold metalizado que adicionam um toque de luxo discreto. Proporções perfeitas (D60×A65cm) que equilibram presença visual e funcionalidade. Uma peça que harmoniza tradição e contemporaneidade em uma expressão de refinado bom gosto. design de Sergio Bolis.',
     unitario: 6350,
     discount: 0.6
   },
   {
     code: 'ML-0005',
     name: 'Mesa Lateral Sereia',
-    desc: 'Elegância noturna em laca preta de alto brilho enriquecida com detalhes em acabamento gold que criam um contraste luminoso e sofisticado. Silhueta esbelta (Diâmetro 40×Altura 60cm) que adiciona verticalidade e drama contido a qualquer composição de living. Uma peça que captura a atenção com sua presença ao mesmo tempo discreta e marcante.',
+    desc: 'Elegância noturna em laca preta de alto brilho enriquecida com detalhes em acabamento gold que criam um contraste luminoso e sofisticado. Silhueta esbelta (Diâmetro 40×Altura 60cm) que adiciona verticalidade e drama contido a qualquer composição de living. Uma peça que captura a atenção com sua presença ao mesmo tempo discreta e marcante. design de Sergio Bolis.',
     unitario: 3734,
     discount: 0.6
   },
   {
     code: 'ML-0006',
     name: 'Mesa Lateral Brisa',
-    desc: 'Harmonia perfeita entre madeira em tonalidade mel de textura acolhedora e estrutura em metal preto fosco que adiciona contorno contemporâneo. A combinação de materiais cria um equilíbrio visual que transita com naturalidade entre estilos. Uma peça versátil que adiciona calor e sofisticação a qualquer ambiente da casa.',
+    desc: 'Harmonia perfeita entre madeira em tonalidade mel de textura acolhedora e estrutura em metal preto fosco que adiciona contorno contemporâneo. A combinação de materiais cria um equilíbrio visual que transita com naturalidade entre estilos. Uma peça versátil que adiciona calor e sofisticação a qualquer ambiente da casa. design de Lucas Pasterchak.',
     unitario: 2890,
     discount: 0.6
   },
   {
     code: 'ML-0007',
     name: 'Mesa Lateral Atlântica',
-    desc: 'Sofisticação atemporal em acabamento preto ebanizado que revela a textura sutil da madeira sob um tratamento clássico. Proporções equilibradas em formato circular (Diâmetro 60×Altura 60cm) que dialogam com diversos estilos decorativos. Uma peça que adiciona profundidade e caráter ao ambiente com sua elegancia discreta e refinada.',
+    desc: 'Sofisticação atemporal em acabamento preto ebanizado que revela a textura sutil da madeira sob um tratamento clássico. Proporções equilibradas em formato circular (Diâmetro 60×Altura 60cm) que dialogam com diversos estilos decorativos. Uma peça que adiciona profundidade e caráter ao ambiente com sua elegancia discreta e refinada. design de Ludwig Mies Van Der Rohe.',
     unitario: 3455,
     discount: 0.6
   },
   {
     code: 'ML-0008',
     name: 'Mesa Lateral Âmbar',
-    desc: 'Expressão máxima de luxo contemporâneo que combina estrutura em aço carbono marrom com acabamento acetinado e majestoso tampo em mármore Imperador cuidadosamente selecionado com seus veios únicos e dramáticos. Dimensões precisas (58,7×58,7×Altura 56,5cm) que equilibram presença visual e funcionalidade. Uma peça de caráter excepcional que eleva instantaneamente qualquer ambiente.',
+    desc: 'Expressão máxima de luxo contemporâneo que combina estrutura em aço carbono marrom com acabamento acetinado e majestoso tampo em mármore Imperador cuidadosamente selecionado com seus veios únicos e dramáticos. Dimensões precisas (58,7×58,7×Altura 56,5cm) que equilibram presença visual e funcionalidade. Uma peça de caráter excepcional que eleva instantaneamente qualquer ambiente. design de Ronald Sasson.',
     unitario: 8700,
     discount: 0.6
   },
@@ -1038,7 +1042,7 @@ const mesasLateraisProducts = [
   {
     code: 'ML-0010',
     name: 'Mesa Lateral Horizonte',
-    desc: 'Funcionalidade e design em perfeito equilíbrio com formato versátil que permite encaixe próximo ao sofá. Base em aço preto fosco de linhas leves que sustenta tampo em carvalho mel de veios expressivos. Dimensões projetadas para praticidade (Largura 57×Profundidade 30×Altura 45cm) enquanto adiciona um toque de elegância contemporânea a qualquer ambiente de convivência.',
+    desc: 'Funcionalidade e design em perfeito equilíbrio com formato versátil que permite encaixe próximo ao sofá. Base em aço preto fosco de linhas leves que sustenta tampo em carvalho mel de veios expressivos. Dimensões projetadas para praticidade (Largura 57×Profundidade 30×Altura 45cm) enquanto adiciona um toque de elegância contemporânea a qualquer ambiente de convivência. design de Ampezzam Maciel Arquitetos.',
     unitario: 2750,
     discount: 0.4
   },
@@ -1059,7 +1063,7 @@ const mesasLateraisProducts = [
   {
     code: 'ML-0014',
     name: 'Mesa Lateral Selene',
-    desc: 'Tributo à marcenaria clássica com seu trabalho em madeira carvalho castanho em padrão espinhado meticulosamente elaborado que celebra a tradição artesanal. Proporções circulares equilibradas (Diâmetro 60×Altura 60cm) que conferem elegância atemporal. Uma peça de distínção que valoriza ambientes requintados com seu caráter sofisticado.',
+    desc: 'Tributo à marcenaria clássica com seu trabalho em madeira carvalho castanho em padrão espinhado meticulosamente elaborado que celebra a tradição artesanal. Proporções circulares equilibradas (Diâmetro 60×Altura 60cm) que conferem elegância atemporal. Uma peça de distínção que valoriza ambientes requintados com seu caráter sofisticado. design de Paulo Sartori.',
     unitario: 3360,
     discount: 0.3
   },
@@ -1122,14 +1126,14 @@ const mesasLateraisProducts = [
   {
     code: 'ML-0023',
     name: 'Mesa Lateral Opala',
-    desc: 'Expressão de minimalismo sofisticado integralmente em preto que cria uma silhueta marcante com suas linhas retileas precisas. Proporções alongadas (Largura 50×Profundidade 25×Altura 55cm) que adicionam elegância contemporânea e funcionalidade a espaços de convivência. Uma peça que valoriza ambientes com seu desenho refinado e presença discreta mas impactante.',
+    desc: 'Expressão de minimalismo sofisticado integralmente em preto que cria uma silhueta marcante com suas linhas retileas precisas. Proporções alongadas (Largura 50×Profundidade 25×Altura 55cm) que adicionam elegância contemporânea e funcionalidade a espaços de convivência. Uma peça que valoriza ambientes com seu desenho refinado e presença discreta mas impactante. design de Paulo Sartori.',
     unitario: 2980,
     discount: 0.6
   },
   {
     code: 'ML-0024',
     name: 'Mesa Lateral Vértice',
-    desc: 'Celebração da madeira brasileira tauari em tonalidade mel que revela a beleza ímpar dos veios naturais com acabamento sedoso ao toque. Silhueta vertical (Diâmetro 40×Altura 65cm) que adiciona dinamismo e elegância a qualquer ambiente. O trabalho artístico da marcenaria confere a esta peça um caráter de exclusividade que valoriza espaços com refináda personalidade.',
+    desc: 'Celebração da madeira brasileira tauari em tonalidade mel que revela a beleza ímpar dos veios naturais com acabamento sedoso ao toque. Silhueta vertical (Diâmetro 40×Altura 65cm) que adiciona dinamismo e elegância a qualquer ambiente. O trabalho artístico da marcenaria confere a esta peça um caráter de exclusividade que valoriza espaços com refináda personalidade. design de Luia Mantelli.',
     unitario: 3745,
     discount: 0.5
   },
@@ -1188,28 +1192,28 @@ const sofasProducts = [
   {
     code: 'VMSF01',
     name: 'Sofá Orgânico Napoli',
-    desc: 'Obra-prima em design contemporâneo com linhas orgânicas que se estendem por impressionantes 3,15 metros. Revestimento em malha exclusiva Trento Grigio que combina sofisticação e conforto tátil inigualável. Uma peça statement que define o ambiente com sua presença arquitetônica e convida ao relaxamento absoluto em sua silhueta envolvente.',
+    desc: 'Obra-prima em design contemporâneo com linhas orgânicas que se estendem por impressionantes 3,15 metros. Revestimento em malha exclusiva Trento Grigio que combina sofisticação e conforto tátil inigualável. Uma peça statement que define o ambiente com sua presença arquitetônica e convida ao relaxamento absoluto em sua silhueta envolvente. design de Fabio Lima.',
     unitario: 28588,
     discount: 0.6
   },
   {
     code: 'VMSF02',
     name: 'Sofá Meridian',
-    desc: 'Elegância contemporânea em proporções generosas com 2,80 metros que harmoniza perfeitamente espaço e conforto. Braços de 20cm meticulosamente desenhados que adicionam personalidade discreta ao conjunto. Estofamento em tecido premium cinza cuidadosamente selecionado que valoriza qualquer ambiente com sua presença sofisticada e acolhedora.',
+    desc: 'Elegância contemporânea em proporções generosas com 2,80 metros que harmoniza perfeitamente espaço e conforto. Braços de 20cm meticulosamente desenhados que adicionam personalidade discreta ao conjunto. Estofamento em tecido premium cinza cuidadosamente selecionado que valoriza qualquer ambiente com sua presença sofisticada e acolhedora. design de Luciano Santelli.',
     unitario: 9674,
     discount: 0.3
   },
   {
     code: 'VMSF03',
     name: 'Sofá Oak',
-    desc: 'Design arquitetônico de presença marcante com dimensões amplas (Largura 280×Profundidade 120×Altura 90cm) que criam um convite irresistível ao conforto. Revestimento em tecido premium claro que adiciona luminosidade e leveza visual ao ambiente. Uma peça que equilibra impacto visual e conforto envolvente para criar momentos memoráveis de convivência e relaxamento.',
+    desc: 'Design arquitetônico de presença marcante com dimensões amplas (Largura 280×Profundidade 120×Altura 90cm) que criam um convite irresistível ao conforto. Revestimento em tecido premium claro que adiciona luminosidade e leveza visual ao ambiente. Uma peça que equilibra impacto visual e conforto envolvente para criar momentos memoráveis de convivência e relaxamento. design de Bruno Faucz.',
     unitario: 16358,
     discount: 0.5
   },
   {
     code: 'VMSF04',
     name: 'Sofá Latt',
-    desc: 'Sofisticação em linhas contemporâneas com seus 2,20 metros de comprimento perfeitamente proporcionados para ambientes elegantes. Estofamento em tecido premium linho cinza que adiciona textura refinada e versatilidade cromática. Uma peça que combina presença visual distinta com o conforto acolhedor que transforma qualquer espaço em um refúgio de bem-estar.',
+    desc: 'Sofisticação em linhas contemporâneas com seus 2,20 metros de comprimento perfeitamente proporcionados para ambientes elegantes. Estofamento em tecido premium linho cinza que adiciona textura refinada e versatilidade cromática. Uma peça que combina presença visual distinta com o conforto acolhedor que transforma qualquer espaço em um refúgio de bem-estar. design de Studio Più.',
     unitario: 7570,
     discount: 0.6
   }
@@ -1222,7 +1226,7 @@ const externoProducts = [
   {
     code: 'EX01',
     name: 'Poltrona Flam',
-    desc: 'Sofisticação outdoor em fibra sintética de alta performance com aspecto natural que combina beleza e durabilidade superior. Revestida em tecido especial para áreas externas resistente a raios UV e intemperies. Dimensões generosas (Largura 85×Profundidade 88×Altura 67cm) que garantem conforto absoluto. Peça exclusiva que alia estética refinada e funcionalidade para varandas e áreas externas sofisticadas.',
+    desc: 'Sofisticação outdoor em fibra sintética de alta performance com aspecto natural que combina beleza e durabilidade superior. Revestida em tecido especial para áreas externas resistente a raios UV e intemperies. Dimensões generosas (Largura 85×Profundidade 88×Altura 67cm) que garantem conforto absoluto. Peça exclusiva que alia estética refinada e funcionalidade para varandas e áreas externas sofisticadas. design de Paulo Alves.',
     unitario: 7890,
     discount: 0.6
   },
@@ -1236,7 +1240,7 @@ const externoProducts = [
   {
     code: 'EX03',
     name: 'Mesa Lateral Rueda',
-    desc: 'Expressão artística em madeira cumaru de resistencia superior combinada com corda camurça meticulosamente trançada por artesaos especializados. Dimensões elegantes (Diâmetro 29×Altura 55cm) que adicionam funcionalidade e personalidade a qualquer espaço. Versatilidade que permite uso tanto em áreas externas protegidas quanto em ambientes internos, criando continuidade estética em sua decoração.',
+    desc: 'Expressão artística em madeira cumaru de resistencia superior combinada com corda camurça meticulosamente trançada por artesaos especializados. Dimensões elegantes (Diâmetro 29×Altura 55cm) que adicionam funcionalidade e personalidade a qualquer espaço. Versatilidade que permite uso tanto em áreas externas protegidas quanto em ambientes internos, criando continuidade estética em sua decoração. design de Daniela Ferro.',
     unitario: 2850,
     discount: 0.5
   },
@@ -1250,21 +1254,21 @@ const externoProducts = [
   {
     code: 'EX05',
     name: 'Mesa de Centro Soho',
-    desc: 'Design contemporâneo que combina estrutura em alumínio com acabamento chumbo acetinado e tampo em madeira cumaru de veios expressivos tratada para uso externo. Dimensões generosas (Largura 90×Profundidade 90×Altura 28cm) que criam um ponto focal elegante e funcional para áreas de convívio ao ar livre. Peça versátil que transita com elegância entre ambientes externos e internos.',
+    desc: 'Design contemporâneo que combina estrutura em alumínio com acabamento chumbo acetinado e tampo em madeira cumaru de veios expressivos tratada para uso externo. Dimensões generosas (Largura 90×Profundidade 90×Altura 28cm) que criam um ponto focal elegante e funcional para áreas de convívio ao ar livre. Peça versátil que transita com elegância entre ambientes externos e internos. design de Camila Forbeck.',
     unitario: 3975,
     discount: 0.5
   },
   {
     code: 'EX06',
     name: 'Mesa de Centro Fiji',
-    desc: 'Elegância tropical em mesa circular de 80cm de diâmetro com tampo em madeira cumaru cuidadosamente tratada para resistir às intemperies. Base estruturada com corda naval areia trançada artesanalmente que adiciona textura e caráter único. Versatilidade que permite uso em áreas externas protegidas ou ambientes internos, criando uma conexão estética fluida entre os espaços de convivência.',
+    desc: 'Elegância tropical em mesa circular de 80cm de diâmetro com tampo em madeira cumaru cuidadosamente tratada para resistir às intemperies. Base estruturada com corda naval areia trançada artesanalmente que adiciona textura e caráter único. Versatilidade que permite uso em áreas externas protegidas ou ambientes internos, criando uma conexão estética fluida entre os espaços de convivência. design de Stark Studio.',
     unitario: 4400,
     discount: 0.4
   },
   {
     code: 'EX07',
     name: 'Balanço Luar',
-    desc: 'Convite ao relaxamento com design contemporâneo que combina conforto e estética refinada. Estrutura em alumínio com acabamento verde musgo que se integra harmoniosamente aos espaços externos. Diâmetro generoso de 98cm que acolhe o corpo perfeitamente, criando um espaço de confortável reflexão e contemplação. Ideal para varandas, jardins e áreas de lazer que valorizam o bem-estar.',
+    desc: 'Convite ao relaxamento com design contemporâneo que combina conforto e estética refinada. Estrutura em alumínio com acabamento verde musgo que se integra harmoniosamente aos espaços externos. Diâmetro generoso de 98cm que acolhe o corpo perfeitamente, criando um espaço de confortável reflexão e contemplação. Ideal para varandas, jardins e áreas de lazer que valorizam o bem-estar. design de Ronaldo Fraga.',
     unitario: 5720,
     discount: 0.6
   },
@@ -1625,7 +1629,7 @@ const diversosProducts = [
   {
     code: 'DV-0043',
     name: 'Aparador Carrinho Tropicana',
-    desc: 'Versátil peça de design assinado pelo renomado designer Ronald Sasson que reimagina o conceito de aparador com linhas fluidas e contemporâneas. Generoso comprimento de 135cm que proporciona amplo espaço de apoio e armazenamento com presena visual marcante. Sua versatilidade permite uso como aparador fixo, carrinho de serviço ou mesa lateral oversized, combinando funcionalidade, elegância e assinatura de design em uma peça excepcional.',
+    desc: 'Versátil peça de design assinado pelo renomado designer Ronald Sasson que reimagina o conceito de aparador com linhas fluidas e contemporâneas. Generoso comprimento de 135cm que proporciona amplo espaço de apoio e armazenamento com presena visual marcante. Sua versatilidade permite uso como aparador fixo, carrinho de serviço ou mesa lateral oversized, combinando funcionalidade, elegância e assinatura de design em uma peça excepcional. design de Ronald Sasson.',
     unitario: 4980.0,
     discount: 0.6
   },
@@ -1639,7 +1643,7 @@ const diversosProducts = [
   {
     code: 'DV-0045',
     name: 'Aparador Nature',
-    desc: 'Expressão de naturalidade em aparador de generosas dimensões (Largura 180×Profundidade 40×Altura 77cm) confeccionado em carvalho natural que celebra a beleza autêntica da madeira em seu estado mais puro. Linhas limpas e desenho depurado que permitem que a nobreza da matéria-prima seja a protagonista da peça. Design atemporal que atravessa tendências e modismos, adicionando elegância orgânica e sofisticação calorosa a qualquer ambiente.',
+    desc: 'Expressão de naturalidade em aparador de generosas dimensões (Largura 180×Profundidade 40×Altura 77cm) confeccionado em carvalho natural que celebra a beleza autêntica da madeira em seu estado mais puro. Linhas limpas e desenho depurado que permitem que a nobreza da matéria-prima seja a protagonista da peça. Design atemporal que atravessa tendências e modismos, adicionando elegância orgânica e sofisticação calorosa a qualquer ambiente. design de Paulo Sartori.',
     unitario: 5760.0,
     discount: 0.5
   },
@@ -3443,6 +3447,11 @@ function formatDesc(text) {
   let cleaned = String(text || '').trim().toLowerCase();
   if (!cleaned) return '';
   cleaned = cleaned.replace(/\b([lpad])\b(?=\s*\d)/g, (match) => match.toUpperCase());
+  const titleCase = (value) => value
+    .split(/\s+/)
+    .map((word) => (word ? word.charAt(0).toUpperCase() + word.slice(1) : ''))
+    .join(' ');
+  cleaned = cleaned.replace(/design de ([^.!?]+)/g, (_, name) => `design de ${titleCase(name)}`);
   return cleaned;
 }
 
