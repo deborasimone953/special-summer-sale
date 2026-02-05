@@ -748,19 +748,33 @@ function openImage(src, groupEl) {
     const slideEl = groupEl.closest('.swiper-slide');
     const code = slideEl?.querySelector('.product-code')?.textContent?.trim();
     if (!code) return null;
-    const imageMap = window.productImagesByCode || productImagesByCode;
-    const images = imageMap?.[code] || imageMap?.[String(code).toUpperCase()];
-    if (!images || !images.length) return null;
+    const normalizedCode = code.replace(/\s+/g, '');
     const cacheSuffix =
       (typeof IMAGE_CACHE_BUSTER !== 'undefined' && IMAGE_CACHE_BUSTER)
         ? `?v=${IMAGE_CACHE_BUSTER}`
         : '';
-    return images
-      .map((image) => {
+    const maps = [];
+    if (typeof productImagesByCode !== 'undefined') {
+      maps.push(productImagesByCode);
+    }
+    if (window.productImagesByCode && window.productImagesByCode !== productImagesByCode) {
+      maps.push(window.productImagesByCode);
+    }
+    const urls = [];
+    maps.forEach((imageMap) => {
+      const images =
+        imageMap?.[code] ||
+        imageMap?.[String(code).toUpperCase()] ||
+        imageMap?.[normalizedCode] ||
+        imageMap?.[String(normalizedCode).toUpperCase()];
+      if (!images || !images.length) return;
+      images.forEach((image) => {
         const full = image.full || image.desktop || image.src || '';
-        return full ? `${encodePath(full)}${cacheSuffix}` : '';
-      })
-      .filter(Boolean);
+        if (!full) return;
+        urls.push(`${encodePath(full)}${cacheSuffix}`);
+      });
+    });
+    return urls.length ? urls : null;
   };
 
   const buildImagesFromDom = () => {
