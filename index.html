@@ -629,6 +629,7 @@ header .overlay {
             <h6 class="fw-bold">Sofá Manhattan</h6>
             <div class="product-code">EX010</div>
             <p class="text-muted small">Expressão contemporânea de elegante sofisticação outdoor com estrutura em alumínio pintado preto. Dimensões imponentes (Altura 78×Largura 220×Profundidade 90cm). Revestimento em tecido externo linho cinza mescla resistente às intemperies. Design Camila Forbeck.</p>
+            <p class="text-muted small mb-1" style="font-size:0.78rem;"><strong>Quantidade disponível:</strong> 1</p>
             <div class="price-old">R$ 12.720,00</div>
             <div class="price-new">R$ 6.360,00</div>
             <div class="discount">50% OFF</div>
@@ -664,6 +665,7 @@ header .overlay {
             <h6 class="fw-bold">Sofá Napoli</h6>
             <div class="product-code">PROD-2471</div>
             <p class="text-muted small">Elegância atemporal em linhas orgânicas e fluidas que convidam ao relaxamento. Estrutura robusta com estofamento premium em 3 lugares generosos (3,15m). Uma peça statement que transforma qualquer living em um refúgio de sofisticação e conforto. Design Fabio Lima.</p>
+            <p class="text-muted small mb-1" style="font-size:0.78rem;"><strong>Quantidade disponível:</strong> 1</p>
             <div class="price-old">R$ 28.893,00</div>
             <div class="price-new">R$ 11.557,20</div>
             <div class="discount">60% OFF</div>
@@ -699,6 +701,7 @@ header .overlay {
             <h6 class="fw-bold">Conjunto Tauípe</h6>
             <div class="product-code">EX020</div>
             <p class="text-muted small">Sofisticação outdoor com poltrona e sofá de 3 lugares. Estrutura em alumínio fendi com corda naval areia. Estofamento em tecido outdoor off white resistente às intemperies.</p>
+            <p class="text-muted small mb-1" style="font-size:0.78rem;"><strong>Quantidade disponível:</strong> 1</p>
             <div class="price-old">R$ 18.321,00</div>
             <div class="price-new">R$ 12.824,70</div>
             <div class="discount">30% OFF</div>
@@ -734,6 +737,7 @@ header .overlay {
             <h6 class="fw-bold">Mesa Cristal</h6>
             <div class="product-code">PROD-6666</div>
             <p class="text-muted small">sofisticada mesa de jantar para 8 a 10 lugares, design moderno que combina com qualquer cadeira. acabamento em laca fosca e vidro off-white. medidas: 240 x 120</p>
+            <p class="text-muted small mb-1" style="font-size:0.78rem;"><strong>Quantidade disponível:</strong> 1</p>
             <div class="price-old">R$ 13.936,00</div>
             <div class="price-new">R$ 9.755,20</div>
             <div class="discount">30% OFF</div>
@@ -1823,6 +1827,35 @@ const discountByCode = {
   'PROD-8602': 0.3,
   'PROD-6666': 0.3,
   'PROD-9976': 0.3
+};
+
+const quantityByCode = {
+  'PROD-2471': 1, 'PROD-3925': 8, 'PROD-3028': 2, 'PROD-6411': 3, 'PROD-2698': 1,
+  'PROD-5825': 1, 'PROD-8087': 2, 'PROD-7091': 2, 'PROD-5921': 1, 'PROD-3613': 2,
+  'PROD-1931': 1, 'PROD-7420': 1, 'PROD-6749': 1, 'PROD-6900': 1, 'PROD-8953': 1,
+  'PROD-4523': 1, 'PROD-3893': 2, 'PROD-8602': 2, 'PROD-6666': 1, 'PROD-9976': 1,
+  'PROD-1225': 2, 'PROD-1433': 1, 'PROD-2528': 1, 'PROD-2665': 1, 'PROD-2787': 1,
+  'PROD-4091': 2, 'PROD-4263': 2, 'PROD-4740': 2, 'PROD-5289': 2, 'PROD-6305': 2,
+  'PROD-7289': 1, 'PROD-8075': 2, 'PROD-9459': 2,
+  'VMSF01': 1, 'VMSF02': 1, 'VMSF03': 1, 'VMSF04': 1,
+  'EX01': 1, 'EX02': 1, 'EX03': 1, 'EX04': 1, 'EX05': 1, 'EX06': 1,
+  'EX07': 0, 'EX08': 2, 'EX09': 1, 'EX010': 1, 'EX011': 0, 'EX011B': 4,
+  'EX013': 1, 'EX014': 1, 'EX015': 1, 'EX016': 4, 'EX017': 1, 'EX018': 1,
+  'EX019': 0, 'EX020': 1, 'EX021': 2,
+  'ML-0001': 1, 'ML-0002': 2, 'ML-0003': 1, 'ML-0004': 1, 'ML-0005': 1,
+  'ML-0006': 1, 'ML-0007': 1, 'ML-0008': 1, 'ML-0009': 1, 'ML-0010': 1,
+  'ML-0011': 1, 'ML-0012': 1, 'ML-0013': 1, 'ML-0014': 1, 'ML-0015': 2,
+  'ML-0016': 2, 'ML-0017': 1, 'ML-0018': 1, 'ML-0019': 1, 'ML-0020': 1,
+  'ML-0021': 1, 'ML-0022': 1, 'ML-0023': 1, 'ML-0024': 1, 'ML-0025': 1,
+  'ML-0026': 2, 'ML-0027': 1, 'ML-0028': 1, 'ML-0029': 1, 'ML-0030': 1, 'ML-0031': 1,
+  'DV-0001': 2, 'DV-0002': 1, 'DV-0004': 1, 'DV-0005': 1, 'DV-0006': 1,
+  'DV-0008': 1, 'DV-0009': 1, 'DV-0010': 1, 'DV-0011': 1, 'DV-0012': 1,
+  'DV-0013': 1, 'DV-0014': 1, 'DV-0015': 1, 'DV-0017': 1, 'DV-0018': 1,
+  'DV-0019': 1, 'DV-0020': 1, 'DV-0021': 1, 'DV-0022': 1, 'DV-0023': 1,
+  'DV-0024': 1, 'DV-0025': 1, 'DV-0026': 1, 'DV-0027': 1, 'DV-0030': 1,
+  'DV-0031': 1, 'DV-0032': 1, 'DV-0033': 1, 'DV-0034': 2, 'DV-0035': 2,
+  'DV-0036': 4, 'DV-0038': 2, 'DV-0039': 1, 'DV-0040': 1, 'DV-0041': 1,
+  'DV-0042': 1, 'DV-0043': 1, 'DV-0044': 1, 'DV-0045': 1, 'DV-0047': 1
 };
 
 // AUTO-GENERATED PRODUCT IMAGES START
@@ -3613,6 +3646,8 @@ function buildProductCard(product) {
   const priceOld = formatBRL(unit);
   const priceNew = formatBRL(sale);
   const discountLabel = `${Math.round(discount * 100)}% OFF`;
+  const qty = quantityByCode[product.code];
+  const qtyText = typeof qty === 'number' ? qty : '';
   const id = `produto-${(product.id || product.code).toLowerCase()}`;
 
   return `
@@ -3634,6 +3669,7 @@ function buildProductCard(product) {
             <h6 class="fw-bold">${formatName(product.name)}</h6>
             <div class="product-code">${product.code}</div>
             <p class="text-muted small">${formatDesc(product.desc)}</p>
+            ${qtyText !== '' ? `<p class="text-muted small mb-1" style="font-size:0.78rem;"><strong>Quantidade disponível:</strong> ${qtyText}</p>` : ''}
             <div class="price-old">${priceOld}</div>
             <div class="price-new">${priceNew}</div>
             <div class="discount">${discountLabel}</div>
