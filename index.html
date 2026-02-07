@@ -3536,13 +3536,17 @@ function applyProductImages() {
   document.querySelectorAll('.product-swiper-wrapper .swiper-slide').forEach((slide) => {
     const code = slide.querySelector('.product-code')?.textContent?.trim();
     if (!code) return;
-    const imageMap = window.productImagesByCode || productImagesByCode;
+    const imageMap = productImagesByCode || window.productImagesByCode;
     if (!imageMap) return;
     const images = imageMap[code] || imageMap[String(code).toUpperCase()];
     if (!images || !images.length) return;
     const wrapper = slide.querySelector('.product-images .swiper-wrapper');
     if (!wrapper) return;
     wrapper.innerHTML = images.map(buildImageSlide).join('');
+    const swiperEl = wrapper.closest('.product-images');
+    if (swiperEl && typeof initProductImageSwiper === 'function') {
+      initProductImageSwiper(swiperEl);
+    }
   });
 }
 
