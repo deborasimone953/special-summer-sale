@@ -823,9 +823,13 @@ function openImage(src, groupEl) {
     if (!images || !images.length) return null;
 
     const urls = images.map((image) => {
-      const full = image.full || image.desktop || image.src || '';
-      return full ? `${encodePath(full)}${cacheSuffix}` : '';
-    }).filter(Boolean);
+      const desktop = image.desktop || image.src || '';
+      const full = image.full || desktop;
+      return {
+        fast: desktop ? `${encodePath(desktop)}${cacheSuffix}` : '',
+        full: full ? `${encodePath(full)}${cacheSuffix}` : ''
+      };
+    }).filter(u => u.fast || u.full);
 
     return urls.length ? urls : null;
   };
@@ -833,29 +837,22 @@ function openImage(src, groupEl) {
   const buildImagesFromDom = () => {
     if (!groupEl) return [];
     return Array.from(groupEl.querySelectorAll('img'))
-      .map((img) => img.dataset.full || img.src)
-      .filter(Boolean);
+      .map((img) => ({ fast: img.src, full: img.dataset.full || img.src }))
+      .filter(u => u.fast || u.full);
   };
 
   let imgs = buildImagesFromMap() || buildImagesFromDom();
 
   if (!imgs.length && src) {
-    imgs = [src];
+    imgs = [{ fast: src, full: src }];
   }
 
   const seen = new Set();
   imgs = imgs.filter((img) => {
-    const key = String(img);
+    const key = img.full || img.fast;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
-  });
-
-  imgs.forEach((imgSrc) => {
-    const slide = document.createElement('div');
-    slide.className = 'swiper-slide';
-    slide.innerHTML = `<div class="swiper-zoom-container"><img src="${imgSrc}" class="modal-img"></div>`;
-    wrapper.appendChild(slide);
   });
 
   const normalizedSrc = src ? String(src) : '';
@@ -863,9 +860,29 @@ function openImage(src, groupEl) {
     0,
     imgs.findIndex((img) => {
       if (!normalizedSrc) return false;
-      return img === normalizedSrc || normalizedSrc.endsWith(img) || img.endsWith(normalizedSrc);
+      const f = img.full || img.fast;
+      return f === normalizedSrc || normalizedSrc.endsWith(f) || f.endsWith(normalizedSrc);
     })
   );
+
+  imgs.forEach((imgObj, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'swiper-slide';
+    const fastSrc = imgObj.fast || imgObj.full;
+    const fullSrc = imgObj.full || imgObj.fast;
+    const lazy = i !== initialIndex ? ' loading="lazy"' : '';
+    slide.innerHTML = `<div class="swiper-zoom-container"><img src="${fastSrc}" data-full-src="${fullSrc}" class="modal-img"${lazy}></div>`;
+    wrapper.appendChild(slide);
+    // Upgrade to full resolution in background
+    if (fastSrc !== fullSrc) {
+      const upgradeImg = new Image();
+      upgradeImg.onload = () => {
+        const el = slide.querySelector('.modal-img');
+        if (el) el.src = fullSrc;
+      };
+      upgradeImg.src = fullSrc;
+    }
+  });
 
   if (modalSwiperInstance) {
     modalSwiperInstance.destroy(true, true);
