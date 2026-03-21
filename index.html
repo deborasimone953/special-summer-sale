@@ -26,6 +26,37 @@ header .overlay {
   pointer-events: none;
   z-index: 2;
 }
+.hero-discount {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #b8860b;
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.hero-cta {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 14px 36px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  border-radius: 4px;
+  pointer-events: auto;
+  transition: background 0.3s, transform 0.2s;
+}
+.hero-cta:hover {
+  background: #b8860b;
+  color: #fff;
+  transform: translateY(-2px);
+}
+@media (max-width: 768px) {
+  .hero-discount { font-size: 2rem; }
+  .hero-cta { font-size: 0.95rem; padding: 12px 24px; }
+}
 .hero-swiper {
   width: 100%;
   opacity: 0.7;
@@ -257,7 +288,9 @@ header .overlay {
   </div>
   <div class="overlay">
     <h1 class="fw-bold">Special Sale</h1>
+    <p class="hero-discount">Até 60% OFF</p>
     <p class="text-muted">Venda especial de acervo de nossa curadoria</p>
+    <a href="#products" class="hero-cta">Navegue pelo nosso acervo e compre agora</a>
   </div>
 </header>
 
@@ -333,7 +366,7 @@ header .overlay {
   }
 </style>
 
-<div class="container pb-5">
+<div id="products" class="container pb-5">
   <div class="swiper product-swiper">
     <div class="swiper-wrapper product-swiper-wrapper">
 
