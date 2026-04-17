@@ -262,6 +262,15 @@ header .overlay {
 }
 
 /* MODAL DE SENHA */
+body.password-locked {
+  overflow: hidden;
+}
+
+body.password-locked > *:not(.password-modal-overlay) {
+  filter: blur(5px);
+  pointer-events: none;
+}
+
 .password-modal-overlay {
   position: fixed;
   top: 0;
@@ -4640,6 +4649,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Verificar se o usuário já fez login (verificar localStorage)
   if (localStorage.getItem('passwordAccess') === 'granted') {
     passwordModal.classList.remove('active');
+    document.body.classList.remove('password-locked');
+  } else {
+    document.body.classList.add('password-locked');
   }
   
   // Função para validar senha
@@ -4650,6 +4662,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Senha correta
       localStorage.setItem('passwordAccess', 'granted');
       passwordModal.classList.remove('active');
+      document.body.classList.remove('password-locked');
       passwordInputGroup.classList.remove('error');
       errorMsg.classList.remove('show');
     } else if (enteredPassword !== '') {
